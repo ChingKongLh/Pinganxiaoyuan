@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DetailVC.h
 //  平安校园
 //
 //  Created by 中国孔 on 16/7/11.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface DetailVC : UIViewController
 
+@property (nonatomic,strong)NSString *idString;
 
 @end
-
