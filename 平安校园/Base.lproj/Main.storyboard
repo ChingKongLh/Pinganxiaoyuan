@@ -101,7 +101,7 @@
         <!--MainVC-->
         <scene sceneID="Z5V-JJ-z9b">
             <objects>
-                <viewController id="6sk-45-tCi" customClass="MainVC" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6sk-45-tCi" customClass="MainVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tll-Uc-tj2"/>
                         <viewControllerLayoutGuide type="bottom" id="CnY-xP-Rdy"/>
@@ -109,30 +109,9 @@
                     <view key="view" contentMode="scaleToFill" id="ocn-dd-zrH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-s9-dj7">
-                                <rect key="frame" x="0.0" y="227" width="600" height="324"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="z2z-Xg-paI">
-                                    <size key="itemSize" width="154" height="95"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="CXu-s9-dj7" secondAttribute="trailing" id="2uC-J8-mMd"/>
-                            <constraint firstItem="CXu-s9-dj7" firstAttribute="leading" secondItem="ocn-dd-zrH" secondAttribute="leading" id="BpY-uf-uwO"/>
-                            <constraint firstItem="CXu-s9-dj7" firstAttribute="top" secondItem="tll-Uc-tj2" secondAttribute="bottom" constant="163" id="CPL-Zj-83d"/>
-                            <constraint firstItem="CnY-xP-Rdy" firstAttribute="top" secondItem="CXu-s9-dj7" secondAttribute="bottom" id="FE4-Lt-K9i"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XY8-ef-Azw"/>
-                    <connections>
-                        <outlet property="collection" destination="CXu-s9-dj7" id="PgC-uL-uug"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="811-Xy-CxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

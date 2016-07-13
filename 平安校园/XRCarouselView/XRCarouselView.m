@@ -113,8 +113,11 @@ static NSString *cache;
 - (UILabel *)describeLabel {
     if (!_describeLabel) {
         _describeLabel = [[UILabel alloc] init];
-        _describeLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+//        _describeLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        _describeLabel.backgroundColor = [UIColor clearColor];
         _describeLabel.textColor = [UIColor whiteColor];
+        
+//设置描述文字在屏幕中位置
         _describeLabel.textAlignment = NSTextAlignmentCenter;
         _describeLabel.font = [UIFont systemFontOfSize:13];
         _describeLabel.hidden = YES;
