@@ -25,11 +25,10 @@ static NSString *headerIdentifier = @"header";
 - (void)viewDidLoad {
     [super viewDidLoad];
     _infoDic = @{@"平":@"specials", @"安":@"most-read", @"校":@"editors-choice", @"园":@"us", @"建":@"china", @"设":@"europe", @"重":@"economy", @"在":@"markets", @"行":@"central-banks", @"动":@"research", @"盘中":@"MarketSummary"};
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width -200, 64, 200, self.view.frame.size.height -64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width -200, 64, 200, self.view.frame.size.height-64) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
-
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
 }
 
