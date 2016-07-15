@@ -8,6 +8,7 @@
 
 #import "NewsVC.h"
 #import "AnimationTextField.h"
+#import "MainVC.h"
 @interface NewsVC ()
 @end
 @implementation NewsVC
@@ -15,6 +16,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
     self.navigationItem.title = @"新闻公告";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"回首页" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     CGFloat TextX = 100;
     CGFloat TextY = 80;
     CGFloat TextW = self.view.frame.size.width - 80;
@@ -44,6 +46,12 @@
     CGFloat g = (arc4random()%255)/255.0;
     CGFloat b = (arc4random()%255)/255.0;
     return [UIColor colorWithRed:r green:g blue:b alpha:1];
+}
+
+-(void)back{
+
+//  UIViewController *main = [[self.storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
+// [self presentViewController:main animated:YES completion:nil];
 }
 
 

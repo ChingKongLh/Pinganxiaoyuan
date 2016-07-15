@@ -23,6 +23,8 @@
 
 #import "NewsVC.h"
 #import "NotificationVC.h"
+#import "TiaoSuVC.h"
+#import "BaoXiuVC.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout>
 
 //@property (strong, nonatomic) IBOutlet UICollectionView *collection;
@@ -45,8 +47,6 @@
 @property (nonatomic,strong)UIImageView *img;
 @property (strong, nonatomic) IBOutlet UIView *V;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Bottomheight;
-
-
 @end
 static NSString *identifier = @"item";
 static NSString *identifiercell = @"cell";
@@ -90,7 +90,10 @@ NSString * const KReusableFooterView = @"reuseFooter";
     return @[@"menu_QR",@"menu_addFri",@"menu_multichat",@"menu_sendFile",@"menu_facetoface",@"menu_payMoney"];
 }
 
-#pragma mark --viewDidLoad
+
+
+
+#pragma mark -----------viewDidLoad------------
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -126,7 +129,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [self addView];
 }
 
-#pragma  mark --collection 添加
+#pragma  mark -------------- 添加collectionview ----------
 
 -(void)addCollectionView{
     _data = [NSMutableArray array];
@@ -157,9 +160,10 @@ NSString * const KReusableFooterView = @"reuseFooter";
     //添加长按手势
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     [self.collection addGestureRecognizer:longPress];
+    
 }
 
-#pragma mark --轮播图片显示
+#pragma mark -- --------  轮播图片显示 ----------
 
 -(void)imageWithImage{
     NSArray *arr = @[@"http://pic39.nipic.com/20140226/18071023_162553457000_2.jpg",//网络图片
@@ -194,7 +198,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     NSLog(@"%ld",(long)index);
 }
 
-#pragma mark 抽屉动画
+#pragma mark    ------------ 抽屉动画 ----------
 - (void)backView {
     [UIView animateWithDuration:.5 animations:^{
         _list.view.transform = CGAffineTransformIdentity;
@@ -266,7 +270,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
 }
 
 
-#pragma mark --collection delegate datasource
+#pragma mark ---- collection delegate datasource -----
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _data.count;
 }
@@ -315,7 +320,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(lab.mas_bottom);
-        make.bottom.equalTo(lab.mas_bottom).with.offset(80);
+        make.bottom.equalTo(self.collection.mas_bottom);
     }];
     
     return reusableView;
@@ -382,6 +387,10 @@ NSString * const KReusableFooterView = @"reuseFooter";
     }else if (indexPath.row ==1){
         NotificationVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"Notification"];
         [self presentViewController:VC animated:YES completion:nil];
+    }else if (indexPath.row ==2){
+        BaoXiuVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"baoxiu"];
+        [self presentViewController:VC animated:YES completion:nil];
+        
     }
     
     
@@ -391,19 +400,27 @@ NSString * const KReusableFooterView = @"reuseFooter";
 -(void)addView{
 
     UIView *view = [[NSBundle mainBundle]loadNibNamed:@"MainMv" owner:self options:nil].firstObject;
-//    self.V = view;
-    view.frame = CGRectMake(0, ScreenH -160, ScreenW, 60);
-    view.backgroundColor = [UIColor grayColor];
+    view.frame = CGRectMake(0, ScreenH -160, ScreenW, 112);
     [self.view addSubview:view];
-////    switch (tag) {
+//    int tag;
+//    switch (tag) {
 //        case 101:
-////            [btn addTarget]
-//            break;
 //            
+//            break;
+//        case 102:
+//            
+//            break;
+//        case 103:
+//            
+//            break;
+//        case 104:
+//            
+//        break;
+//            break;
 //        default:
 //            break;
 //    }
-    
+
 }
 #pragma mark ----中间图片展示
 
@@ -420,19 +437,6 @@ NSString * const KReusableFooterView = @"reuseFooter";
     }];
 }
 
-#pragma mark ------底部item布局
-
--(void)bottomSetting{
-     _V= [[UIView alloc] init];
-    [self.view addSubview:_V];
-    if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
-        _Bottomheight.constant =ScreenW-70;
-    }else if (kDevice_Is_iPhone6){
-        _Bottomheight.constant = ScreenW-80;
-    }else{
-        _Bottomheight.constant = ScreenW -10;
-    }
-}
 
 
 

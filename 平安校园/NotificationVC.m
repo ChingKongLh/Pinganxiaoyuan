@@ -19,11 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"通知中心";
-    
-    _array = @[@"姓名",@"电话",@"服务类型",@"报修项目",@"服务区域",@"申报地址",@"详细地址",@"故障描述",@"预约时间",@"图片上传"];
-        _tableview.delegate = self;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    _array = @[@[@"姓名",@"电话"],@[@"服务类型",@"报修项目",@"服务区域",@"申报地址",@"详细地址",@"故障描述",@"预约时间",@"图片上传"]];
+    _tableview.delegate = self;
     _tableview.dataSource = self;
     
+}
+
+-(void)back{
+
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -32,16 +36,33 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return [self.array[section] count];
     
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
- NSString *identify = @"cell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
+    if (indexPath.section == 0 || indexPath.row == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"me" forIndexPath:indexPath];
+        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }else if (indexPath.section == 0 || indexPath.row == 1){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"me" forIndexPath:indexPath];
+        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }else if (indexPath.section == 1 || indexPath.row == 0){
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bottom" forIndexPath:indexPath];
+        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }else if (indexPath.section == 1 || indexPath.row == 1){
     
-    cell = _array[indexPath.row];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bottom" forIndexPath:indexPath];
+        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bottom" forIndexPath:indexPath];
+    cell.textLabel.text = self.array[indexPath.row];
     return cell;
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A24033391D3872AA00C18694 /* TiaoSuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A24033381D3872AA00C18694 /* TiaoSuVC.m */; };
 		A24282961D35CB4A00FE472A /* th.png in Resources */ = {isa = PBXBuildFile; fileRef = A24282861D35CB4A00FE472A /* th.png */; };
 		A24282971D35CB4A00FE472A /* Y0.png in Resources */ = {isa = PBXBuildFile; fileRef = A24282871D35CB4A00FE472A /* Y0.png */; };
 		A24282981D35CB4A00FE472A /* Y1.png in Resources */ = {isa = PBXBuildFile; fileRef = A24282881D35CB4A00FE472A /* Y1.png */; };
@@ -133,6 +134,9 @@
 		A28AFB5C1D33BD6D0016E3C6 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = A28AFB561D33BD6D0016E3C6 /* 4.gif */; };
 		A28AFB5D1D33BD6D0016E3C6 /* current.png in Resources */ = {isa = PBXBuildFile; fileRef = A28AFB571D33BD6D0016E3C6 /* current.png */; };
 		A28AFB5E1D33BD6D0016E3C6 /* other.png in Resources */ = {isa = PBXBuildFile; fileRef = A28AFB581D33BD6D0016E3C6 /* other.png */; };
+		A2CD6A001D388D1800D05828 /* BaoXiuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD69FF1D388D1800D05828 /* BaoXiuVC.m */; };
+		A2CD6A041D388DA300D05828 /* HTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD6A031D388DA300D05828 /* HTextViewCell.m */; };
+		A2CD6A071D38911000D05828 /* UITextField+IndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD6A061D38911000D05828 /* UITextField+IndexPath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +157,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A24033371D3872AA00C18694 /* TiaoSuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiaoSuVC.h; sourceTree = "<group>"; };
+		A24033381D3872AA00C18694 /* TiaoSuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiaoSuVC.m; sourceTree = "<group>"; };
 		A24282861D35CB4A00FE472A /* th.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = th.png; sourceTree = "<group>"; };
 		A24282871D35CB4A00FE472A /* Y0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Y0.png; sourceTree = "<group>"; };
 		A24282881D35CB4A00FE472A /* Y1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Y1.png; sourceTree = "<group>"; };
@@ -364,6 +370,12 @@
 		A28AFB561D33BD6D0016E3C6 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
 		A28AFB571D33BD6D0016E3C6 /* current.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = current.png; sourceTree = "<group>"; };
 		A28AFB581D33BD6D0016E3C6 /* other.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = other.png; sourceTree = "<group>"; };
+		A2CD69FE1D388D1800D05828 /* BaoXiuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaoXiuVC.h; sourceTree = "<group>"; };
+		A2CD69FF1D388D1800D05828 /* BaoXiuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaoXiuVC.m; sourceTree = "<group>"; };
+		A2CD6A021D388DA300D05828 /* HTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTextViewCell.h; sourceTree = "<group>"; };
+		A2CD6A031D388DA300D05828 /* HTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTextViewCell.m; sourceTree = "<group>"; };
+		A2CD6A051D38911000D05828 /* UITextField+IndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+IndexPath.h"; sourceTree = "<group>"; };
+		A2CD6A061D38911000D05828 /* UITextField+IndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+IndexPath.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +403,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A24033361D38728500C18694 /* BottomDeTail */ = {
+			isa = PBXGroup;
+			children = (
+				A24033371D3872AA00C18694 /* TiaoSuVC.h */,
+				A24033381D3872AA00C18694 /* TiaoSuVC.m */,
+			);
+			name = BottomDeTail;
+			sourceTree = "<group>";
+		};
 		A24282831D35CB4A00FE472A /* app 96 图标 */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +522,8 @@
 				A2899E5F1D378405004361CA /* NewsVC.m */,
 				A2899E651D3796C5004361CA /* NotificationVC.h */,
 				A2899E661D3796C5004361CA /* NotificationVC.m */,
+				A2CD6A011D388D3500D05828 /* BaoXiuContro */,
+				A24033361D38728500C18694 /* BottomDeTail */,
 				A2899E611D37937E004361CA /* SourceManger */,
 			);
 			name = DetailControlManger;
@@ -856,6 +879,19 @@
 			path = XRCarouselView;
 			sourceTree = "<group>";
 		};
+		A2CD6A011D388D3500D05828 /* BaoXiuContro */ = {
+			isa = PBXGroup;
+			children = (
+				A2CD69FE1D388D1800D05828 /* BaoXiuVC.h */,
+				A2CD69FF1D388D1800D05828 /* BaoXiuVC.m */,
+				A2CD6A051D38911000D05828 /* UITextField+IndexPath.h */,
+				A2CD6A061D38911000D05828 /* UITextField+IndexPath.m */,
+				A2CD6A021D388DA300D05828 /* HTextViewCell.h */,
+				A2CD6A031D388DA300D05828 /* HTextViewCell.m */,
+			);
+			name = BaoXiuContro;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1039,6 +1075,7 @@
 				A28AFAEF1D337E750016E3C6 /* MJRefreshNormalHeader.m in Sources */,
 				A24282D31D35E2FC00FE472A /* XLPopMenuViewSingleton.m in Sources */,
 				A28AFAE51D337E750016E3C6 /* MJRefreshComponent.m in Sources */,
+				A24033391D3872AA00C18694 /* TiaoSuVC.m in Sources */,
 				A26700CD1D3499B3000C7C9D /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				A26700CB1D3499B3000C7C9D /* MASViewConstraint.m in Sources */,
 				A28AFAF41D337E750016E3C6 /* UIScrollView+MJRefresh.m in Sources */,
@@ -1072,11 +1109,13 @@
 				A28AFAE41D337E750016E3C6 /* MJRefreshBackFooter.m in Sources */,
 				A28AFB511D33BCF30016E3C6 /* XRCarouselView.m in Sources */,
 				A28AFAED1D337E750016E3C6 /* MJRefreshBackStateFooter.m in Sources */,
+				A2CD6A071D38911000D05828 /* UITextField+IndexPath.m in Sources */,
 				A28AFAEE1D337E750016E3C6 /* MJRefreshGifHeader.m in Sources */,
 				A28AFB461D33A1330016E3C6 /* SVIndefiniteAnimatedView.m in Sources */,
 				A28AFAB41D337E580016E3C6 /* AFURLResponseSerialization.m in Sources */,
 				A28AFAB01D337E580016E3C6 /* AFHTTPSessionManager.m in Sources */,
 				A26700CC1D3499B3000C7C9D /* NSArray+MASAdditions.m in Sources */,
+				A2CD6A041D388DA300D05828 /* HTextViewCell.m in Sources */,
 				A28AFB321D33935F0016E3C6 /* UIImage+GIF.m in Sources */,
 				A28AFB361D33935F0016E3C6 /* UIImageView+WebCache.m in Sources */,
 				A28AF83B1D3345BA0016E3C6 /* AppDelegate.m in Sources */,
@@ -1106,6 +1145,7 @@
 				A26700C61D3499B3000C7C9D /* MASCompositeConstraint.m in Sources */,
 				A28AFB281D33935F0016E3C6 /* MKAnnotationView+WebCache.m in Sources */,
 				A28AFAB21D337E580016E3C6 /* AFSecurityPolicy.m in Sources */,
+				A2CD6A001D388D1800D05828 /* BaoXiuVC.m in Sources */,
 				A28AF8381D3345BA0016E3C6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
