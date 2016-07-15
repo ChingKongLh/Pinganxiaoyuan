@@ -9,7 +9,9 @@
 #import "MainVC.h"
 #import "Common.h"
 #import "ListVC.h"
+//#import "MainM.h"
 #import "MainM.h"
+//#import "MainMv.h"
 #import "MainMv.h"
 #import "DetailVC.h"
 #import "AFNetworking/AFNetworking.h"
@@ -19,6 +21,8 @@
 #import "XLPopMenuViewModel.h"
 #import "XLPopMenuViewSingleton.h"
 
+#import "NewsVC.h"
+#import "NotificationVC.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout>
 
 //@property (strong, nonatomic) IBOutlet UICollectionView *collection;
@@ -39,7 +43,9 @@
 
 @property (nonatomic,strong)NSMutableArray *Tarr;
 @property (nonatomic,strong)UIImageView *img;
-@property (nonatomic,weak)UIView *view;
+@property (strong, nonatomic) IBOutlet UIView *V;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *Bottomheight;
+
 
 @end
 static NSString *identifier = @"item";
@@ -115,8 +121,9 @@ NSString * const KReusableFooterView = @"reuseFooter";
     UIScreenEdgePanGestureRecognizer *screenPanRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgeGestureAction:)];
     screenPanRight.edges = UIRectEdgeRight;
     [_collection addGestureRecognizer:screenPanRight];
-    [self addImageWithCentra];
-    [self bottomSetting];
+//    [self addImageWithCentra];
+//    [self bottomSetting];
+    [self addView];
 }
 
 #pragma  mark --collection 添加
@@ -124,7 +131,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
 -(void)addCollectionView{
     _data = [NSMutableArray array];
     for (int index = 0; index <12; index ++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Y%d.png",index]];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"32Y%d.png",index]];
         [_data addObject:image];
     }
     //创建布局
@@ -139,8 +146,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
       make.left.equalTo(@0);
       make.right.equalTo(@0);
-      make.bottom.equalTo(self.view).with.offset(-180);
-      make.top.equalTo(self.view).with.offset(180);
+      make.bottom.equalTo(self.view).with.offset(-160);
+      make.top.equalTo(self.view.mas_top).with.offset(170);
     }];
     //注册重复使用的cell
     [self.collection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:KcollectionViewCellID];
@@ -175,7 +182,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(@0);
-        make.bottom.equalTo(self.collection.mas_top).with.offset(0);
+        make.bottom.equalTo(self.view.mas_top).with.offset(170);
     }];
 }
 
@@ -265,10 +272,19 @@ NSString * const KReusableFooterView = @"reuseFooter";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [self.collection dequeueReusableCellWithReuseIdentifier:KcollectionViewCellID forIndexPath:indexPath];
-    UIImageView *image = [[UIImageView alloc] initWithImage:_data[indexPath.row]];
-    cell.backgroundView = image;
-    cell.backgroundColor = [UIColor whiteColor];
+   UICollectionViewCell *cell = [self.collection dequeueReusableCellWithReuseIdentifier:KcollectionViewCellID forIndexPath:indexPath];
+    if (indexPath.section == 0) {
+        UICollectionViewCell *cell = [self.collection dequeueReusableCellWithReuseIdentifier:KcollectionViewCellID forIndexPath:indexPath];
+        UIImageView *image = [[UIImageView alloc] initWithImage:_data[indexPath.row]];
+        cell.backgroundView = image;
+        cell.backgroundColor = [UIColor whiteColor];
+        return cell;
+    }else{
+        UICollectionViewCell *cell = [self.collection dequeueReusableCellWithReuseIdentifier:KcollectionViewCellID forIndexPath:indexPath];
+        UIImageView *img = [[UIImageView alloc]initWithImage:_data[indexPath.row]];
+        cell.backgroundView = img;
+        cell.backgroundColor = [UIColor whiteColor];
+    }
     return cell;
 }
 
@@ -276,43 +292,54 @@ NSString * const KReusableFooterView = @"reuseFooter";
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-//点击item跳转页面事件
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    DetailVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"contrentvc"];
-//        MainM *model = self.datas[indexPath.item];
-//        vc.idString = model.ids;
-//        [self.navigationController pushViewController:vc animated:YES];
-//}
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     UICollectionReusableView *reusableView;
     reusableView = [self.collection dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:KReusableFooterView forIndexPath:indexPath];
-        UILabel *lab = [[UILabel alloc] init];
+//    footer所显示的空白区域(上)
+    UILabel *lab = [[UILabel alloc] init];
         lab.backgroundColor = [UIColor whiteColor];
         [reusableView addSubview:lab];
     lab.translatesAutoresizingMaskIntoConstraints = NO;
         [lab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@0);
             make.right.equalTo(@0);
-            make.top.equalTo(reusableView.mas_bottom);
-            make.bottom.equalTo(reusableView);
+            make.top.equalTo(reusableView.mas_bottom).with.offset(0);
+            make.bottom.equalTo(reusableView.mas_top).with.offset(20);
             make.centerY.equalTo(reusableView);
         }];
-      return reusableView;
+    UIImage *image = [UIImage imageNamed:@"centra.png"];
+    _img = [[UIImageView alloc] initWithImage:image];
+    [reusableView addSubview:_img];
+    self.img.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
+        make.top.equalTo(lab.mas_bottom);
+        make.bottom.equalTo(lab.mas_bottom).with.offset(80);
+    }];
+    
+    return reusableView;
 
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout
     sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (KDevice_Is_Retina || kDevice_Is_iPhone5) {
-        CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);
-        return size;
-    }else if(kDevice_Is_iPhone6) {
-        CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);        return size;
+    CGSize size;
+    if (indexPath.section ==0) {
+        if (KDevice_Is_Retina || kDevice_Is_iPhone5) {
+            CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);
+            return size;
+        }else if(kDevice_Is_iPhone6) {
+            CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);        return size;
+        }else{
+            CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);
+            return size;
+        }
     }else{
         CGSize size = CGSizeMake(ScreenW/4-.5, ScreenW/4-.5);
         return size;
     }
+    return size;
 }
 
 //设置cell与边缘的间隔
@@ -325,26 +352,61 @@ NSString * const KReusableFooterView = @"reuseFooter";
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return .5;
 }
+
 //最小列间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return .3;
 }
+
 //设置header高度
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     CGSize size = CGSizeMake(0, 0);
     return size;
 }
+
 //设置footer高度
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    CGSize size = CGSizeMake(0, 25);
+    CGSize size = CGSizeMake(0, 20);
     return size;
 }
+
 #pragma mark --collectionview delegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     NSLog(@"点击section%ld的第%ld个cell",(long)indexPath.section,(long)indexPath.row);
+    if (indexPath.row == 0) {
+        NewsVC *V = [self.storyboard instantiateViewControllerWithIdentifier:@"news"];
+        [self presentViewController:V animated:YES completion:nil];
+    }else if (indexPath.row ==1){
+        NotificationVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"Notification"];
+        [self presentViewController:VC animated:YES completion:nil];
+    }
+    
+    
+    
+}
+
+-(void)addView{
+
+    UIView *view = [[NSBundle mainBundle]loadNibNamed:@"MainMv" owner:self options:nil].firstObject;
+//    self.V = view;
+    view.frame = CGRectMake(0, ScreenH -160, ScreenW, 60);
+    view.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:view];
+////    switch (tag) {
+//        case 101:
+////            [btn addTarget]
+//            break;
+//            
+//        default:
+//            break;
+//    }
+    
 }
 #pragma mark ----中间图片展示
+
 -(void)addImageWithCentra{
     UIImage *image = [UIImage imageNamed:@"centra.png"];
    _img = [[UIImageView alloc] initWithImage:image];
@@ -354,23 +416,22 @@ NSString * const KReusableFooterView = @"reuseFooter";
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(self.collection.mas_bottom).with.offset(-50);
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(-175);
+        make.bottom.equalTo(self.view.mas_bottom).with.offset(-160);
     }];
 }
 
 #pragma mark ------底部item布局
 
 -(void)bottomSetting{
-     UIView *V = [[UIView alloc] init];
-    [self.view addSubview:V];
-    V.backgroundColor = [UIColor orangeColor];
-    [V mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@0);
-        make.right.equalTo(@0);
-        make.top.equalTo(self.img.mas_bottom);
-        make.bottom.equalTo(self.view.mas_bottom);
-    }];
-
+     _V= [[UIView alloc] init];
+    [self.view addSubview:_V];
+    if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+        _Bottomheight.constant =ScreenW-70;
+    }else if (kDevice_Is_iPhone6){
+        _Bottomheight.constant = ScreenW-80;
+    }else{
+        _Bottomheight.constant = ScreenW -10;
+    }
 }
 
 
