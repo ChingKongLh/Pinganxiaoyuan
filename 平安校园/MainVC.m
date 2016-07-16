@@ -25,6 +25,8 @@
 #import "NotificationVC.h"
 #import "TiaoSuVC.h"
 #import "BaoXiuVC.h"
+#import "CarViewController.h"
+#import "Fuwujiandu.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout>
 
 //@property (strong, nonatomic) IBOutlet UICollectionView *collection;
@@ -47,6 +49,7 @@
 @property (nonatomic,strong)UIImageView *img;
 @property (strong, nonatomic) IBOutlet UIView *V;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Bottomheight;
+@property (nonatomic,strong)NSIndexSet *index;
 @end
 static NSString *identifier = @"item";
 static NSString *identifiercell = @"cell";
@@ -390,11 +393,29 @@ NSString * const KReusableFooterView = @"reuseFooter";
     }else if (indexPath.row ==2){
         BaoXiuVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"baoxiu"];
         [self presentViewController:VC animated:YES completion:nil];
+    }else if (indexPath.row ==3){
+    
+    }else if (indexPath.row == 4){
+        Fuwujiandu *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"fuwujiandu"];
+        [self presentViewController:VC animated:YES completion:nil];
+    }else if (indexPath.row == 5){
         
+    }else if (indexPath.row == 6){
+    
+    }else if (indexPath.row ==7){
+    
+    }else if (indexPath.row == 8){
+    CarViewController  *carVC = [[CarViewController alloc]init];
+//为当前控制器添加导航控制器
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:carVC];
+    [self presentViewController:navi animated:YES completion:nil];
+    }else if (indexPath.row == 9){
+    
+    }else if (indexPath.row == 10){
+    
+    }else if (indexPath.row == 11){
+    
     }
-    
-    
-    
 }
 
 -(void)addView{
@@ -402,8 +423,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
     UIView *view = [[NSBundle mainBundle]loadNibNamed:@"MainMv" owner:self options:nil].firstObject;
     view.frame = CGRectMake(0, ScreenH -160, ScreenW, 112);
     [self.view addSubview:view];
-//    int tag;
-//    switch (tag) {
+
+//    switch () {
 //        case 101:
 //            
 //            break;

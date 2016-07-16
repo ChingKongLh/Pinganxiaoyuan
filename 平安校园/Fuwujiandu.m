@@ -1,38 +1,35 @@
 //
-//  BaoXiuVC.m
+//  Fuwujiandu.m
 //  平安校园
 //
-//  Created by 中国孔 on 16/7/15.
+//  Created by 中国孔 on 16/7/16.
 //  Copyright © 2016年 中国孔. All rights reserved.
 //
 
-#import "BaoXiuVC.h"
-#import "UITextField+IndexPath.h"
-#import "HTextViewCell.h"
-#import "Common.h"
-#import "LZFoldButton.h"
+#import "Fuwujiandu.h"
 #import "MainVC.h"
-@interface BaoXiuVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate>
+#import "Common.h"
+#import "HTextViewCell.h"
+#import "UITextField+IndexPath.h"
+#import "LZFoldButton.h"
+@interface Fuwujiandu ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,LZFoldButtonDelegate>
 {
     LZFoldButton *lz;
+
 }
-@property (strong, nonatomic) IBOutlet UIButton *baoxiu;
+@property (strong, nonatomic) IBOutlet UIButton *benrenpingjia;
 @property (strong, nonatomic) IBOutlet UIButton *qita;
 @property (nonatomic,strong)UIScrollView *scrollview;
 
-@property (nonatomic,strong)UITableView *tableview;
+@property (nonatomic,strong)UITableView *tableview1;
 @property (nonatomic,strong)UITableView *tableview2;
-@property (nonatomic,strong)NSArray *titleArray;
+@property (nonatomic,strong)NSArray *titlearray;
 @property (nonatomic,strong)NSMutableArray *arrayDataSource;
-
-@property (nonatomic,strong)UIView *line1;
-@property (nonatomic,strong)UIView *line2;
 @end
 
-@implementation BaoXiuVC
+@implementation Fuwujiandu
 
-//初始化scrollview不能懒加载否则tableviw不会显示
--(void)addScrollview{
+-(void)addScrollview1{
     CGFloat X = 0;
     CGFloat Y = 110;
     CGFloat W = CGRectGetWidth(self.view.bounds);
@@ -48,23 +45,22 @@
     self.scrollview.bounces = NO;
     self.scrollview.showsHorizontalScrollIndicator = YES;
     [self.view addSubview:_scrollview];
-    
-//    _line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, W/2, 1)];
-//    _line1.backgroundColor = [UIColor greenColor];
-//    [_scrollview addSubview:_line1];
+    //    _line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, W/2, 1)];
+    //    _line1.backgroundColor = [UIColor greenColor];
+    //    [_scrollview addSubview:_line1];
     //循环添加scrollview上视图
     for (int i = 0; i < 2; i ++) {
         if (i == 1) {
             CGFloat X = 0;
             CGFloat Y = 0;
             CGFloat W = ScreenW;
-            CGFloat H = ScreenH ;
-            _tableview = [[UITableView alloc] initWithFrame:CGRectMake(X,Y, W, H)];
-            _tableview.tag = 100;
-            _tableview.dataSource = self;
-            _tableview.delegate = self;
-            _tableview.separatorStyle = UITableViewStylePlain;
-            [_scrollview addSubview:_tableview];
+            CGFloat H = ScreenH;
+            _tableview1 = [[UITableView alloc] initWithFrame:CGRectMake(X,Y, W, H)];
+            _tableview1.tag = 100;
+            _tableview1.dataSource = self;
+            _tableview1.delegate = self;
+            _tableview1.separatorStyle = UITableViewStylePlain;
+            [_scrollview addSubview:_tableview1];
         }else{
             CGFloat X = ScreenW;
             CGFloat Y = 0;
@@ -79,79 +75,101 @@
     }
 }
 
-#pragma mark  -----scrollview Datasource --
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //设置选中btn的字体颜色
-    scrollView.contentOffset.x == 0 ? [self.baoxiu setTitleColor:[UIColor greenColor] forState:UIControlStateNormal] : [self.baoxiu setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    scrollView.contentOffset.x == ScreenW ? [self.qita setTitleColor:[UIColor greenColor] forState:UIControlStateNormal] : [self.qita setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _linePercent = 0.8;
+    _lineHeight = 2.5;
+    [self addScrollView];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 
-//报修btn的点击事件
-- (IBAction)baoxiu:(id)sender {
+- (IBAction)back:(id)sender {
+    MainVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
+    [self presentViewController:VC animated:YES completion:nil];
+}
+- (IBAction)benrenpingjia:(id)sender {
     [UIView animateWithDuration:.5 animations:^{
-        self.scrollview.contentOffset = [self ScrollViewWithContentOffSetPage: 0];
+        self.scrollview.contentOffset = [self contentOffsetWithContent:0];
     }];
     
 }
-//其他点击事件
 - (IBAction)qita:(id)sender {
     [UIView animateWithDuration:.5 animations:^{
-        self.scrollview.contentOffset = [self ScrollViewWithContentOffSetPage:1];
+        self.scrollview.contentOffset = [self contentOffsetWithContent:1];
     }];
 }
 
--(CGPoint)ScrollViewWithContentOffSetPage:(NSInteger)page{
+-(CGPoint)contentOffsetWithContent:(NSInteger)page{
+
     return CGPointMake(ScreenW * page, 0);
 }
 
-#pragma mark ----- viewDidload --------
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self addScrollview];
-    self.navigationItem.title = @"报修尽管写";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
+-(void)addScrollView{
+    CGFloat X = 0;
+    CGFloat Y = 110;
+    CGFloat W = CGRectGetWidth(self.view.bounds);
+    CGFloat H = CGRectGetHeight(self.view.bounds);
+    _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(X, Y, W,H)];
+    _scrollview.delegate = self;
+    _scrollview.pagingEnabled = YES;
+    self.scrollview.contentSize = CGSizeMake(ScreenW * 2, ScreenH);
+    self.scrollview.contentOffset = CGPointMake(ScreenW, 0);
+    self.scrollview.bounces = NO;
+    self.scrollview.showsHorizontalScrollIndicator = YES;
+    [self.view addSubview:_scrollview];
+    
+    for (int i = 0; i < 2;i ++) {
+        if (i == 1) {
+            CGFloat X = 0;
+            CGFloat Y = 0;
+            CGFloat W = ScreenW;
+            CGFloat H = ScreenH;
+            _tableview1 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
+            _tableview1.separatorStyle = UITableViewStylePlain;
+            _tableview1.delegate =self;
+            _tableview1.dataSource = self;
+            _tableview1.tag = 100;
+            [_scrollview addSubview:_tableview1];
+            }else {
+            CGFloat X = ScreenW;
+            CGFloat Y = 0;
+            CGFloat W = ScreenW;
+            CGFloat H = ScreenH;
+            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H) style:UITableViewStylePlain];
+            _tableview2.dataSource =self;
+            _tableview2.delegate = self;
+                _tableview2.tag = 101;
+            [_scrollview addSubview:_tableview2];
+        }
+    }
 }
-- (IBAction)bacK:(UIBarButtonItem *)sender {
-    MainVC *back = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
-    [self presentViewController:back animated:YES completion:nil];
+
+#pragma  mark ---- scrollview 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    scrollView.contentOffset.x ==0 ? [self.benrenpingjia setTitleColor:[UIColor blueColor] forState:UIControlStateNormal]:[self.benrenpingjia setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    scrollView.contentOffset.x == ScreenW ? [self.qita setTitleColor:[UIColor blueColor] forState:UIControlStateNormal] : [self.qita setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 }
 
 -(void)textFieldDidChanged:(NSNotification *)note{
     UITextField *text = note.object;
-    NSIndexPath *indexpath = text.indexPath;
-    [self.arrayDataSource replaceObjectAtIndex:indexpath.row withObject:text.text];
-    
-}
-/*
-//输入框
-_textFiled = [[UITextField alloc]initWithFrame:CGRectMake(0 ,labelH ,frame.size.width ,textFieldH )];
-_textFiled.borderStyle = UITextBorderStyleRoundedRect;
-[_textFiled addTarget:self action:@selector(valueChange:) forControlEvents:UIControlEventEditingChanged];
-_textFiled.backgroundColor = [UIColor clearColor];
-[self addSubview:_textFiled];
-*/
-
--(void)LZFoldButton:(LZFoldButton *)foldButton didSelectObject:(id)obj{
-   //obj中所包含选中内容
-    NSLog(@"%@",obj);
+    NSIndexPath *index = text.indexPath;
+    [self.arrayDataSource replaceObjectAtIndex:index.row withObject:text.text];
 }
 
-#pragma mark -------TabelView DataSource
 
+#pragma mark --- tableview  Delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 100) {
+       return  self.arrayDataSource.count;
+    }if (tableView.tag == 101) {
         return self.arrayDataSource.count;
-    }else if (tableView.tag == 101){
-    return self.arrayDataSource.count;
     }
     return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identify = @"HTextViewCell";
-   HTextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    HTextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
         cell = [[HTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
         cell.separatorInset =UIEdgeInsetsMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
@@ -159,7 +177,7 @@ _textFiled.backgroundColor = [UIColor clearColor];
         lbl.frame = CGRectMake(cell.frame.origin.x + 5, cell.frame.size.height - 5, ScreenW -5, 1);
         lbl.backgroundColor =  [UIColor lightGrayColor];
         [cell.contentView addSubview:lbl];
-}
+    }
     if (tableView.tag == 100) {
         if (indexPath.row == 3) {
             //报修区域
@@ -196,7 +214,7 @@ _textFiled.backgroundColor = [UIColor clearColor];
             [lz LZSetImage:[UIImage imageNamed:@"address_select"] forState:UIControlStateNormal];
             [lz LZSetImage:[UIImage imageNamed:@"arrow_right"] forState:UIControlStateSelected];
             [cell addSubview:lz];
-        }else if (indexPath.row == 11){
+        }else if (indexPath.row == 2){
             //添加图片
             UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn3.backgroundColor = [UIColor whiteColor];
@@ -211,7 +229,7 @@ _textFiled.backgroundColor = [UIColor clearColor];
     if (tableView.tag == 101) {
         if (indexPath.row == 3) {
             //报修区域
-            NSArray *arr = @[@"宿舍区",@"教学区",@"其他"];
+            NSArray *arr = @[@"表扬",@"建议",@"咨询",@"投诉"];
             lz = [[LZFoldButton alloc] initWithFrame:CGRectMake(330, -15, 70, 50) dataArray:arr];
             lz.lzDelegate = self;
             lz.lzFontSize = 16;
@@ -223,7 +241,7 @@ _textFiled.backgroundColor = [UIColor clearColor];
             [cell addSubview:lz];
             
         }else if (indexPath.row == 4){
-            NSArray *arr = @[@"中原区",@"二七区"];
+            NSArray *arr = @[@"环境",@"洗衣",@"宿舍",@"餐饮",@"宾馆",@"开水",@"校园一卡通",@"网络",@"软件",@"通讯",@"车辆",@"购物"];
             lz = [[LZFoldButton alloc] initWithFrame:CGRectMake(330, -15, 70, 50) dataArray:arr];
             lz.lzDelegate = self;
             lz.lzFontSize = 16;
@@ -244,13 +262,13 @@ _textFiled.backgroundColor = [UIColor clearColor];
             [lz LZSetImage:[UIImage imageNamed:@"address_select"] forState:UIControlStateNormal];
             [lz LZSetImage:[UIImage imageNamed:@"arrow_right"] forState:UIControlStateSelected];
             [cell addSubview:lz];
-        }else if (indexPath.row == 11){
+        }else if (indexPath.row == 2){
             //添加图片
             UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn3.backgroundColor = [UIColor whiteColor];
             btn3.frame = CGRectMake(330.0f, -15.0f, 100.0f, 50.0f);
             [btn3 setTitle:@"添加图片" forState:UIControlStateNormal];
-            [btn3 addTarget:self action:@selector(paizhaoshangchuan) forControlEvents:UIControlEventTouchUpInside];
+//            [btn3 addTarget:self action:@selector(paizhaoshangchuan) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btn3];
         }
     }
@@ -258,88 +276,64 @@ _textFiled.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
--(void)paizhaoshangchuan{
-    UIImagePickerController *Picker = [[UIImagePickerController alloc]init];
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        Picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        NSArray *temp = [UIImagePickerController availableMediaTypesForSourceType:Picker.sourceType];
-        Picker.mediaTypes = temp;
-    }
-    [self presentViewController:Picker animated:YES completion:nil];
-}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     return 60;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    return 30;
+}
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
-    NSLog(@"%d",lz.lzSelected);
     if (lz.lzSelected) {
         [lz LZCloseTable];
     }else{
         [lz LZOpenTable];
     }
-
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
 }
 
 -(NSArray *)titleArray{
-
-    if (!_titleArray) {
-        _titleArray = @[@"姓名:",@"学号:",@"服务类型:",@"报修项目:",@"服务区域:",@"申报区域:",@"申报地址:",@"详细地址:",@"故障描述:",@"预约时间:",@"图片上传:"];
+    
+    if (!_titlearray) {
+//        _titlearray = @[@"姓名:",@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
+        _titlearray = @[@"姓名:",@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
     }
-    return _titleArray;
+    return _titlearray;
 }
 
 
 -(NSMutableArray *)arrayDataSource{
     if (!_arrayDataSource) {
         _arrayDataSource = [NSMutableArray array];
-        [_arrayDataSource addObject:@"你好"];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@"点击"];
-        [_arrayDataSource addObject:@"nil"];
         [_arrayDataSource addObject:@""];
         [_arrayDataSource addObject:@""];
         [_arrayDataSource addObject:@""];
         [_arrayDataSource addObject:@""];
         [_arrayDataSource addObject:@""];
         [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@"点击添加图片"];
+        [_arrayDataSource addObject:@""];//描述个数要与title数量保持一致!
+
     }
     return _arrayDataSource;
 }
 
-#pragma mark ----- 隐藏键盘操作 -----
+#pragma mark ---- LZButtonDelegate---
 
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    CGRect frame = textField.frame;
-    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216);//键盘高度216；
-    if (offset > 0){
-        self.view.frame = CGRectMake(0.0f, -offset, ScreenW, ScreenH);
-    }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-}
-
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    self.view.frame = CGRectMake(0, 0, ScreenW, ScreenH);
+-(void)LZFoldButton:(LZFoldButton *)foldButton didSelectObject:(id)obj{
+    //obj中所包含选中内容
+    NSLog(@"%@",obj);
 }
 
 -(void)dealloc{
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

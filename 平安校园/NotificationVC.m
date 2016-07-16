@@ -7,7 +7,7 @@
 //
 
 #import "NotificationVC.h"
-
+#import "MainVC.h"
 @interface NotificationVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableview;
@@ -19,15 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"通知中心";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     _array = @[@[@"姓名",@"电话"],@[@"服务类型",@"报修项目",@"服务区域",@"申报地址",@"详细地址",@"故障描述",@"预约时间",@"图片上传"]];
     _tableview.delegate = self;
     _tableview.dataSource = self;
     
 }
-
--(void)back{
-
+- (IBAction)back:(id)sender {
+    MainVC *back = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
+    [self presentViewController:back animated:YES completion:nil];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
