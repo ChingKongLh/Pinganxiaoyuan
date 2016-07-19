@@ -80,6 +80,7 @@
     _linePercent = 0.8;
     _lineHeight = 2.5;
     [self addScrollView];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.2 green:.5 blue:.9 alpha:1.0];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 

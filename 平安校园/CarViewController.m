@@ -45,7 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-   
     [self updateUi];
 }
 
@@ -83,7 +82,6 @@
 }
 
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -91,7 +89,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _allData.count;
 }
-
 
 //设定每行cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

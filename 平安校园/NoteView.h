@@ -1,5 +1,5 @@
 //
-//  xinwenCell.h
+//  NoteView.h
 //  平安校园
 //
 //  Created by 中国孔 on 16/7/18.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class xinwenModel;
-@interface xinwenCell : UITableViewCell
-@property (nonatomic,strong)xinwenModel *model;
-
+@class NoteMode;
+@interface NoteView : UITableViewCell
+@property (nonatomic,strong)NoteMode *model;
 @end

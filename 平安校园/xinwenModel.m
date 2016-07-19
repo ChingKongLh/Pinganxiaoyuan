@@ -14,8 +14,9 @@
 
     if (self = [super init]) {
         self.title = dict[@"title"];
-        self.text = dict[@"text"];
-        self.time = dict[@"timeer"];
+        self.content = dict[@"id"];
+        self.timeer = dict[@"updateTime"];
+        self.img = dict[@"thumbnail"];
     }
     return self;
 }

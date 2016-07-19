@@ -27,6 +27,7 @@
 
 @property (nonatomic,strong)UIView *line1;
 @property (nonatomic,strong)UIView *line2;
+@property (nonatomic,strong)UILabel *label;
 @end
 
 @implementation BaoXiuVC
@@ -49,9 +50,6 @@
     self.scrollview.showsHorizontalScrollIndicator = YES;
     [self.view addSubview:_scrollview];
     
-//    _line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, W/2, 1)];
-//    _line1.backgroundColor = [UIColor greenColor];
-//    [_scrollview addSubview:_line1];
     //循环添加scrollview上视图
     for (int i = 0; i < 2; i ++) {
         if (i == 1) {
@@ -63,14 +61,14 @@
             _tableview.tag = 100;
             _tableview.dataSource = self;
             _tableview.delegate = self;
-            _tableview.separatorStyle = UITableViewStylePlain;
+            _tableview.separatorStyle = UITableViewStyleGrouped;
             [_scrollview addSubview:_tableview];
         }else{
             CGFloat X = ScreenW;
             CGFloat Y = 0;
             CGFloat W = ScreenW;
             CGFloat H = ScreenH;
-            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H) style:UITableViewStylePlain];
+            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H) style:UITableViewStyleGrouped];
             _tableview2.delegate = self;
             _tableview2.dataSource =self;
             _tableview2.tag = 101;
@@ -111,6 +109,7 @@
     [super viewDidLoad];
     [self addScrollview];
     self.navigationItem.title = @"报修尽管写";
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.2 green:.5 blue:.9 alpha:1.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 - (IBAction)bacK:(UIBarButtonItem *)sender {
@@ -140,6 +139,71 @@ _textFiled.backgroundColor = [UIColor clearColor];
 
 #pragma mark -------TabelView DataSource
 
+//section 头设置
+/*
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    CGRect headerframe = CGRectMake(0, 0, 300, 100);
+    CGFloat y = 2;
+    if (section == 0) {
+        headerframe = CGRectMake(0, 0, 300, 100);
+        y = 100;
+    UIView *headerview = [[UIView alloc] initWithFrame:headerframe];
+    UILabel *datalabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 240, 24)];//日期标签
+    datalabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    datalabel.textColor = [UIColor darkGrayColor];
+    datalabel.backgroundColor = [UIColor clearColor];
+    UILabel *agelabel = [[UILabel alloc] initWithFrame:CGRectMake(216, y, 88, 24)];//年龄标签
+    agelabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    //    agelabel.textAlignment = UITextAlignmentLeft;
+    agelabel.textColor = [UIColor darkGrayColor];
+    agelabel.backgroundColor = [UIColor clearColor];
+    NSDateFormatter *dataformatter = [[NSDateFormatter alloc] init];
+    dataformatter.dateFormat = @"mm-dd-yyyy";
+    datalabel.text = [NSString stringWithFormat:@"%@",[dataformatter stringFromDate:[NSDate date]]];
+    agelabel.text = @"1岁 2天";
+    [headerview addSubview:datalabel];
+    [headerview addSubview:agelabel];
+    
+    return headerview;
+        
+}
+
+
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    CGRect headerframe = CGRectMake(0, 0, 300, 30);
+    CGFloat y = 2;
+    if (section == 0) {
+        headerframe = CGRectMake(0, 0, 300, 100);
+        y = 18;
+    }
+    UIView *headerview = [[UIView alloc] initWithFrame:headerframe];
+    UILabel *datalabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 240, 24)];//日期标签
+    datalabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    datalabel.textColor = [UIColor darkGrayColor];
+    datalabel.backgroundColor = [UIColor clearColor];
+    UILabel *agelabel = [[UILabel alloc] initWithFrame:CGRectMake(216, y, 88, 24)];//年龄标签
+    agelabel.font = [UIFont boldSystemFontOfSize:16.0f];
+//    agelabel.textAlignment = UITextAlignmentLeft;
+    agelabel.textColor = [UIColor darkGrayColor];
+    agelabel.backgroundColor = [UIColor clearColor];
+    NSDateFormatter *dataformatter = [[NSDateFormatter alloc] init];
+    dataformatter.dateFormat = @"mm-dd-yyyy";
+    datalabel.text = [NSString stringWithFormat:@"%@",[dataformatter stringFromDate:[NSDate date]]];
+    agelabel.text = @"1岁 2天";
+    [headerview addSubview:datalabel];
+    [headerview addSubview:agelabel];
+    
+    return headerview;
+}
+*/
+
+/*
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+
+    
+}
+*/
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 100) {
         return self.arrayDataSource.count;

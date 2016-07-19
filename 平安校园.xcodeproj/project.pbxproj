@@ -136,6 +136,10 @@
 		A29035DD1D3C5D580004750D /* xinwenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A29035DC1D3C5D580004750D /* xinwenModel.m */; };
 		A29035E11D3C5E330004750D /* xinwenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A29035DF1D3C5E330004750D /* xinwenCell.m */; };
 		A29035E21D3C5E330004750D /* xinwenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A29035E01D3C5E330004750D /* xinwenCell.xib */; };
+		A29035F91D3CCC3C0004750D /* NoteMode.m in Sources */ = {isa = PBXBuildFile; fileRef = A29035F81D3CCC3C0004750D /* NoteMode.m */; };
+		A29035FF1D3CCC8D0004750D /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = A29035FD1D3CCC8D0004750D /* NoteView.m */; };
+		A29036001D3CCC8D0004750D /* NoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A29035FE1D3CCC8D0004750D /* NoteView.xib */; };
+		A29036021D3CF7800004750D /* baoxiu.plist in Resources */ = {isa = PBXBuildFile; fileRef = A29036011D3CF7800004750D /* baoxiu.plist */; };
 		A29917D01D39BE5D0048ECC6 /* LZFoldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A29917CF1D39BE5D0048ECC6 /* LZFoldButton.m */; };
 		A29917D31D39C2BE0048ECC6 /* address_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A29917D11D39C2BE0048ECC6 /* address_select@2x.png */; };
 		A29917D41D39C2BE0048ECC6 /* arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A29917D21D39C2BE0048ECC6 /* arrow_right@2x.png */; };
@@ -393,6 +397,12 @@
 		A29035DE1D3C5E330004750D /* xinwenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xinwenCell.h; sourceTree = "<group>"; };
 		A29035DF1D3C5E330004750D /* xinwenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xinwenCell.m; sourceTree = "<group>"; };
 		A29035E01D3C5E330004750D /* xinwenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = xinwenCell.xib; sourceTree = "<group>"; };
+		A29035F71D3CCC3C0004750D /* NoteMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteMode.h; sourceTree = "<group>"; };
+		A29035F81D3CCC3C0004750D /* NoteMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteMode.m; sourceTree = "<group>"; };
+		A29035FC1D3CCC8D0004750D /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteView.h; sourceTree = "<group>"; };
+		A29035FD1D3CCC8D0004750D /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteView.m; sourceTree = "<group>"; };
+		A29035FE1D3CCC8D0004750D /* NoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteView.xib; sourceTree = "<group>"; };
+		A29036011D3CF7800004750D /* baoxiu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = baoxiu.plist; sourceTree = "<group>"; };
 		A29917CE1D39BE5D0048ECC6 /* LZFoldButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZFoldButton.h; sourceTree = "<group>"; };
 		A29917CF1D39BE5D0048ECC6 /* LZFoldButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZFoldButton.m; sourceTree = "<group>"; };
 		A29917D11D39C2BE0048ECC6 /* address_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "address_select@2x.png"; sourceTree = "<group>"; };
@@ -650,6 +660,7 @@
 			children = (
 				A28AF8531D3345BB0016E3C6 /* ____Tests.m */,
 				A28AF8551D3345BB0016E3C6 /* Info.plist */,
+				A29036011D3CF7800004750D /* baoxiu.plist */,
 			);
 			path = "平安校园Tests";
 			sourceTree = "<group>";
@@ -965,6 +976,34 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		A29035F61D3CCC060004750D /* NotificationMode */ = {
+			isa = PBXGroup;
+			children = (
+				A29035F71D3CCC3C0004750D /* NoteMode.h */,
+				A29035F81D3CCC3C0004750D /* NoteMode.m */,
+			);
+			name = NotificationMode;
+			sourceTree = "<group>";
+		};
+		A29035FA1D3CCC440004750D /* NoteConrol */ = {
+			isa = PBXGroup;
+			children = (
+				A2899E651D3796C5004361CA /* NotificationVC.h */,
+				A2899E661D3796C5004361CA /* NotificationVC.m */,
+			);
+			name = NoteConrol;
+			sourceTree = "<group>";
+		};
+		A29035FB1D3CCC530004750D /* NoteView */ = {
+			isa = PBXGroup;
+			children = (
+				A29035FC1D3CCC8D0004750D /* NoteView.h */,
+				A29035FD1D3CCC8D0004750D /* NoteView.m */,
+				A29035FE1D3CCC8D0004750D /* NoteView.xib */,
+			);
+			name = NoteView;
+			sourceTree = "<group>";
+		};
 		A29917CD1D39BE5D0048ECC6 /* LZFoldButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,8 +1027,9 @@
 		A29917D61D39E5B40048ECC6 /* NotiFication */ = {
 			isa = PBXGroup;
 			children = (
-				A2899E651D3796C5004361CA /* NotificationVC.h */,
-				A2899E661D3796C5004361CA /* NotificationVC.m */,
+				A29035F61D3CCC060004750D /* NotificationMode */,
+				A29035FB1D3CCC530004750D /* NoteView */,
+				A29035FA1D3CCC440004750D /* NoteConrol */,
 			);
 			name = NotiFication;
 			sourceTree = "<group>";
@@ -1203,6 +1243,7 @@
 				A29917D31D39C2BE0048ECC6 /* address_select@2x.png in Resources */,
 				A29917F41D39F97E0048ECC6 /* CarViewController.xib in Resources */,
 				A28AFB481D33A1330016E3C6 /* SVProgressHUD.bundle in Resources */,
+				A29036001D3CCC8D0004750D /* NoteView.xib in Resources */,
 				A24282B91D35D3B800FE472A /* 32Y2.png in Resources */,
 				A24282BB1D35D3B800FE472A /* 32Y4.png in Resources */,
 				A28AFAF71D3383A50016E3C6 /* navi_item_catalogs@2x.png in Resources */,
@@ -1223,6 +1264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A29036021D3CF7800004750D /* baoxiu.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,6 +1292,7 @@
 				A28AFAF41D337E750016E3C6 /* UIScrollView+MJRefresh.m in Sources */,
 				A29035E11D3C5E330004750D /* xinwenCell.m in Sources */,
 				A29917FB1D39F97E0048ECC6 /* PathwayTableViewController.m in Sources */,
+				A29035FF1D3CCC8D0004750D /* NoteView.m in Sources */,
 				A2899E671D3796C5004361CA /* NotificationVC.m in Sources */,
 				A28AFB2F1D33935F0016E3C6 /* SDWebImageManager.m in Sources */,
 				A28AF8441D3345BA0016E3C6 /* ____.xcdatamodeld in Sources */,
@@ -1297,6 +1340,7 @@
 				A28AFB361D33935F0016E3C6 /* UIImageView+WebCache.m in Sources */,
 				A28AF83B1D3345BA0016E3C6 /* AppDelegate.m in Sources */,
 				A28AFB2A1D33935F0016E3C6 /* SDImageCache.m in Sources */,
+				A29035F91D3CCC3C0004750D /* NoteMode.m in Sources */,
 				A28AF8A71D337B610016E3C6 /* MoreInfoVC.m in Sources */,
 				A28AFAFB1D338C910016E3C6 /* MainM.m in Sources */,
 				A28AFAE31D337E750016E3C6 /* MJRefreshAutoFooter.m in Sources */,

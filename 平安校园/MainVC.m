@@ -102,6 +102,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [super viewDidLoad];
     [self addRightBtn];
     self.navigationItem.title = @"大厅";
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.1 green:.5 blue:.9 alpha:1.0];
+    //设置导航按
     [self addCollectionView];
     [self imageWithImage];
     self.navigationController.navigationBar.backgroundColor = [UIColor blueColor];

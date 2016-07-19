@@ -18,4 +18,6 @@
 #define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
 #define kDevice_Is_iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 
+#define xiwenUrlStr @"http://api.iclient.ifeng.com/ClientNews?id=SYLB10,SYDT10,SYRECOMMEND&page=1&newShowType=1&province=%E6%B2%B3%E5%8D%97%E7%9C%81&city=%E9%83%91%E5%B7%9E%E5%B8%82&district=%E4%B8%AD%E5%8E%9F%E5%8C%BA&gv=5.1.0&av=5.1.0&uid=864323024159189&deviceid=864323024159189&proid=ifengnews&os=android_19&df=androidphone&vt=5&screen=800x1216&publishid=9023"
+
 #endif /* Common_h */
