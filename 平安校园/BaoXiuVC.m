@@ -22,8 +22,10 @@
 
 @property (nonatomic,strong)UITableView *tableview;
 @property (nonatomic,strong)UITableView *tableview2;
-@property (nonatomic,strong)NSArray *titleArray;
-@property (nonatomic,strong)NSMutableArray *arrayDataSource;
+@property (nonatomic,strong)NSArray *titleArray1;
+@property (nonatomic,strong)NSArray *titleArray2;
+@property (nonatomic,strong)NSMutableArray *arrayDataSource1;
+@property (nonatomic,strong)NSMutableArray *arrayDataSource2;
 
 @property (nonatomic,strong)UIView *line1;
 @property (nonatomic,strong)UIView *line2;
@@ -35,7 +37,7 @@
 //初始化scrollview不能懒加载否则tableviw不会显示
 -(void)addScrollview{
     CGFloat X = 0;
-    CGFloat Y = 110;
+    CGFloat Y = 114;
     CGFloat W = CGRectGetWidth(self.view.bounds);
     CGFloat H = CGRectGetHeight(self.view.bounds);
     _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(X,Y, W, H)];
@@ -120,17 +122,10 @@
 -(void)textFieldDidChanged:(NSNotification *)note{
     UITextField *text = note.object;
     NSIndexPath *indexpath = text.indexPath;
-    [self.arrayDataSource replaceObjectAtIndex:indexpath.row withObject:text.text];
+    NSLog(@"%@",text.text);
+//    [self.arrayDataSource1 replaceObjectAtIndex:indexpath.row withObject:text.text];
     
 }
-/*
-//输入框
-_textFiled = [[UITextField alloc]initWithFrame:CGRectMake(0 ,labelH ,frame.size.width ,textFieldH )];
-_textFiled.borderStyle = UITextBorderStyleRoundedRect;
-[_textFiled addTarget:self action:@selector(valueChange:) forControlEvents:UIControlEventEditingChanged];
-_textFiled.backgroundColor = [UIColor clearColor];
-[self addSubview:_textFiled];
-*/
 
 -(void)LZFoldButton:(LZFoldButton *)foldButton didSelectObject:(id)obj{
    //obj中所包含选中内容
@@ -140,75 +135,46 @@ _textFiled.backgroundColor = [UIColor clearColor];
 #pragma mark -------TabelView DataSource
 
 //section 头设置
-/*
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    CGRect headerframe = CGRectMake(0, 0, 300, 100);
-    CGFloat y = 2;
-    if (section == 0) {
-        headerframe = CGRectMake(0, 0, 300, 100);
-        y = 100;
-    UIView *headerview = [[UIView alloc] initWithFrame:headerframe];
-    UILabel *datalabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 240, 24)];//日期标签
-    datalabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    datalabel.textColor = [UIColor darkGrayColor];
-    datalabel.backgroundColor = [UIColor clearColor];
-    UILabel *agelabel = [[UILabel alloc] initWithFrame:CGRectMake(216, y, 88, 24)];//年龄标签
-    agelabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    //    agelabel.textAlignment = UITextAlignmentLeft;
-    agelabel.textColor = [UIColor darkGrayColor];
-    agelabel.backgroundColor = [UIColor clearColor];
-    NSDateFormatter *dataformatter = [[NSDateFormatter alloc] init];
-    dataformatter.dateFormat = @"mm-dd-yyyy";
-    datalabel.text = [NSString stringWithFormat:@"%@",[dataformatter stringFromDate:[NSDate date]]];
-    agelabel.text = @"1岁 2天";
-    [headerview addSubview:datalabel];
-    [headerview addSubview:agelabel];
+    //复用头视图
+    static NSString *ID = @"headViewID";
+    //创建头视图
+    UITableViewHeaderFooterView *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:ID];
     
-    return headerview;
-        
-}
-
-
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    CGRect headerframe = CGRectMake(0, 0, 300, 30);
-    CGFloat y = 2;
-    if (section == 0) {
-        headerframe = CGRectMake(0, 0, 300, 100);
-        y = 18;
+    if (headView == nil) {
+        headView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:ID];
+        headView.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        headView.textLabel.textColor = [UIColor colorWithRed:0.23 green:0.34 blue:1 alpha:0.6];
     }
-    UIView *headerview = [[UIView alloc] initWithFrame:headerframe];
-    UILabel *datalabel = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 240, 24)];//日期标签
-    datalabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    datalabel.textColor = [UIColor darkGrayColor];
-    datalabel.backgroundColor = [UIColor clearColor];
-    UILabel *agelabel = [[UILabel alloc] initWithFrame:CGRectMake(216, y, 88, 24)];//年龄标签
-    agelabel.font = [UIFont boldSystemFontOfSize:16.0f];
-//    agelabel.textAlignment = UITextAlignmentLeft;
-    agelabel.textColor = [UIColor darkGrayColor];
-    agelabel.backgroundColor = [UIColor clearColor];
-    NSDateFormatter *dataformatter = [[NSDateFormatter alloc] init];
-    dataformatter.dateFormat = @"mm-dd-yyyy";
-    datalabel.text = [NSString stringWithFormat:@"%@",[dataformatter stringFromDate:[NSDate date]]];
-    agelabel.text = @"1岁 2天";
-    [headerview addSubview:datalabel];
-    [headerview addSubview:agelabel];
-    
-    return headerview;
+    headView.tag =  section;
+    if (section == 0) {
+        headView.textLabel.text = @"我的报修";
+    }else{
+        headView.textLabel.text = @"报修项目";
+    }
+    return headView;
 }
-*/
 
-/*
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
 
-    
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+    return 2;
 }
-*/
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 100) {
-        return self.arrayDataSource.count;
+        if (section == 0) {
+        return self.titleArray1.count;
+        }else if (section == 1){
+            return self.titleArray2.count;
+        }
     }else if (tableView.tag == 101){
-    return self.arrayDataSource.count;
+        if (section == 0) {
+            return self.titleArray1.count;
+        }else if (section == 1){
+        return self.titleArray2.count;
+        }
     }
     return 0;
 }
@@ -218,10 +184,10 @@ _textFiled.backgroundColor = [UIColor clearColor];
    HTextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (!cell) {
         cell = [[HTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
-        cell.separatorInset =UIEdgeInsetsMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
+        cell.separatorInset =UIEdgeInsetsMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         UIView *lbl = [[UIView alloc] init]; //定义一个label用于显示cell之间的分割线（未使用系统自带的分割线），也可以用view来画分割线
-        lbl.frame = CGRectMake(cell.frame.origin.x + 5, cell.frame.size.height - 5, ScreenW -5, 1);
-        lbl.backgroundColor =  [UIColor lightGrayColor];
+        lbl.frame = CGRectMake(cell.frame.origin.x , cell.frame.origin.y, ScreenW , .5);
+        lbl.backgroundColor =  [UIColor colorWithRed:.2 green:.5 blue:.8 alpha:.8];
         [cell.contentView addSubview:lbl];
 }
     if (tableView.tag == 100) {
@@ -318,8 +284,14 @@ _textFiled.backgroundColor = [UIColor clearColor];
             [cell addSubview:btn3];
         }
     }
-    [cell setTitleString:self.titleArray[indexPath.row] andDataString:self.arrayDataSource[indexPath.row] andIndexPath:indexPath];
-    return cell;
+    if (indexPath.section == 0) {
+        [cell setTitleString:self.titleArray1[indexPath.row] andDataString:self.arrayDataSource1[indexPath.row] andIndexPath:indexPath];
+        return cell;
+    }else if (indexPath.section == 1){
+        [cell setTitleString:self.titleArray2[indexPath.row] andDataString:self.arrayDataSource2[indexPath.row] andIndexPath:indexPath];
+        return cell;
+    }
+    return 0;
 }
 
 -(void)paizhaoshangchuan{
@@ -333,9 +305,8 @@ _textFiled.backgroundColor = [UIColor clearColor];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 65;
 }
-
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
@@ -349,35 +320,49 @@ _textFiled.backgroundColor = [UIColor clearColor];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
+    return 65;
 }
 
--(NSArray *)titleArray{
+-(NSArray *)titleArray1{
 
-    if (!_titleArray) {
-        _titleArray = @[@"姓名:",@"学号:",@"服务类型:",@"报修项目:",@"服务区域:",@"申报区域:",@"申报地址:",@"详细地址:",@"故障描述:",@"预约时间:",@"图片上传:"];
+    if (!_titleArray1) {
+        _titleArray1 = @[@"姓名:",@"学号:"];
     }
-    return _titleArray;
+    return _titleArray1;
 }
-
-
--(NSMutableArray *)arrayDataSource{
-    if (!_arrayDataSource) {
-        _arrayDataSource = [NSMutableArray array];
-        [_arrayDataSource addObject:@"你好"];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@"点击"];
-        [_arrayDataSource addObject:@"nil"];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@"点击添加图片"];
+-(NSArray *)titleArray2{
+    if (!_titleArray2) {
+        _titleArray2 = @[@"服务类型:",@"报修项目:",@"服务区域:",@"申报区域:",@"申报地址:",@"详细地址:",@"故障描述:",@"预约时间:",@"图片上传:"];
     }
-    return _arrayDataSource;
+    return _titleArray2;
 }
+
+
+
+-(NSMutableArray *)arrayDataSource1{
+    if (!_arrayDataSource1) {
+        _arrayDataSource1 = [NSMutableArray array];
+        [_arrayDataSource1 addObject:@"你好"];
+        [_arrayDataSource1 addObject:@""];
+    }
+    return _arrayDataSource1;
+}
+
+-(NSMutableArray *)arrayDataSource2{
+    if (!_arrayDataSource2) {
+        [_arrayDataSource2 addObject:@"点击"];
+        [_arrayDataSource2 addObject:@"nil"];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@"点击添加图片"];
+    }
+    return _arrayDataSource2;
+}
+
 
 #pragma mark ----- 隐藏键盘操作 -----
 

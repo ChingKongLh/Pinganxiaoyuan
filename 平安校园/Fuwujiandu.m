@@ -23,57 +23,13 @@
 
 @property (nonatomic,strong)UITableView *tableview1;
 @property (nonatomic,strong)UITableView *tableview2;
-@property (nonatomic,strong)NSArray *titlearray;
-@property (nonatomic,strong)NSMutableArray *arrayDataSource;
+@property (nonatomic,strong)NSArray *titlearray1;
+@property (nonatomic,strong)NSArray *titlearray2;
+@property (nonatomic,strong)NSMutableArray *arrayDataSource1;
+@property (nonatomic,strong)NSMutableArray *arrayDataSource2;
 @end
 
 @implementation Fuwujiandu
-
--(void)addScrollview1{
-    CGFloat X = 0;
-    CGFloat Y = 110;
-    CGFloat W = CGRectGetWidth(self.view.bounds);
-    CGFloat H = CGRectGetHeight(self.view.bounds);
-    _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(X,Y, W, H)];
-    _scrollview.delegate =self;
-    self.scrollview.pagingEnabled = YES;
-    //设置滚动范围
-    self.scrollview.contentSize = CGSizeMake(ScreenW * 2, ScreenH);
-    //设置偏移量
-    self.scrollview.contentOffset = CGPointMake(ScreenW, 0);
-    //取消scrollview滚动到屏幕边缘的弹簧效果
-    self.scrollview.bounces = NO;
-    self.scrollview.showsHorizontalScrollIndicator = YES;
-    [self.view addSubview:_scrollview];
-    //    _line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, W/2, 1)];
-    //    _line1.backgroundColor = [UIColor greenColor];
-    //    [_scrollview addSubview:_line1];
-    //循环添加scrollview上视图
-    for (int i = 0; i < 2; i ++) {
-        if (i == 1) {
-            CGFloat X = 0;
-            CGFloat Y = 0;
-            CGFloat W = ScreenW;
-            CGFloat H = ScreenH;
-            _tableview1 = [[UITableView alloc] initWithFrame:CGRectMake(X,Y, W, H)];
-            _tableview1.tag = 100;
-            _tableview1.dataSource = self;
-            _tableview1.delegate = self;
-            _tableview1.separatorStyle = UITableViewStylePlain;
-            [_scrollview addSubview:_tableview1];
-        }else{
-            CGFloat X = ScreenW;
-            CGFloat Y = 0;
-            CGFloat W = ScreenW;
-            CGFloat H = ScreenH;
-            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H) style:UITableViewStylePlain];
-            _tableview2.delegate = self;
-            _tableview2.dataSource =self;
-            _tableview2.tag = 101;
-            [_scrollview addSubview:_tableview2];
-        }
-    }
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -107,7 +63,7 @@
 
 -(void)addScrollView{
     CGFloat X = 0;
-    CGFloat Y = 110;
+    CGFloat Y = 114;
     CGFloat W = CGRectGetWidth(self.view.bounds);
     CGFloat H = CGRectGetHeight(self.view.bounds);
     _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(X, Y, W,H)];
@@ -154,16 +110,48 @@
 -(void)textFieldDidChanged:(NSNotification *)note{
     UITextField *text = note.object;
     NSIndexPath *index = text.indexPath;
-    [self.arrayDataSource replaceObjectAtIndex:index.row withObject:text.text];
+    [self.arrayDataSource2 replaceObjectAtIndex:index.row withObject:text.text];
 }
 
 
 #pragma mark --- tableview  Delegate
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    //注册头视图
+    static NSString *header = @"headview";
+    UITableViewHeaderFooterView *headerview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:header];
+    if (headerview == nil) {
+        headerview = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:header];
+        headerview.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        headerview.textLabel.textColor = [UIColor colorWithRed:0.23 green:0.34 blue:1.0 alpha:0.6];
+    }
+    headerview.tag = section;
+    if (section == 0) {
+        headerview.textLabel.text = @"我要报修";
+    }else{ 
+        headerview.textLabel.text = @"报修项目";
+    }
+  return headerview;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+    return 2;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 100) {
-       return  self.arrayDataSource.count;
+        if (section == 0) {
+            return self.titlearray1.count;
+        }else if (section == 1){
+            return self.titlearray2.count;
+        }
     }if (tableView.tag == 101) {
-        return self.arrayDataSource.count;
+        if (section == 0) {
+            return self.titlearray1.count;
+        }else if (section == 1){
+        return self.titlearray2.count;
+        }
     }
     return 0;
 }
@@ -175,8 +163,8 @@
         cell = [[HTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
         cell.separatorInset =UIEdgeInsetsMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         UIView *lbl = [[UIView alloc] init]; //定义一个label用于显示cell之间的分割线（未使用系统自带的分割线），也可以用view来画分割线
-        lbl.frame = CGRectMake(cell.frame.origin.x + 5, cell.frame.size.height - 5, ScreenW -5, 1);
-        lbl.backgroundColor =  [UIColor lightGrayColor];
+        lbl.frame = CGRectMake(cell.frame.origin.x + 5, 0, ScreenW -5, .5);
+        lbl.backgroundColor =  [UIColor colorWithRed:.2 green:.5 blue:.8 alpha:.8];
         [cell.contentView addSubview:lbl];
     }
     if (tableView.tag == 100) {
@@ -215,7 +203,7 @@
             [lz LZSetImage:[UIImage imageNamed:@"address_select"] forState:UIControlStateNormal];
             [lz LZSetImage:[UIImage imageNamed:@"arrow_right"] forState:UIControlStateSelected];
             [cell addSubview:lz];
-        }else if (indexPath.row == 2){
+        }else if (indexPath.row == 11){
             //添加图片
             UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn3.backgroundColor = [UIColor whiteColor];
@@ -230,7 +218,7 @@
     if (tableView.tag == 101) {
         if (indexPath.row == 3) {
             //报修区域
-            NSArray *arr = @[@"表扬",@"建议",@"咨询",@"投诉"];
+            NSArray *arr = @[@"宿舍区",@"教学区",@"其他"];
             lz = [[LZFoldButton alloc] initWithFrame:CGRectMake(330, -15, 70, 50) dataArray:arr];
             lz.lzDelegate = self;
             lz.lzFontSize = 16;
@@ -242,7 +230,7 @@
             [cell addSubview:lz];
             
         }else if (indexPath.row == 4){
-            NSArray *arr = @[@"环境",@"洗衣",@"宿舍",@"餐饮",@"宾馆",@"开水",@"校园一卡通",@"网络",@"软件",@"通讯",@"车辆",@"购物"];
+            NSArray *arr = @[@"中原区",@"二七区"];
             lz = [[LZFoldButton alloc] initWithFrame:CGRectMake(330, -15, 70, 50) dataArray:arr];
             lz.lzDelegate = self;
             lz.lzFontSize = 16;
@@ -263,20 +251,25 @@
             [lz LZSetImage:[UIImage imageNamed:@"address_select"] forState:UIControlStateNormal];
             [lz LZSetImage:[UIImage imageNamed:@"arrow_right"] forState:UIControlStateSelected];
             [cell addSubview:lz];
-        }else if (indexPath.row == 2){
+        }else if (indexPath.row == 11){
             //添加图片
             UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn3.backgroundColor = [UIColor whiteColor];
             btn3.frame = CGRectMake(330.0f, -15.0f, 100.0f, 50.0f);
             [btn3 setTitle:@"添加图片" forState:UIControlStateNormal];
-//            [btn3 addTarget:self action:@selector(paizhaoshangchuan) forControlEvents:UIControlEventTouchUpInside];
+            [btn3 addTarget:self action:@selector(paizhaoshangchuan) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btn3];
         }
     }
-    [cell setTitleString:self.titleArray[indexPath.row] andDataString:self.arrayDataSource[indexPath.row] andIndexPath:indexPath];
-    return cell;
+    if (indexPath.section == 0) {
+        [cell setTitleString:self.titlearray1[indexPath.row] andDataString:self.arrayDataSource1[indexPath.row] andIndexPath:indexPath];
+        return cell;
+    }else if (indexPath.section == 1){
+        [cell setTitleString:self.titlearray2[indexPath.row] andDataString:self.arrayDataSource2[indexPath.row] andIndexPath:indexPath];
+        return cell;
+    }
+    return 0;
 }
-
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -286,7 +279,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
-    return 30;
+    return 65;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -298,30 +291,46 @@
     }
 }
 
--(NSArray *)titleArray{
+-(NSArray *)titlearray1{
     
-    if (!_titlearray) {
-//        _titlearray = @[@"姓名:",@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
-        _titlearray = @[@"姓名:",@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
+    if (!_titlearray1) {
+        _titlearray1 = @[@"姓名:",@"电话"];
     }
-    return _titlearray;
+    return _titlearray1;
 }
 
+-(NSArray *)titlearray2{
+    if (!_titlearray2) {
+        _titlearray2 = @[@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
+    }
+    return _titlearray2;
+}
 
--(NSMutableArray *)arrayDataSource{
-    if (!_arrayDataSource) {
-        _arrayDataSource = [NSMutableArray array];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];
-        [_arrayDataSource addObject:@""];//描述个数要与title数量保持一致!
+-(NSMutableArray *)arrayDataSource1{
+    if (!_arrayDataSource1) {
+        _arrayDataSource1 = [NSMutableArray array];
+        [_arrayDataSource1 addObject:@""];
+        [_arrayDataSource1 addObject:@""];//描述个数要与title数量保持一致!
 
     }
-    return _arrayDataSource;
+    return _arrayDataSource1;
 }
+
+-(NSMutableArray *)arrayDataSource2{
+
+    if (!_arrayDataSource2) {
+        _arrayDataSource2 = [NSMutableArray array];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+        [_arrayDataSource2 addObject:@""];
+    }
+    return _arrayDataSource2;
+}
+
 
 #pragma mark ---- LZButtonDelegate---
 

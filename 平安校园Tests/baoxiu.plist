@@ -15,14 +15,47 @@
 				<string>电话</string>
 			</dict>
 		</array>
-		<key>name</key>
+		<key>section</key>
 		<string>我的信息</string>
 	</dict>
 	<key>item1</key>
 	<dict>
 		<key>titles</key>
-		<array/>
-		<key>name</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>服务类型</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>报修项目</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>服务区域</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>申报地址</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>详细地址</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>故障描述</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>预约时间</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>图片上传</string>
+			</dict>
+		</array>
+		<key>section</key>
 		<string>报修信息</string>
 	</dict>
 </dict>

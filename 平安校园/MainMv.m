@@ -10,23 +10,29 @@
 #import "MainM.h"
 #import "Common.h"
 #import "UIImageView+WebCache.h"
-
+#import "TiaoSuVC.h"
 @interface MainMv ()
 @end
 @implementation MainMv
 
 
 - (IBAction)TuiSu:(UIButton *)sender {
+    switch (sender.tag) {
+        case 101:
+            break;
+            case 102:
+//            TiaoSuVC *vc = []
+            break;
+            case 103:
+            
+            break;
+            case 104:
+            
+            break;
+        default:
+            break;
+    }
 }
-- (IBAction)TiaoSu:(UIButton *)sender {
-    
-    
-}
-- (IBAction)DingCan:(UIButton *)sender {
-}
-- (IBAction)Control:(UIButton *)sender {
-}
-
 - (void)awakeFromNib {
     
 }

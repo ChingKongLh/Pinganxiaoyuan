@@ -36,7 +36,7 @@
                     <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKC-8V-idQ">
                         <rect key="frame" x="100" y="16" width="99" height="107"/>
                         <connections>
-                            <action selector="TiaoSu:" destination="gTV-IL-0wX" eventType="touchUpInside" id="JRZ-L9-ZAX"/>
+                            <action selector="TuiSu:" destination="gTV-IL-0wX" eventType="touchUpInside" id="3gZ-TO-TLv"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOj-G1-XWd">
@@ -52,7 +52,7 @@
                     <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TW-Jd-nFP">
                         <rect key="frame" x="200" y="16" width="99" height="107"/>
                         <connections>
-                            <action selector="DingCan:" destination="gTV-IL-0wX" eventType="touchUpInside" id="jcZ-1W-Odo"/>
+                            <action selector="TuiSu:" destination="gTV-IL-0wX" eventType="touchUpInside" id="b0f-H2-J1p"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yLh-cu-T3f">
@@ -68,7 +68,7 @@
                     <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWw-Ys-6Ah">
                         <rect key="frame" x="300" y="16" width="99" height="107"/>
                         <connections>
-                            <action selector="Control:" destination="gTV-IL-0wX" eventType="touchUpInside" id="3IV-zW-w73"/>
+                            <action selector="TuiSu:" destination="gTV-IL-0wX" eventType="touchUpInside" id="X8N-Og-VDW"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3Q-t1-syk">

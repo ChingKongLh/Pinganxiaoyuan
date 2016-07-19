@@ -9,9 +9,7 @@
 #import "MainVC.h"
 #import "Common.h"
 #import "ListVC.h"
-//#import "MainM.h"
 #import "MainM.h"
-//#import "MainMv.h"
 #import "MainMv.h"
 #import "DetailVC.h"
 #import "AFNetworking/AFNetworking.h"
@@ -27,9 +25,8 @@
 #import "BaoXiuVC.h"
 #import "CarViewController.h"
 #import "Fuwujiandu.h"
+#import "shiwuVC.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout>
-
-//@property (strong, nonatomic) IBOutlet UICollectionView *collection;
 @property (nonatomic,strong)UICollectionView *collection;
 @property (nonatomic, strong) NSMutableArray *mArr;
 @property (nonatomic, strong) NSMutableArray *infoArr;
@@ -49,7 +46,7 @@
 @property (nonatomic,strong)UIImageView *img;
 @property (strong, nonatomic) IBOutlet UIView *V;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Bottomheight;
-@property (nonatomic,strong)NSIndexSet *index;
+@property (nonatomic,assign)NSIndexSet *index;
 @end
 static NSString *identifier = @"item";
 static NSString *identifiercell = @"cell";
@@ -60,8 +57,17 @@ NSString * const KReusableFooterView = @"reuseFooter";
 
 //右上角弹框提醒
 - (void)addRightBtn {
+    UIBarButtonItem *alertBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(notification)];
+    
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo.png"] style:UIBarButtonItemStylePlain target:self action:@selector(btnClick:)];
+    
     self.navigationItem.rightBarButtonItem = rightBarItem;
+//    self.navigationItem.rightBarButtonItem = alfghjkertBarItem;
+}
+
+//通知按钮点击事件
+-(void)notification{
+
 }
 
 //弹框点击事件
@@ -103,7 +109,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [self addRightBtn];
     self.navigationItem.title = @"大厅";
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.1 green:.5 blue:.9 alpha:1.0];
-    //设置导航按
+    //设置导航栏
     [self addCollectionView];
     [self imageWithImage];
     self.navigationController.navigationBar.backgroundColor = [UIColor blueColor];
@@ -396,7 +402,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
         BaoXiuVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"baoxiu"];
         [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.row ==3){
-    
+        shiwuVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"lost"];
+        [self presentViewController:vc animated:YES completion:nil];
     }else if (indexPath.row == 4){
         Fuwujiandu *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"fuwujiandu"];
         [self presentViewController:VC animated:YES completion:nil];
