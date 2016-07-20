@@ -40,7 +40,7 @@
 -(UILabel *)label{
 
     if (!_label) {
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 100, 40)];
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(15,15,100, 40)];
     }
     return _label;
 }

@@ -57,7 +57,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
 
 //右上角弹框提醒
 - (void)addRightBtn {
-    UIBarButtonItem *alertBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(notification)];
+//    UIBarButtonItem *alertBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(notification)];
     
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo.png"] style:UIBarButtonItemStylePlain target:self action:@selector(btnClick:)];
     
@@ -95,11 +95,10 @@ NSString * const KReusableFooterView = @"reuseFooter";
 -(NSArray *)titles{
     return @[@"我要报修",@"我要报失",@"我要评价",@"退出"];
 }
+
 - (NSArray *) images {
     return @[@"menu_QR",@"menu_addFri",@"menu_multichat",@"menu_sendFile",@"menu_facetoface",@"menu_payMoney"];
 }
-
-
 
 
 #pragma mark -----------viewDidLoad------------
@@ -128,6 +127,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
         [article backView];
         [article.navigationController pushViewController:info animated:NO];
     };
+    
     UIScreenEdgePanGestureRecognizer *screenPanLeft = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(leftEdgeGestureAction:)];
     screenPanLeft.edges = UIRectEdgeLeft;
     [_collection addGestureRecognizer:screenPanLeft];
@@ -135,8 +135,6 @@ NSString * const KReusableFooterView = @"reuseFooter";
     UIScreenEdgePanGestureRecognizer *screenPanRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgeGestureAction:)];
     screenPanRight.edges = UIRectEdgeRight;
     [_collection addGestureRecognizer:screenPanRight];
-//    [self addImageWithCentra];
-//    [self bottomSetting];
     [self addView];
 }
 

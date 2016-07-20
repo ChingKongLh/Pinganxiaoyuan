@@ -7,18 +7,52 @@
 //
 
 #import "AppDelegate.h"
-
+#import "Common.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
+-(void)guideEnd{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //取到当前版本号
+    NSString *versionS = [[NSBundle mainBundle]objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
+    [defaults setObject:versionS forKey:kIslaunched];
+    [defaults synchronize];
+    UIStoryboard *story = self.window.rootViewController.storyboard;
+    UIViewController *VC = [story instantiateViewControllerWithIdentifier:@"tabbar"];
+    self.window.rootViewController = VC;
+    
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    UIWindow *window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window = window;
+    UIViewController *control = [self instanViewControllerWithGuide];
+    self.window.rootViewController = control;
+    [self.window makeKeyAndVisible];
     return YES;
 }
+
+-(UIViewController *)instanViewControllerWithGuide{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //取出已经运行的版本号
+    NSString *versionS = [defaults objectForKey:kIslaunched];
+    //取出当前运行的版本号
+    NSString *versionM = [[NSBundle mainBundle]objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    if ([versionM isEqualToString:versionS]) {
+        UIViewController *VC = [storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
+        return VC;
+    }else {
+        UIViewController *VC = [storyboard instantiateViewControllerWithIdentifier:@"guide"];
+        return VC;
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

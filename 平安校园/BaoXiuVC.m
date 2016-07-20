@@ -63,14 +63,15 @@
             _tableview.tag = 100;
             _tableview.dataSource = self;
             _tableview.delegate = self;
-            _tableview.separatorStyle = UITableViewStyleGrouped;
+            _tableview.separatorStyle = UITableViewStylePlain;
             [_scrollview addSubview:_tableview];
         }else{
             CGFloat X = ScreenW;
             CGFloat Y = 0;
             CGFloat W = ScreenW;
             CGFloat H = ScreenH;
-            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H) style:UITableViewStyleGrouped];
+            _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
+            _tableview2.separatorStyle = UITableViewStylePlain;
             _tableview2.delegate = self;
             _tableview2.dataSource =self;
             _tableview2.tag = 101;
@@ -92,7 +93,6 @@
     [UIView animateWithDuration:.5 animations:^{
         self.scrollview.contentOffset = [self ScrollViewWithContentOffSetPage: 0];
     }];
-    
 }
 //其他点击事件
 - (IBAction)qita:(id)sender {

@@ -211,9 +211,7 @@
             [btn3 setTitle:@"添加图片" forState:UIControlStateNormal];
             [btn3 addTarget:self action:@selector(paizhaoshangchuan) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:btn3];
-            
         }
-        
     }
     if (tableView.tag == 101) {
         if (indexPath.row == 3) {
@@ -301,7 +299,7 @@
 
 -(NSArray *)titlearray2{
     if (!_titlearray2) {
-        _titlearray2 = @[@"电话:",@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
+        _titlearray2 = @[@"咨询分类:",@"服务类别:",@"服务区域:",@"服务单位:",@"标题:",@"评价描述:"];
     }
     return _titlearray2;
 }
@@ -326,7 +324,7 @@
         [_arrayDataSource2 addObject:@""];
         [_arrayDataSource2 addObject:@""];
         [_arrayDataSource2 addObject:@""];
-        [_arrayDataSource2 addObject:@""];
+    
     }
     return _arrayDataSource2;
 }
