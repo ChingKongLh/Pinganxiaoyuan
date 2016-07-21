@@ -57,17 +57,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
 
 //右上角弹框提醒
 - (void)addRightBtn {
-//    UIBarButtonItem *alertBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(notification)];
-    
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo.png"] style:UIBarButtonItemStylePlain target:self action:@selector(btnClick:)];
-    
     self.navigationItem.rightBarButtonItem = rightBarItem;
-//    self.navigationItem.rightBarButtonItem = alfghjkertBarItem;
-}
-
-//通知按钮点击事件
--(void)notification{
-
 }
 
 //弹框点击事件
@@ -96,7 +87,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     return @[@"我要报修",@"我要报失",@"我要评价",@"退出"];
 }
 
-- (NSArray *) images {
+- (NSArray *)images {
     return @[@"menu_QR",@"menu_addFri",@"menu_multichat",@"menu_sendFile",@"menu_facetoface",@"menu_payMoney"];
 }
 
@@ -107,7 +98,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [super viewDidLoad];
     [self addRightBtn];
     self.navigationItem.title = @"大厅";
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.1 green:.5 blue:.9 alpha:1.0];
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.1 green:.5 blue:.9 alpha:1.0];
     //设置导航栏
     [self addCollectionView];
     [self imageWithImage];
@@ -302,7 +293,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
     return cell;
 }
 
-//设定图标重复显示次数
+//设定图标重复显示次数 section
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -331,9 +322,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
         make.top.equalTo(lab.mas_bottom);
         make.bottom.equalTo(self.collection.mas_bottom);
     }];
-    
     return reusableView;
-
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout

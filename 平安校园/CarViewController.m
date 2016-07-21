@@ -71,8 +71,6 @@
     _allData = [[NSMutableArray alloc]initWithObjects:dic,dic1,dic2,dic3,dic4,dic5,dic6, nil];
 }
 
-
-
 //--------------------------返回方式需要调整
 
 -(void)back{

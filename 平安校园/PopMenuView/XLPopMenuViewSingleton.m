@@ -51,7 +51,7 @@
     [window addSubview:self.popmenuView];
     
     
-    [UIView animateWithDuration:.3 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
        
         self.popmenuView.popMenuTableView.transform = CGAffineTransformMakeScale(1.0, 1.0);
         
@@ -61,7 +61,7 @@
 
 - (void)menuHide
 {
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.popmenuView.popMenuTableView.transform = CGAffineTransformMakeScale(0.01, 0.01);
         
     } completion:^(BOOL finished) {

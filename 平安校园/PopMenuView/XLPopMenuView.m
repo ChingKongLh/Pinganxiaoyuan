@@ -57,6 +57,8 @@
         {
             [self.popMenuTableView setLayoutMargins:UIEdgeInsetsZero];
         }
+
+        
     }
     return self;
 }
@@ -75,6 +77,7 @@
         cell.textLabel.text = model.title;
         cell.imageView.image = [UIImage imageNamed:model.image];
     }
+    
     return cell;
 }
 
@@ -100,16 +103,12 @@
 - (CGRect)popMenuViewFrame
 {
     CGFloat menuViewX = 75 + self.startPoint.x;
-    CGFloat menuViewY = self.startPoint.y - self.menuItems.count * 20 -20 ;
-    CGFloat menuWidth = self.menuWidth ;
-    CGFloat menuHeight = (self.menuItems.count+1) * CELLHEIGHT ;
+    CGFloat menuViewY = self.startPoint.y - self.menuItems.count * 20;
+    CGFloat menuWidth = self.menuWidth;
+    CGFloat menuHeight = self.menuItems.count * CELLHEIGHT;
     
     return CGRectMake(menuViewX, menuViewY, menuWidth, menuHeight);
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    return 44;
+    
 }
 
 #pragma mark - 绘制三角形
@@ -117,12 +116,14 @@
 {
     // 背景色
     [[UIColor whiteColor] set];
+    
     // 获取视图
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    
     // 开始绘制
     CGContextBeginPath(contextRef);
     
-    CGContextMoveToPoint(contextRef, self.startPoint.x + self.menuWidth - 15, self.startPoint.y);
+    CGContextMoveToPoint(contextRef, self.startPoint.x + self.menuWidth - 20, self.startPoint.y);
     CGContextAddLineToPoint(contextRef, self.startPoint.x + self.menuWidth - 20 * 2, self.startPoint.y);
     CGContextAddLineToPoint(contextRef, self.startPoint.x + self.menuWidth - 20 * 1.5, self.startPoint.y - 10);
     // 结束绘制
