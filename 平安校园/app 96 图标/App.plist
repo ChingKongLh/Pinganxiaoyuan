@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>校报专区</string>
+		<key>detailTitle</key>
+		<string>校园生活一网无忧</string>
+		<key>icon</key>
+		<string>icon_10453026_21134862_1432261689.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>未开放区</string>
+		<key>detailTitle</key>
+		<string>暂定</string>
+		<key>icon</key>
+		<string>icon_10451659_21094805_1431656995.png</string>
+	</dict>
+</array>
+</plist>

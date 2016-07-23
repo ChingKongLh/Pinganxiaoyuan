@@ -16,9 +16,7 @@
 #import "SVProgressHUD.h"
 #import "XRCarouselView.h"
 #import "Masonry.h"
-#import "XLPopMenuViewModel.h"
-#import "XLPopMenuViewSingleton.h"
-
+#import "XTPopView.h"
 #import "NewsVC.h"
 #import "NotificationVC.h"
 #import "TiaoSuVC.h"
@@ -26,7 +24,7 @@
 #import "CarViewController.h"
 #import "Fuwujiandu.h"
 #import "shiwuVC.h"
-@interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout,selectIndexPathDelegate>
 @property (nonatomic,strong)UICollectionView *collection;
 @property (nonatomic, strong) NSMutableArray *mArr;
 @property (nonatomic, strong) NSMutableArray *infoArr;
@@ -42,11 +40,14 @@
 @property (nonatomic,strong)XRCarouselView *carouselView;
 @property (nonatomic,strong)NSMutableArray *data;
 
-@property (nonatomic,strong)NSMutableArray *Tarr;
 @property (nonatomic,strong)UIImageView *img;
 @property (strong, nonatomic) IBOutlet UIView *V;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Bottomheight;
 @property (nonatomic,assign)NSIndexSet *index;
+
+@property (nonatomic,strong)NSArray *array;
+@property (nonatomic,strong)UIButton *button;
+@property (nonatomic,strong)UIButton *customBtn;
 @end
 static NSString *identifier = @"item";
 static NSString *identifiercell = @"cell";
@@ -57,40 +58,56 @@ NSString * const KReusableFooterView = @"reuseFooter";
 
 //右上角弹框提醒
 - (void)addRightBtn {
-    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduo.png"] style:UIBarButtonItemStylePlain target:self action:@selector(btnClick:)];
-    self.navigationItem.rightBarButtonItem = rightBarItem;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    _customBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _customBtn.frame = CGRectMake(0, 0, 40, 40);
+    [_customBtn setTitle:@"➕" forState:UIControlStateNormal];
+    [_customBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithCustomView:_customBtn];
+    self.navigationItem.rightBarButtonItem = btn;
+    
 }
 
 //弹框点击事件
 - (void)btnClick:(id)btn {
-    if (!_Tarr) {
-        _Tarr = [[NSMutableArray alloc] init];
-        for (int i = 0; i< [self titles].count; i++) {
-            XLPopMenuViewModel *model = [[XLPopMenuViewModel alloc] init];
-            //添加弹框图片与列表内容
-            model.image = [self images][i];
-            model.title =[self titles][i];
-            [_Tarr addObject:model];
+        CGPoint point = CGPointMake(_customBtn.center.x,_customBtn.frame.origin.y + 64);
+        XTPopView *view1 = [[XTPopView alloc] initWithOrigin:point Width:130 Height:40 * 4 Type:XTTypeOfRightUp Color:[UIColor colorWithRed:0.2737 green:0.2737 blue:0.2737 alpha:1.0]];
+        view1.dataArray = @[@"我要报修",@"我要报失",@"我要评价",@"退出"];
+        view1.images = @[@"menu_QR",@"menu_addFri",@"menu_multichat",@"menu_sendFile",@"menu_facetoface",@"menu_payMoney"];
+        view1.fontSize = 13;
+        view1.row_height = 40;
+        view1.delegate = self;
+        [view1 popView];
+}
+
+- (void)selectIndexPathRow:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+        {
+            NSLog(@"我要保修");
         }
+            break;
+        case 1:
+        {
+            NSLog(@"我要报失");
+        }
+            break;
+        case 2:
+        {
+            NSLog(@"我要评价");
+        }
+            break;
+        case 3:
+        {
+            NSLog(@"退出");
+        }
+            break;
+        default:
+            break;
+    }
 }
-            // 弹出框的宽度
-            CGFloat menuViewWidth = 150;
-            // 弹出框的左上角起点坐标
-            CGPoint startPoint = CGPointMake([UIScreen mainScreen].bounds.size.width - menuViewWidth -5, 64 + 12);
-            //取到跳转界面所需的索引值
-            [[XLPopMenuViewSingleton shareManager] creatPopMenuWithFrame:startPoint popMenuWidth:menuViewWidth popMenuItems:_Tarr action:^(NSInteger index) {
-                NSLog(@"index= %ld",(long)index);
-            }];
-}
-
--(NSArray *)titles{
-    return @[@"我要报修",@"我要报失",@"我要评价",@"退出"];
-}
-
-- (NSArray *)images {
-    return @[@"menu_QR",@"menu_addFri",@"menu_multichat",@"menu_sendFile",@"menu_facetoface",@"menu_payMoney"];
-}
-
 
 #pragma mark -----------viewDidLoad------------
 
@@ -98,15 +115,17 @@ NSString * const KReusableFooterView = @"reuseFooter";
     [super viewDidLoad];
     [self addRightBtn];
     self.navigationItem.title = @"大厅";
+    //改变导航条背景颜色
 //    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.1 green:.5 blue:.9 alpha:1.0];
     //设置导航栏
     [self addCollectionView];
     [self imageWithImage];
+    //添加底部Button功能键
+    [self addView];
     self.navigationController.navigationBar.backgroundColor = [UIColor blueColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navi_item_catalogs@2x"] style:UIBarButtonItemStylePlain target:self action:@selector(actionOnLeftBarBtnTaped)];
     UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavVC"];
     [self addChildViewController:nav];
-    
     _list = nav.viewControllers.firstObject;
     _list.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_list.view];
@@ -126,50 +145,18 @@ NSString * const KReusableFooterView = @"reuseFooter";
     UIScreenEdgePanGestureRecognizer *screenPanRight = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgeGestureAction:)];
     screenPanRight.edges = UIRectEdgeRight;
     [_collection addGestureRecognizer:screenPanRight];
-    [self addView];
 }
 
-#pragma  mark -------------- 添加collectionview ----------
-
--(void)addCollectionView{
-    _data = [NSMutableArray array];
-    for (int index = 0; index <12; index ++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"32Y%d.png",index]];
-        [_data addObject:image];
-    }
-    //创建布局
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    //设置collectionview展示方向
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-    self.collection.delegate =self;
-    self.collection.dataSource =self;
-    self.collection.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:self.collection];
-    [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.left.equalTo(@0);
-      make.right.equalTo(@0);
-      make.bottom.equalTo(self.view).with.offset(-160);
-      make.top.equalTo(self.view.mas_top).with.offset(170);
-    }];
-    //注册重复使用的cell
-    [self.collection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:KcollectionViewCellID];
-    //注册重复使用的headerView和footerView
-    [self.collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KReusableHeaderView];
-    [self.collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:KReusableFooterView];
-    //添加长按手势
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    [self.collection addGestureRecognizer:longPress];
-    
-}
 
 #pragma mark -- --------  轮播图片显示 ----------
 
 -(void)imageWithImage{
     NSArray *arr = @[@"http://pic39.nipic.com/20140226/18071023_162553457000_2.jpg",//网络图片
+//        @"http://pic15.nipic.com/20110706/7852592_142026142380_2.jpg",
         [UIImage imageNamed:@"3.jpg"],//本地图片，传image，不能传名称
         //网络gif图片
-        gifImageNamed(@"4")];//本地gif使用gifImageNamed(name)函数创建 @"http://photo.l99.com/source/11/1330351552722_cxn26e.gif",
+        @"http://pic10.nipic.com/20101103/5063545_000227976000_2.jpg",
+        gifImageNamed(@"4")];//本地gif使用gifImageNamed(name)函数创建
   NSArray *describeArray = @[@"博学笃行", @"明德至善", @"自强不息"];
     self.carouselView = [[XRCarouselView alloc] init];
     self.carouselView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -182,11 +169,21 @@ NSString * const KReusableFooterView = @"reuseFooter";
     _carouselView.pagePosition = PositionBottomCenter;
     [self.view addSubview:_carouselView];
     [self.carouselView mas_makeConstraints:^(MASConstraintMaker *make)
+     
+     
+//=================轮播图片约束===================//
     {
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(@0);
-        make.bottom.equalTo(self.view.mas_top).with.offset(170);
+        if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+            make.height.equalTo(@154);
+        }else if (kDevice_Is_iPhone6){
+            make.height.equalTo(@164);
+        }else{
+            make.height.equalTo(@174);
+//        make.bottom.equalTo(self.view.mas_top).with.offset(170);
+        }
     }];
 }
 
@@ -198,7 +195,9 @@ NSString * const KReusableFooterView = @"reuseFooter";
     NSLog(@"%ld",(long)index);
 }
 
+
 #pragma mark    ------------ 抽屉动画 ----------
+
 - (void)backView {
     [UIView animateWithDuration:.5 animations:^{
         _list.view.transform = CGAffineTransformIdentity;
@@ -270,6 +269,56 @@ NSString * const KReusableFooterView = @"reuseFooter";
 }
 
 
+#pragma  mark -------------- 添加collectionview ----------
+
+-(void)addCollectionView{
+    _data = [NSMutableArray array];
+    for (int index = 0; index <12; index ++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"32Y%d.png",index]];
+        [_data addObject:image];
+    }
+    //创建布局
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    //设置collectionview展示方向
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    self.collection.delegate =self;
+    self.collection.dataSource =self;
+    self.collection.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:_collection];
+ 
+    
+ //===================CollectionView约束=================//
+    [self.collection mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
+        if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+            make.bottom.equalTo(self.view).with.offset(-144);
+        }else if (kDevice_Is_iPhone6){
+            make.bottom.equalTo(self.view).with.offset(-145);
+        }else{
+            make.bottom.equalTo(self.view).with.offset(-149);
+        }
+        if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+            make.top.equalTo(self.view.mas_top).with.offset(154);
+        }else if (kDevice_Is_iPhone6){
+            make.top.equalTo(self.view.mas_top).with.offset(164);
+        }else{
+        make.top.equalTo(self.view.mas_top).with.offset(174);
+        }
+    }];
+    
+    //注册重复使用的cell
+    [self.collection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:KcollectionViewCellID];
+    //注册重复使用的headerView和footerView
+    [self.collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KReusableHeaderView];
+    [self.collection registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:KReusableFooterView];
+    //添加长按手势
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [self.collection addGestureRecognizer:longPress];
+    
+}
+
 #pragma mark ---- collection delegate datasource -----
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -305,23 +354,30 @@ NSString * const KReusableFooterView = @"reuseFooter";
         lab.backgroundColor = [UIColor whiteColor];
         [reusableView addSubview:lab];
     lab.translatesAutoresizingMaskIntoConstraints = NO;
-        [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@0);
             make.right.equalTo(@0);
-            make.top.equalTo(reusableView.mas_bottom).with.offset(0);
-            make.bottom.equalTo(reusableView.mas_top).with.offset(20);
+            make.height.equalTo(@20);
+            make.top.equalTo(reusableView.mas_bottom).with.offset(1);
+//            make.bottom.equalTo(reusableView.mas_top).with.offset(20);
             make.centerY.equalTo(reusableView);
-        }];
+    }];
+    
     UIImage *image = [UIImage imageNamed:@"centra.png"];
     _img = [[UIImageView alloc] initWithImage:image];
     [reusableView addSubview:_img];
-    self.img.translatesAutoresizingMaskIntoConstraints = NO;
+    self.img.translatesAutoresizingMaskIntoConstraints = YES;
+
     [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);
         make.right.equalTo(@0);
         make.top.equalTo(lab.mas_bottom);
         make.bottom.equalTo(self.collection.mas_bottom);
     }];
+    
+    
+    
     return reusableView;
 }
 
@@ -414,31 +470,24 @@ NSString * const KReusableFooterView = @"reuseFooter";
     }
 }
 
+#pragma mark -----------添加底部四个功能键
+
+
 -(void)addView{
 
-    UIView *view = [[NSBundle mainBundle]loadNibNamed:@"MainMv" owner:self options:nil].firstObject;
-    view.frame = CGRectMake(0, ScreenH -160, ScreenW, 112);
-    [self.view addSubview:view];
-
-//    switch () {
-//        case 101:
-//            
-//            break;
-//        case 102:
-//            
-//            break;
-//        case 103:
-//            
-//            break;
-//        case 104:
-//            
-//        break;
-//            break;
-//        default:
-//            break;
-//    }
-
+    UIView *Bottomview = [[NSBundle mainBundle]loadNibNamed:@"MainMv" owner:self options:nil].firstObject;
+    if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+        Bottomview.frame = CGRectMake(0, ScreenH - TabbarH - 90, ScreenW, 90);
+    }else if (kDevice_Is_iPhone6){
+        Bottomview.frame = CGRectMake(0, ScreenH - TabbarH - 100, ScreenW, 100);
+    }else{
+        Bottomview.frame = CGRectMake(0, ScreenH -TabbarH - 105, ScreenW, 105);
+    }
+    [self.view addSubview:Bottomview];
+    
 }
+
+
 #pragma mark ----中间图片展示
 
 -(void)addImageWithCentra{

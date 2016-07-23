@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MeCentraModel.h"
+@class MeCentraModel;
 @interface MeCentraview : UICollectionViewCell
 @property (nonatomic,assign)MeCentraModel *model;
 @end

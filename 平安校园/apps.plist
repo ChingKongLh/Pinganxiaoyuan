@@ -38,9 +38,9 @@
 		<key>icon</key>
 		<string>icon_10453026_21134862_1432261689.png</string>
 		<key>title</key>
-		<string>后续主题</string>
+		<string>校报专区</string>
 		<key>detailTitle</key>
-		<string>暂缺</string>
+		<string>业余你的校园生活</string>
 	</dict>
 	<dict>
 		<key>icon</key>
@@ -61,38 +61,6 @@
 	<dict>
 		<key>icon</key>
 		<string>icon_1115588_21117732_1432027017.png</string>
-		<key>title</key>
-		<string>后期主题</string>
-		<key>detailTitle</key>
-		<string>暂缺</string>
-	</dict>
-	<dict>
-		<key>icon</key>
-		<string>icon_10478905_20814899_1427993807.png</string>
-		<key>title</key>
-		<string>后期主题</string>
-		<key>detailTitle</key>
-		<string>暂缺</string>
-	</dict>
-	<dict>
-		<key>icon</key>
-		<string>icon_11285571_21179961_1432896869.png</string>
-		<key>title</key>
-		<string>后期主题</string>
-		<key>detailTitle</key>
-		<string>暂缺</string>
-	</dict>
-	<dict>
-		<key>icon</key>
-		<string>icon_10197302_21168699_1432783122.png</string>
-		<key>title</key>
-		<string>后期主题</string>
-		<key>detailTitle</key>
-		<string>暂缺</string>
-	</dict>
-	<dict>
-		<key>icon</key>
-		<string>icon_10474521_21023282_1430733306.png</string>
 		<key>title</key>
 		<string>后期主题</string>
 		<key>detailTitle</key>

@@ -11,7 +11,7 @@
 #define DEFAULTTIME 5
 #define HORMARGIN 10
 #define VERMARGIN 5
-#define DES_LABEL_H 20
+#define DES_LABEL_H 10
 @interface XRCarouselView()<UIScrollViewDelegate>
 //轮播的图片数组
 @property (nonatomic, strong) NSMutableArray *images;
@@ -244,11 +244,13 @@ static NSString *cache;
     CGSize size;
     if (!_pageImageSize.width) {//没有设置图片，系统原有样式
         size = [_pageControl sizeForNumberOfPages:_pageControl.numberOfPages];
-        size.height = 8;
+        size.height = 2;
     } else {//设置图片了
-        size = CGSizeMake(_pageImageSize.width * (_pageControl.numberOfPages * 2 - 1), _pageImageSize.height);
+//        size = CGSizeMake(_pageImageSize.width * (_pageControl.numberOfPages * 2 - 1), _pageImageSize.height);
+        size = [_pageControl sizeForNumberOfPages:_pageControl.numberOfPages];
+        size.height = 2;
     }
-    _pageControl.frame = CGRectMake(0, 0, size.width, size.height);
+    _pageControl.frame = CGRectMake(0, 0, size.width/2, size.height/2);
     
     CGFloat centerY = self.height - size.height * 0.5 - VERMARGIN - (_describeLabel.hidden?0: DES_LABEL_H);
     CGFloat pointY = self.height - size.height - VERMARGIN - (_describeLabel.hidden?0: DES_LABEL_H);

@@ -9,18 +9,23 @@
 #import "MeCenterVC.h"
 #import "MeCentraModel.h"
 #import "MeCentraview.h"
+
+#import "MeCentraModelS.h"
+#import "MeCentraViewS.h"
 #import "Common.h"
+#import "Masonry.h"
 @interface MeCenterVC ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic)NSInteger tag;
 @property (nonatomic,strong) NSMutableArray *MeCentraArrays;
-//@property (nonatomic,strong)UICollectionView *collectioview;
+@property (nonatomic,strong) NSMutableArray *MeCentraArray;
+@property (nonatomic,strong)UICollectionView *collectioview;
 @end
 static NSString *itemidentify = @"itemclass";
 static NSString *footeridentify = @"footer";
 @implementation MeCenterVC
 
 //懒加载plist文件
--(NSArray *)MeCentraArrays{
+-(NSMutableArray *)MeCentraArrays{
     if (_MeCentraArrays == nil) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"apps" ofType:@"plist"];
         NSArray *filpath = [NSArray arrayWithContentsOfFile:path];
@@ -34,125 +39,174 @@ static NSString *footeridentify = @"footer";
     return _MeCentraArrays;
 }
 
+-(NSMutableArray *)MeCentraArray{
+    if (_MeCentraArray == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"App" ofType:@"plist"];
+        NSArray *array = [NSArray arrayWithContentsOfFile:path];
+        NSMutableArray *model = [NSMutableArray array];
+        for (NSDictionary *dict in array) {
+            MeCentraModelS *appmodel = [MeCentraModelS appModelWithDictionary:dict];
+            [model addObject:appmodel];
+        }
+        _MeCentraArray = model;
+    }
+    return _MeCentraArray;
+}
+
 -(void)viewDidLoad {
    [super viewDidLoad];
     [self addScrollViewWithTable];
-    
-    _MeCentraArrays = [NSMutableArray array];
-    for (int index = 0; index <12; index ++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"32Y%d.png",index]];
-        [_MeCentraArrays addObject:image];
-    }
-
     self.navigationController.navigationBar.barTintColor = [UIColor darkGrayColor];
-    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 
 -(void)addScrollViewWithTable{
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(ScreenW/2-.5, 50);
-    flowLayout.minimumInteritemSpacing = 2;
-    flowLayout.headerReferenceSize = CGSizeMake(ScreenW, 44);
-    
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 8, 8, 20);
-    flowLayout.sectionHeadersPinToVisibleBounds = YES;
+//    flowLayout.itemSize = CGSizeMake(ScreenW/2-.5, 0);
+//    flowLayout.minimumInteritemSpacing = 2;
+//    flowLayout.headerReferenceSize = CGSizeMake(ScreenW, 10);
+//    flowLayout.sectionInset = UIEdgeInsetsMake(10, 8, 8, 10);
+//    flowLayout.sectionHeadersPinToVisibleBounds = YES;
+    //设置collectionview展示方向
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     //创建并添加colllectionview;
-    UICollectionView *collectioview = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 114, ScreenW, ScreenH - 114) collectionViewLayout:flowLayout];
-    collectioview.delegate = self;
-    collectioview.dataSource = self;
-    collectioview.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:collectioview];
+    _collectioview = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 164, ScreenW, ScreenH - 112) collectionViewLayout:flowLayout];
+    self.collectioview.delegate = self;
+    self.collectioview.dataSource = self;
+    self.collectioview.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_collectioview];
     
     //注册item
-//    [collectioview registerNib:[UINib nibWithNibName:NSStringFromClass([MeCentraview class]) bundle:nil] forCellWithReuseIdentifier:itemidentify];
-    [collectioview registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:itemidentify];
-    
+    [_collectioview registerNib:[UINib nibWithNibName:NSStringFromClass([MeCentraview class]) bundle:nil] forCellWithReuseIdentifier:itemidentify];
     //注册section Footer
-    [collectioview registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify];
+    [_collectioview registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify];
 }
 
 #pragma mark ---------CollectionView Datasource
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    return 2;
 }
 
 //item数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (section == 0) {
+        return self.MeCentraArrays.count;
+    }else if (section == 1){
+        return self.MeCentraArray.count;
+    }else{
     
-    return  self.MeCentraArrays.count;
+    }
+    return 0;
 }
+
 
 //item内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    MeCentraview *cell =[collectionView dequeueReusableCellWithReuseIdentifier:itemidentify forIndexPath:indexPath];
-    MeCentraModel *model = self.MeCentraArrays[indexPath.item];
-    cell.model = model;
-    return cell;
-}
-
-//CollectionView HeaderView
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    UICollectionReusableView *reusableview =nil;
-    if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-        reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify forIndexPath:indexPath];
-        reusableview.backgroundColor = [UIColor whiteColor];
+    if (indexPath.section == 0) {
+        MeCentraview *cell =[collectionView dequeueReusableCellWithReuseIdentifier:itemidentify forIndexPath:indexPath];
+        MeCentraModel *Memodel = self.MeCentraArrays[indexPath.item];
+        cell.model = Memodel;
+        return cell;
+    }else if (indexPath.section == 1){
+//        MeCentraview *cell = [collectionView dequeueReusableCellWithReuseIdentifier:itemidentify forIndexPath:indexPath];
+//        MeCentraModel *model = self.MeCentraArrays[indexPath.item];
+//        cell.model = model;
+//        return cell;
+        MeCentraViewS *MecellS = [collectionView dequeueReusableCellWithReuseIdentifier:itemidentify forIndexPath:indexPath];
+        MeCentraModelS *MemodelS = self.MeCentraArray[indexPath.item];
+        MecellS.models = MemodelS;
+        return MecellS;
     }
-    return reusableview;
+    return 0;
 }
+//CollectionView HeaderView
+//-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//    UICollectionReusableView *reusableview;
+//    if (indexPath.section == 0) {
+//          reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify forIndexPath:indexPath];
+//            reusableview.backgroundColor = [UIColor whiteColor];
+//    }
+//
+//    UILabel *lab = [[UILabel alloc] init];
+//    lab.backgroundColor = [UIColor blueColor];
+//    [reusableview addSubview:lab];
+//    lab.translatesAutoresizingMaskIntoConstraints = NO;
+    
+//    if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+//        reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify forIndexPath:indexPath];
+//        reusableview.backgroundColor = [UIColor whiteColor];
+//    }
+//    return reusableview;
+//}
 
-#pragma mark ---------- CollectionVie Delegate
+#pragma mark ---------- CollectionView Delegate
 
 //设置单个item大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize size;
     if (indexPath.section ==0) {
         if (KDevice_Is_Retina || kDevice_Is_iPhone5) {
-            CGSize size = CGSizeMake(ScreenW/2-.5, 50);
+            CGSize size = CGSizeMake(ScreenW/2-2.3, 60);
             return size;
         }else if(kDevice_Is_iPhone6) {
-            CGSize size = CGSizeMake(ScreenW/2-.5, 55);
+            CGSize size = CGSizeMake(ScreenW/2-2.5, 70);
             return size;
         }else{
-            CGSize size = CGSizeMake(ScreenW/2-.5, 60);
+            CGSize size = CGSizeMake(ScreenW/2-2.6, 80);
             return size;
         }
     }else {
-        CGSize size = CGSizeMake(ScreenW/4-.5, 50);
-        return size;
+        if (KDevice_Is_Retina || kDevice_Is_iPhone5) {
+            CGSize size = CGSizeMake(ScreenW/2-2.3, 60);
+            return size;
+        }else if(kDevice_Is_iPhone6) {
+            CGSize size = CGSizeMake(ScreenW/2-2.5, 70);
+            return size;
+        }else{
+            CGSize size = CGSizeMake(ScreenW/2-2.6, 80);
+            return size;
+        }
     }
     return size;
-
 }
 
 //section缩进
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (section == 0) {
-        return UIEdgeInsetsMake(10, 10, 10, 10);
+        return UIEdgeInsetsMake(0, 5, 0, 0);
     }
-    return UIEdgeInsetsMake(10, 10, 10, 10);
+    return UIEdgeInsetsMake(0, 5, 0, 0);
 }
 
 //行间距
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     if (section == 0) {
-        return 10;
+        return 0;
     }
     return 5;
 }
 
 //两个相邻的item间距
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 10;
+    if (section == 0) {
+        return 0;
+    }else{
+    return 0;
+    }
 }
-
 //sectionheaderView的size(当collectionView垂直滚动的时候size的height起作用,水平滚动,反之)
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    if (section == 2) {
+    if (section == 0) {
+        if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+            return CGSizeMake(90, 50);
+        }else if (kDevice_Is_iPhone6){
+            return CGSizeMake(100, 50);
+        }else{
         return CGSizeMake(100 , 50);
+        }
     }
-    return CGSizeMake(90, 50);
+    return CGSizeMake(110, 50);
 }
 
 //响应action
@@ -162,9 +216,14 @@ static NSString *footeridentify = @"footer";
     }else if (action == @selector(paste:)){
         NSLog(@"paste");
     }
-    
 }
 
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    NSLog(@"%@",indexPath);
+    
+}
 
 
 
@@ -190,6 +249,8 @@ static NSString *footeridentify = @"footer";
             break;
         default:
             break;
+            
+            
     }
 }
 

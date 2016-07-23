@@ -147,8 +147,9 @@
                                     <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQU-7Q-ZzO">
                                         <rect key="frame" x="15" y="-30" width="66" height="159"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <inset key="contentEdgeInsets" minX="13" minY="51" maxX="-41" maxY="68"/>
-                                        <inset key="titleEdgeInsets" minX="-92" minY="69" maxX="0.0" maxY="0.0"/>
+                                        <inset key="contentEdgeInsets" minX="13" minY="56" maxX="-41" maxY="68"/>
+                                        <inset key="titleEdgeInsets" minX="-85" minY="69" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-6"/>
                                         <state key="normal" title="扫一扫" image="sao.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -161,7 +162,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="12" minY="-15" maxX="-16" maxY="1"/>
                                         <inset key="titleEdgeInsets" minX="-44" minY="65" maxX="22" maxY="-7"/>
-                                        <state key="normal" title="足迹" image="sao.png">
+                                        <state key="normal" title="足迹" image="IC.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -173,7 +174,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="12" minY="-15" maxX="0.0" maxY="0.0"/>
                                         <inset key="titleEdgeInsets" minX="-44" minY="-20" maxX="9" maxY="-91"/>
-                                        <state key="normal" title="发现" image="sao.png">
+                                        <state key="normal" title="发现" image="Hp .png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -183,9 +184,9 @@
                                     <button opaque="NO" tag="104" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kN-oA-g7b">
                                         <rect key="frame" x="296.5" y="7" width="64" height="85"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <inset key="contentEdgeInsets" minX="6" minY="-15" maxX="0.0" maxY="0.0"/>
-                                        <inset key="titleEdgeInsets" minX="-44" minY="65" maxX="7" maxY="-6"/>
-                                        <state key="normal" title="开锁" image="sao.png">
+                                        <inset key="contentEdgeInsets" minX="4" minY="-8" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="-41" minY="57" maxX="10" maxY="-4"/>
+                                        <state key="normal" title="开锁" image="fff.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -193,7 +194,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Ard-8t-eIK" firstAttribute="top" secondItem="M5Y-Lr-Xtn" secondAttribute="top" constant="18" id="3Wf-1X-mWS"/>
                                     <constraint firstAttribute="bottom" secondItem="i45-f5-NpE" secondAttribute="bottom" constant="18" id="Bww-7H-V6N"/>
@@ -393,7 +394,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="K31-ff-Xpe">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="account" textLabel="fEe-aU-SoA" style="IBUITableViewCellStyleDefault" id="gKP-TU-s85">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
@@ -406,7 +407,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -423,7 +424,7 @@
                                                     <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XYr-gS-R4q">
@@ -952,6 +953,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Hp .png" width="40" height="40"/>
+        <image name="IC.png" width="40" height="40"/>
+        <image name="fff.png" width="40" height="40"/>
         <image name="guide1.png" width="300" height="533"/>
         <image name="guide2.png" width="1080" height="1920"/>
         <image name="guide3.png" width="640" height="1136"/>
