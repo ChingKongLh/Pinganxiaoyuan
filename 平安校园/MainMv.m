@@ -19,9 +19,10 @@
 - (IBAction)TuiSu:(UIButton *)sender {
     switch (sender.tag) {
         case 101:
+          [self addTiaoSuVC];
             break;
             case 102:
-//            TiaoSuVC *vc = []
+
             break;
             case 103:
             
@@ -33,6 +34,13 @@
             break;
     }
 }
+
+-(void)addTiaoSuVC{
+
+    
+}
+
+
 - (void)awakeFromNib {
     
 }

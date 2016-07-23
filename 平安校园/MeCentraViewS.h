@@ -10,5 +10,5 @@
 @class MeCentraModelS;
 @interface MeCentraViewS : UICollectionViewCell
 
-@property (nonatomic,strong)MeCentraModelS *models;
+@property (nonatomic,strong)MeCentraModelS *model;
 @end

@@ -360,7 +360,6 @@ NSString * const KReusableFooterView = @"reuseFooter";
             make.right.equalTo(@0);
             make.height.equalTo(@20);
             make.top.equalTo(reusableView.mas_bottom).with.offset(1);
-//            make.bottom.equalTo(reusableView.mas_top).with.offset(20);
             make.centerY.equalTo(reusableView);
     }];
     

@@ -54,6 +54,16 @@
 		A26700CC1D3499B3000C7C9D /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A26700BF1D3499B3000C7C9D /* NSArray+MASAdditions.m */; };
 		A26700CD1D3499B3000C7C9D /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A26700C21D3499B3000C7C9D /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		A26700CE1D3499B3000C7C9D /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A26700C41D3499B3000C7C9D /* View+MASAdditions.m */; };
+		A26FF96A1D42FB9B009DFCB5 /* MangerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FF9691D42FB9B009DFCB5 /* MangerModel.m */; };
+		A26FF9701D42FBD9009DFCB5 /* MangerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FF96F1D42FBD9009DFCB5 /* MangerVC.m */; };
+		A26FF9741D42FCCB009DFCB5 /* MangerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FF9721D42FCCB009DFCB5 /* MangerCell.m */; };
+		A26FF9751D42FCCB009DFCB5 /* MangerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FF9731D42FCCB009DFCB5 /* MangerCell.xib */; };
+		A26FF97A1D430068009DFCB5 /* qrcode_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FF9771D430068009DFCB5 /* qrcode_border@2x.png */; };
+		A26FF97B1D430068009DFCB5 /* qrcode_scanline_qrcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FF9781D430068009DFCB5 /* qrcode_scanline_qrcode@2x.png */; };
+		A26FF97C1D430068009DFCB5 /* qrcode_scanline_qrcode@3x 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FF9791D430068009DFCB5 /* qrcode_scanline_qrcode@3x 2.png */; };
+		A26FF97E1D4301A9009DFCB5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A26FF97D1D4301A9009DFCB5 /* AVFoundation.framework */; };
+		A26FF9811D430344009DFCB5 /* ImageScanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FF9801D430344009DFCB5 /* ImageScanVC.m */; };
+		A26FF98A1D4379F5009DFCB5 /* NavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FF9891D4379F5009DFCB5 /* NavigationVC.m */; };
 		A270A91A1D4052770065E856 /* MeCentraModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A270A9191D4052770065E856 /* MeCentraModel.m */; };
 		A270A91C1D4058D30065E856 /* apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = A270A91B1D4058D30065E856 /* apps.plist */; };
 		A270A9201D4066000065E856 /* MeCentraview.m in Sources */ = {isa = PBXBuildFile; fileRef = A270A91E1D4066000065E856 /* MeCentraview.m */; };
@@ -299,6 +309,21 @@
 		A26700C31D3499B3000C7C9D /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
 		A26700C41D3499B3000C7C9D /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
 		A26700C51D3499B3000C7C9D /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		A26FF9681D42FB9B009DFCB5 /* MangerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MangerModel.h; sourceTree = "<group>"; };
+		A26FF9691D42FB9B009DFCB5 /* MangerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MangerModel.m; sourceTree = "<group>"; };
+		A26FF96E1D42FBD9009DFCB5 /* MangerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MangerVC.h; sourceTree = "<group>"; };
+		A26FF96F1D42FBD9009DFCB5 /* MangerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MangerVC.m; sourceTree = "<group>"; };
+		A26FF9711D42FCCB009DFCB5 /* MangerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MangerCell.h; sourceTree = "<group>"; };
+		A26FF9721D42FCCB009DFCB5 /* MangerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MangerCell.m; sourceTree = "<group>"; };
+		A26FF9731D42FCCB009DFCB5 /* MangerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MangerCell.xib; sourceTree = "<group>"; };
+		A26FF9771D430068009DFCB5 /* qrcode_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_border@2x.png"; sourceTree = "<group>"; };
+		A26FF9781D430068009DFCB5 /* qrcode_scanline_qrcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_scanline_qrcode@2x.png"; sourceTree = "<group>"; };
+		A26FF9791D430068009DFCB5 /* qrcode_scanline_qrcode@3x 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_scanline_qrcode@3x 2.png"; sourceTree = "<group>"; };
+		A26FF97D1D4301A9009DFCB5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A26FF97F1D430344009DFCB5 /* ImageScanVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanVC.h; sourceTree = "<group>"; };
+		A26FF9801D430344009DFCB5 /* ImageScanVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScanVC.m; sourceTree = "<group>"; };
+		A26FF9881D4379F5009DFCB5 /* NavigationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationVC.h; sourceTree = "<group>"; };
+		A26FF9891D4379F5009DFCB5 /* NavigationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationVC.m; sourceTree = "<group>"; };
 		A270A9181D4052770065E856 /* MeCentraModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCentraModel.h; sourceTree = "<group>"; };
 		A270A9191D4052770065E856 /* MeCentraModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCentraModel.m; sourceTree = "<group>"; };
 		A270A91B1D4058D30065E856 /* apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = apps.plist; sourceTree = "<group>"; };
@@ -566,6 +591,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A26FF97E1D4301A9009DFCB5 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,6 +711,102 @@
 			path = Masonry;
 			sourceTree = "<group>";
 		};
+		A26FF9641D42FB3F009DFCB5 /* DepartmentManger */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9671D42FB75009DFCB5 /* MangerModel */,
+				A26FF9661D42FB68009DFCB5 /* MangerView */,
+				A26FF9651D42FB5B009DFCB5 /* MangerVC */,
+			);
+			name = DepartmentManger;
+			sourceTree = "<group>";
+		};
+		A26FF9651D42FB5B009DFCB5 /* MangerVC */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF96E1D42FBD9009DFCB5 /* MangerVC.h */,
+				A26FF96F1D42FBD9009DFCB5 /* MangerVC.m */,
+			);
+			name = MangerVC;
+			sourceTree = "<group>";
+		};
+		A26FF9661D42FB68009DFCB5 /* MangerView */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9711D42FCCB009DFCB5 /* MangerCell.h */,
+				A26FF9721D42FCCB009DFCB5 /* MangerCell.m */,
+				A26FF9731D42FCCB009DFCB5 /* MangerCell.xib */,
+			);
+			name = MangerView;
+			sourceTree = "<group>";
+		};
+		A26FF9671D42FB75009DFCB5 /* MangerModel */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9681D42FB9B009DFCB5 /* MangerModel.h */,
+				A26FF9691D42FB9B009DFCB5 /* MangerModel.m */,
+			);
+			name = MangerModel;
+			sourceTree = "<group>";
+		};
+		A26FF9761D430068009DFCB5 /* 二维码Image */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9771D430068009DFCB5 /* qrcode_border@2x.png */,
+				A26FF9781D430068009DFCB5 /* qrcode_scanline_qrcode@2x.png */,
+				A26FF9791D430068009DFCB5 /* qrcode_scanline_qrcode@3x 2.png */,
+			);
+			path = "二维码Image";
+			sourceTree = "<group>";
+		};
+		A26FF9821D43406C009DFCB5 /* ErShouMarket */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9851D4340BB009DFCB5 /* ErShouModel */,
+				A26FF9841D4340AE009DFCB5 /* ErShouView */,
+				A26FF9831D434096009DFCB5 /* ErShouControlVC */,
+			);
+			name = ErShouMarket;
+			sourceTree = "<group>";
+		};
+		A26FF9831D434096009DFCB5 /* ErShouControlVC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ErShouControlVC;
+			sourceTree = "<group>";
+		};
+		A26FF9841D4340AE009DFCB5 /* ErShouView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ErShouView;
+			sourceTree = "<group>";
+		};
+		A26FF9851D4340BB009DFCB5 /* ErShouModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ErShouModel;
+			sourceTree = "<group>";
+		};
+		A26FF9861D4379AF009DFCB5 /* SessionVC */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9871D4379D1009DFCB5 /* NavigationVC */,
+			);
+			name = SessionVC;
+			sourceTree = "<group>";
+		};
+		A26FF9871D4379D1009DFCB5 /* NavigationVC */ = {
+			isa = PBXGroup;
+			children = (
+				A26FF9881D4379F5009DFCB5 /* NavigationVC.h */,
+				A26FF9891D4379F5009DFCB5 /* NavigationVC.m */,
+			);
+			name = NavigationVC;
+			sourceTree = "<group>";
+		};
 		A270A9241D407E6A0065E856 /* icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +842,8 @@
 				A29917D61D39E5B40048ECC6 /* NotiFication */,
 				A2CD6A011D388D3500D05828 /* BaoXiuContro */,
 				A2CEBA341D3DB04900433BEB /* shiwuzhaoling */,
+				A26FF9641D42FB3F009DFCB5 /* DepartmentManger */,
+				A26FF9821D43406C009DFCB5 /* ErShouMarket */,
 				A29917D71D39E73C0048ECC6 /* JIaoche */,
 				A29918031D3A19570048ECC6 /* FuWuJianDu */,
 				A24033361D38728500C18694 /* BottomDeTail */,
@@ -738,6 +862,7 @@
 		A28AF82A1D3345BA0016E3C6 = {
 			isa = PBXGroup;
 			children = (
+				A26FF97D1D4301A9009DFCB5 /* AVFoundation.framework */,
 				A28AF8351D3345BA0016E3C6 /* 平安校园 */,
 				A28AF8521D3345BB0016E3C6 /* 平安校园Tests */,
 				A28AF85D1D3345BB0016E3C6 /* 平安校园UITests */,
@@ -767,6 +892,7 @@
 				A28AF86C1D3345C50016E3C6 /* Controller */,
 				A2899E5D1D3783D3004361CA /* DetailControlManger */,
 				A2A5865F1D3F652B00DD7CA4 /* MeCenter */,
+				A26FF9861D4379AF009DFCB5 /* SessionVC */,
 				A2A586641D3F65DD00DD7CA4 /* AboutUs */,
 				A28AF86D1D335C660016E3C6 /* Storyboard */,
 				A28AF86E1D335C8E0016E3C6 /* Others */,
@@ -778,6 +904,7 @@
 		A28AF8361D3345BA0016E3C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A26FF9761D430068009DFCB5 /* 二维码Image */,
 				A29917DB1D39F90B0048ECC6 /* NavBtn.h */,
 				A29917DC1D39F90B0048ECC6 /* NavBtn.m */,
 				A29917DD1D39F90B0048ECC6 /* PrefixHeader.pch */,
@@ -1305,6 +1432,8 @@
 			children = (
 				A2A586611D3F658C00DD7CA4 /* MeCenterVC.h */,
 				A2A586621D3F658C00DD7CA4 /* MeCenterVC.m */,
+				A26FF97F1D430344009DFCB5 /* ImageScanVC.h */,
+				A26FF9801D430344009DFCB5 /* ImageScanVC.m */,
 			);
 			name = mainVC;
 			sourceTree = "<group>";
@@ -1468,6 +1597,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A29917D41D39C2BE0048ECC6 /* arrow_right@2x.png in Resources */,
+				A26FF97B1D430068009DFCB5 /* qrcode_scanline_qrcode@2x.png in Resources */,
 				A24282B61D35D3B800FE472A /* 32Y1.png in Resources */,
 				A24282A11D35CB4A00FE472A /* Y8.png in Resources */,
 				A270A9401D407E6A0065E856 /* icon_10307710_21127749_1432173605.png in Resources */,
@@ -1546,10 +1676,12 @@
 				A24282B91D35D3B800FE472A /* 32Y2.png in Resources */,
 				A2A586571D3F5CCC00DD7CA4 /* login_btn_blue_nor@2x.png in Resources */,
 				A270A9441D407E6A0065E856 /* icon_10474521_21023282_1430733306.png in Resources */,
+				A26FF9751D42FCCB009DFCB5 /* MangerCell.xib in Resources */,
 				A270A9491D407E6A0065E856 /* icon_1115588_21117732_1432027017.png in Resources */,
 				A270A93D1D407E6A0065E856 /* icon_10170898_20814808_1427993440.png in Resources */,
 				A24282BB1D35D3B800FE472A /* 32Y4.png in Resources */,
 				A28AFAF71D3383A50016E3C6 /* navi_item_catalogs@2x.png in Resources */,
+				A26FF97C1D430068009DFCB5 /* qrcode_scanline_qrcode@3x 2.png in Resources */,
 				A24282A01D35CB4A00FE472A /* Y7.png in Resources */,
 				A2A586521D3F5CCC00DD7CA4 /* Failed.png in Resources */,
 				A28AFAF11D337E750016E3C6 /* MJRefresh.bundle in Resources */,
@@ -1562,6 +1694,7 @@
 				A2A586741D3F958C00DD7CA4 /* sao.png in Resources */,
 				A28AFB051D338ED80016E3C6 /* MainMv.xib in Resources */,
 				A24282BF1D35D3B800FE472A /* 32Y8.png in Resources */,
+				A26FF97A1D430068009DFCB5 /* qrcode_border@2x.png in Resources */,
 				A29917FA1D39F97E0048ECC6 /* NoteViewController.xib in Resources */,
 				A270A9451D407E6A0065E856 /* icon_10478905_20814899_1427993807.png in Resources */,
 				A2E646F61D42213F001A5E00 /* App.plist in Resources */,
@@ -1606,6 +1739,7 @@
 				A28AFAE51D337E750016E3C6 /* MJRefreshComponent.m in Sources */,
 				A2CEBA371D3DB07B00433BEB /* shiwuVC.m in Sources */,
 				A24033391D3872AA00C18694 /* TiaoSuVC.m in Sources */,
+				A26FF9701D42FBD9009DFCB5 /* MangerVC.m in Sources */,
 				A29917F91D39F97E0048ECC6 /* NoteViewController.m in Sources */,
 				A26700CD1D3499B3000C7C9D /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				A26700CB1D3499B3000C7C9D /* MASViewConstraint.m in Sources */,
@@ -1645,6 +1779,7 @@
 				A2A586671D3F661F00DD7CA4 /* AboutUS.m in Sources */,
 				A26700C91D3499B3000C7C9D /* MASLayoutConstraint.m in Sources */,
 				A28AFB471D33A1330016E3C6 /* SVProgressAnimatedView.m in Sources */,
+				A26FF98A1D4379F5009DFCB5 /* NavigationVC.m in Sources */,
 				A28AF8A61D337B610016E3C6 /* ListVC.m in Sources */,
 				A28AFAE41D337E750016E3C6 /* MJRefreshBackFooter.m in Sources */,
 				A28AFB511D33BCF30016E3C6 /* XRCarouselView.m in Sources */,
@@ -1666,6 +1801,7 @@
 				A28AF83B1D3345BA0016E3C6 /* AppDelegate.m in Sources */,
 				A28AFB2A1D33935F0016E3C6 /* SDImageCache.m in Sources */,
 				A29035F91D3CCC3C0004750D /* NoteMode.m in Sources */,
+				A26FF9811D430344009DFCB5 /* ImageScanVC.m in Sources */,
 				A28AF8A71D337B610016E3C6 /* MoreInfoVC.m in Sources */,
 				A28AFAFB1D338C910016E3C6 /* MainM.m in Sources */,
 				A2A586431D3F4DBF00DD7CA4 /* LogIn.m in Sources */,
@@ -1690,9 +1826,11 @@
 				A28AF8711D335CBF0016E3C6 /* LeftVC.m in Sources */,
 				A28AFAEC1D337E750016E3C6 /* MJRefreshBackNormalFooter.m in Sources */,
 				A29917FD1D39F97E0048ECC6 /* SubmitViewController.m in Sources */,
+				A26FF9741D42FCCB009DFCB5 /* MangerCell.m in Sources */,
 				A28AFB371D33935F0016E3C6 /* UIView+WebCacheOperation.m in Sources */,
 				A26700C61D3499B3000C7C9D /* MASCompositeConstraint.m in Sources */,
 				A28AFB281D33935F0016E3C6 /* MKAnnotationView+WebCache.m in Sources */,
+				A26FF96A1D42FB9B009DFCB5 /* MangerModel.m in Sources */,
 				A2A586341D3F11D000DD7CA4 /* GuideVC.m in Sources */,
 				A28AFAB21D337E580016E3C6 /* AFSecurityPolicy.m in Sources */,
 				A28B81BE1D421BDE0015A21F /* MeCentraModelS.m in Sources */,

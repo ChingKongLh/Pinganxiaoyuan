@@ -6,9 +6,9 @@
 		<key>icon</key>
 		<string>icon_10099632_20861761_1428654371.png</string>
 		<key>title</key>
-		<string>个人中心</string>
+		<string>新生导航</string>
 		<key>detailTitle</key>
-		<string>http://www.baidu.com</string>
+		<string>快速定位于搜扫</string>
 	</dict>
 	<dict>
 		<key>icon</key>
@@ -22,9 +22,9 @@
 		<key>icon</key>
 		<string>icon_10170898_20814808_1427993440.png</string>
 		<key>title</key>
-		<string>个人报修</string>
+		<string>行为专区</string>
 		<key>detailTitle</key>
-		<string>我的报修记录</string>
+		<string>历史档案专区</string>
 	</dict>
 	<dict>
 		<key>icon</key>
@@ -32,7 +32,7 @@
 		<key>title</key>
 		<string>足迹</string>
 		<key>detailTitle</key>
-		<string>寻找梦走过的地方</string>
+		<string>开拓你的校园生活</string>
 	</dict>
 	<dict>
 		<key>icon</key>
@@ -46,7 +46,7 @@
 		<key>icon</key>
 		<string>icon_10451659_21094805_1431656995.png</string>
 		<key>title</key>
-		<string>后期主题</string>
+		<string>未开放区</string>
 		<key>detailTitle</key>
 		<string>暂缺</string>
 	</dict>
@@ -54,7 +54,7 @@
 		<key>icon</key>
 		<string>icon_3260_21178168_1432887385.png</string>
 		<key>title</key>
-		<string>后期主题</string>
+		<string>未开放区</string>
 		<key>detailTitle</key>
 		<string>暂缺</string>
 	</dict>
@@ -62,7 +62,7 @@
 		<key>icon</key>
 		<string>icon_1115588_21117732_1432027017.png</string>
 		<key>title</key>
-		<string>后期主题</string>
+		<string>未开放区</string>
 		<key>detailTitle</key>
 		<string>暂缺</string>
 	</dict>

@@ -17,7 +17,7 @@
 @implementation MeCentraViewS
 
 -(void)setModels:(MeCentraModelS *)models{
-    _models = models;
+    _model = models;
     _title.text= models.title;
     _detailTitle.text = models.title;
     _icon.image = [UIImage imageNamed:models.icon];
