@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>icon</key>
-		<string>icon_10099632_20861761_1428654371.png</string>
+		<string>icon-72.png</string>
 		<key>title</key>
 		<string>新生导航</string>
 		<key>detailTitle</key>
@@ -15,8 +15,6 @@
 		<string>icon_3439_21074976_1431416056.png</string>
 		<key>title</key>
 		<string>个人成长</string>
-		<key>detailTitle</key>
-		<string>我的成人专题</string>
 	</dict>
 	<dict>
 		<key>icon</key>

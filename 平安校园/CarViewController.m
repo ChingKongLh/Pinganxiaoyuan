@@ -74,8 +74,8 @@
 //--------------------------返回方式需要调整
 
 -(void)back{
-    MainVC *back = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
-    [self presentViewController:back animated:YES completion:nil];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 

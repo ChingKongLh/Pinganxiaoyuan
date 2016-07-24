@@ -15,12 +15,17 @@
 #import "Common.h"
 #import "Masonry.h"
 #import "ImageScanVC.h"
-@interface MeCenterVC ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate>
+
+#import "XRCarouselView.h"
+
+#import "NavigationVC.h"
+@interface MeCenterVC ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate,XRCarouselViewDelegate>
 @property (nonatomic)NSInteger tag;
 @property (nonatomic,strong) NSMutableArray *MeCentraArrays;
 @property (nonatomic,strong) NSMutableArray *MeCentraArray;
 @property (nonatomic,strong)UICollectionView *collectioview;
 
+@property (nonatomic,strong)XRCarouselView *CarouseView;
 @end
 static NSString *itemidentify = @"itemclass";
 static NSString *footeridentify = @"footer";
@@ -90,6 +95,29 @@ static NSString *headeridentify = @"header";
     [_collectioview registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:footeridentify];
 }
 
+#pragma mark --------CollectionFooter 轮播图片展示
+
+-(void)addImageWithCollectionFooter{
+    NSArray *arr = @[@"http://pic39.nipic.com/20140226/18071023_162553457000_2.jpg",//网络图片
+                     [UIImage imageNamed:@"3.jpg"],//本地图片，传image，不能传名称
+                     //网络gif图片
+                     gifImageNamed(@"4")];//本地gif使用gifImageNamed(name)函数创建
+    NSArray *describeArray = @[@"",@"",@""];
+    self.CarouseView = [[XRCarouselView alloc] init];
+    self.CarouseView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.CarouseView.imageArray = arr;
+    self.CarouseView.describeArray = describeArray;
+    self.CarouseView.delegate = self;
+    _CarouseView.time = 2;
+    [_CarouseView setPageImage:[UIImage imageNamed:@"other"] andCurrentPageImage:[UIImage imageNamed:@"current"]];
+    _CarouseView.pagePosition = PositionBottomCenter;
+    [self.view addSubview:_CarouseView];
+
+
+    
+}
+
+
 #pragma mark ---------CollectionView Datasource
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -130,10 +158,26 @@ static NSString *headeridentify = @"header";
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenH -335, ScreenW,60)];
             view.backgroundColor = [UIColor blueColor];
             [header addSubview:view];
+            UIImageView *img = [[UIImageView alloc] initWithFrame:self.view.frame];
+            [img setImage:[UIImage imageNamed:@""]];
+            [view addSubview:img];
         }else if (kDevice_Is_iPhone6){
-         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenH -355, ScreenW,65)];
-            view.backgroundColor = [UIColor blueColor];
-            [header addSubview:view];
+            NSArray *arr = @[@"1.jpg",//网络图片
+                                     @"http://pic24.nipic.com/20121022/10003357_163524027396_2.jpg",
+                             @"http://pic59.nipic.com/file/20150123/10310831_101213911000_2.jpg",
+//                             [UIImage imageNamed:@"3.jpg"],//本地图片，传image，不能传名称
+                             //网络gif图片
+//                             @"",
+                             gifImageNamed(@"4")];
+            NSArray *describeArray = @[@"",@"",@""];
+            self.CarouseView = [[XRCarouselView alloc] initWithFrame:CGRectMake(0, ScreenH -368, ScreenW,65)];
+            self.CarouseView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.CarouseView.imageArray = arr;
+            self.CarouseView.describeArray = describeArray;
+            self.CarouseView.delegate = self;
+            _CarouseView.time = 2;
+            _CarouseView.pagePosition = PositionBottomCenter;
+            [header addSubview:_CarouseView];
         }else{
          UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenH -380, ScreenW,70)];
             view.backgroundColor = [UIColor blueColor];
@@ -257,11 +301,25 @@ static NSString *headeridentify = @"header";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
      NSLog(@"点击section%ld的第%ld个cell",(long)indexPath.section,(long)indexPath.row);
-//    if (indexPath.section == 0 && indexPath.row == 0) {
-//        UIWebView *web = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//        [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https//www.baidu.com"]]];
-//        [self.view addSubview:web];
-//    }
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        //新生导航页面
+        NavigationVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"navigation"];
+        [self presentViewController:VC animated:YES completion:nil];
+    }else if (indexPath.section == 0 && indexPath.row == 1){
+    
+    }else if (indexPath.section == 0 && indexPath.row == 2){
+    
+    }else if (indexPath.section == 0 && indexPath.row == 3){
+    
+    }else if (indexPath.section == 0 && indexPath.row == 4){
+    
+    }else if (indexPath.section == 0 && indexPath.row == 5){
+    
+    }else if (indexPath.section == 1 && indexPath.row == 0){
+    
+    }else if (indexPath.section == 1 && indexPath.row == 1){
+    
+    }
 }
 
 

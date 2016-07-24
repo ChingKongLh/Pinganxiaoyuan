@@ -319,7 +319,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SV8-wo-YxW"/>
+                    <navigationItem key="navigationItem" id="SV8-wo-YxW">
+                        <barButtonItem key="leftBarButtonItem" title="back" id="Rhz-3O-7pq">
+                            <connections>
+                                <action selector="back:" destination="hQj-EZ-R41" id="no7-dL-XO7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeV-Dh-l8w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -460,7 +466,7 @@
         <!--个人中心-->
         <scene sceneID="iFq-O3-c6z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="baz-7u-cen" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mecentra" automaticallyAdjustsScrollViewInsets="NO" id="baz-7u-cen" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="个人中心" id="aKQ-vQ-1ad"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aLZ-rF-cEq">
@@ -1069,7 +1075,7 @@
         <!--Navigation Controller-->
         <scene sceneID="RqN-3d-Dxj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lRK-T2-6c9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigation" automaticallyAdjustsScrollViewInsets="NO" id="lRK-T2-6c9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dlo-br-cW1">

@@ -152,7 +152,7 @@ NSString * const KReusableFooterView = @"reuseFooter";
 
 -(void)imageWithImage{
     NSArray *arr = @[@"http://pic39.nipic.com/20140226/18071023_162553457000_2.jpg",//网络图片
-//        @"http://pic15.nipic.com/20110706/7852592_142026142380_2.jpg",
+//        @"http://pic26.nipic.com/20121215/11331462_111500606000_2.jpg",
         [UIImage imageNamed:@"3.jpg"],//本地图片，传image，不能传名称
         //网络gif图片
         @"http://pic10.nipic.com/20101103/5063545_000227976000_2.jpg",

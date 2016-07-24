@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MAMapKit/MAMapKit.h>
 
-@interface NavigationVC : UIViewController
+@interface NavigationVC : UIViewController<MAMapViewDelegate>
 
+
+@property (nonatomic, strong) MAMapView *mapView;
+- (void)returnAction;
+
+- (NSString *)getApplicationName;
+- (NSString *)getApplicationScheme;
 @end
