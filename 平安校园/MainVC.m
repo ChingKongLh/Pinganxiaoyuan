@@ -24,6 +24,7 @@
 #import "CarViewController.h"
 #import "Fuwujiandu.h"
 #import "shiwuVC.h"
+#import "SecondMarketVC.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout,selectIndexPathDelegate>
 @property (nonatomic,strong)UICollectionView *collection;
 @property (nonatomic, strong) NSMutableArray *mArr;
@@ -452,7 +453,8 @@ NSString * const KReusableFooterView = @"reuseFooter";
     }else if (indexPath.row == 5){
         
     }else if (indexPath.row == 6){
-    
+        SecondMarketVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"market"];
+        [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.row ==7){
     
     }else if (indexPath.row == 8){

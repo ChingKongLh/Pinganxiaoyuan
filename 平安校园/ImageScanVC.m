@@ -68,23 +68,6 @@
 
 -(void)startReading{
 
-//    //1.初始化device
-//    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];//获取视频设备
-//    //2.设备关联Input
-//    NSError *error;
-//    self.input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:&error];
-//    //3.初始化session
-//    self.session = [[AVCaptureSession alloc] init];
-//    //4.添加input
-//    if ([self.session canAddInput:self.input]) {
-//        [self.session addInput:self.input];
-//    }
-//
-//    //创建输出队列
-//    self.output = [[AVCaptureMetadataOutput alloc] init];
-//    dispatch_queue_t queur = dispatch_queue_create("mequeue", NULL);
-//    [self.output setMetadataObjectsDelegate:self queue:queur];
-//    [self.session addOutput:self.output];
     //1.初始化device
     self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];//获取视频设备
     //2.设备关联input
@@ -123,23 +106,7 @@
     
     //启动整个过程
     [self.session startRunning];
-    //配置output
-//    [self.output setMetadataObjectTypes:@[AVMetadataObjectTypeUPCECode,
-//                                                                                    AVMetadataObjectTypeCode39Code,
-//                                                                                    AVMetadataObjectTypeCode39Mod43Code,
-//                                                                                    AVMetadataObjectTypeEAN13Code,
-//                                                                                    AVMetadataObjectTypeEAN8Code,
-//                                                                                    AVMetadataObjectTypeCode93Code,
-//                                                                                    AVMetadataObjectTypeCode128Code,
-//                                                                                    AVMetadataObjectTypePDF417Code,
-//                                                                                    AVMetadataObjectTypeQRCode]];
-//    AVCaptureVideoPreviewLayer *layer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
-//    [layer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-//    [layer setFrame:self.preview.layer.frame];
-//    [self.preview.layer addSublayer:layer];
-//    //开启运行循环
-//    [self.session startRunning];
-}
+  }
 
 -(void)read:(NSString *)rading{
     [self.session startRunning];

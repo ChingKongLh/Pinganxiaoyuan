@@ -11,6 +11,7 @@
 #import "SDImageCache.h"
 #import "Common.h"
 #import "LogIn.h"
+#import "AddHeaderview.h"
 @interface AboutUS ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)NSArray *cellTitles;
@@ -28,15 +29,16 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
 //    if ([[Account saveAccount]islogIn]) {
-    self.cellTitles = @[@[@"账号管理",@"账号安全"],@[@"通知",@"隐私与安全",@"通用设置"],@[@"意见反馈",@"清楚缓存",@"关于我们"],@[@"退出当前账号"]];
+    self.cellTitles = @[@[@"账号管理",@"账号安全"],@[@"通知",@"隐私与安全",@"通用设置"],@[@"意见反馈",@"清除缓存",@"关于我们"],@[@"退出当前账号"]];
 //    }else{
 //        self.cellTitles = @[@[@"通用设置",@"关于我们"]];
 //    }
+    
+    [self addHeaderView];
 }
 
 //登录事件
 -(void)login{
-    
     LogIn *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
     [self presentViewController:VC animated:YES completion:nil];
 }
@@ -109,6 +111,18 @@
         [alert addAction:action1];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+-(void)addHeaderView{
+    UIView *header = [[NSBundle mainBundle] loadNibNamed:@"AddHeaderview" owner:self options:nil].firstObject;
+    if (kDevice_Is_iPhone5 || KDevice_Is_Retina) {
+        header.frame = CGRectMake(0, 64, ScreenW, 70);
+    }else if (kDevice_Is_iPhone6){
+        header.frame = CGRectMake(0,64, ScreenW, 80);
+    }else{
+        header.frame = CGRectMake(0, 0,ScreenW, 110);
+    }
+    [self.view addSubview:header];
 }
 
 

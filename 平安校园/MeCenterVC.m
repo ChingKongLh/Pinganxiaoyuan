@@ -19,6 +19,7 @@
 #import "XRCarouselView.h"
 
 #import "NavigationVC.h"
+#import "GrowWithLine.h"
 @interface MeCenterVC ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate,XRCarouselViewDelegate>
 @property (nonatomic)NSInteger tag;
 @property (nonatomic,strong) NSMutableArray *MeCentraArrays;
@@ -306,7 +307,9 @@ static NSString *headeridentify = @"header";
         NavigationVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"navigation"];
         [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.section == 0 && indexPath.row == 1){
-    
+        GrowWithLine *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"shijian"];
+        [self presentViewController:VC animated:YES completion:nil];
+        
     }else if (indexPath.section == 0 && indexPath.row == 2){
     
     }else if (indexPath.section == 0 && indexPath.row == 3){
