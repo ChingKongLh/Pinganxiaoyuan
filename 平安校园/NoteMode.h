@@ -11,7 +11,7 @@
 @interface NoteMode : NSObject
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString  *content;
-@property (nonatomic,strong)NSString *timer;
+@property (nonatomic,copy)NSDate *timer;
 @property (nonatomic,strong)NSString *source;
 -(instancetype)initWithNotification:(NSDictionary *)dict;
 +(instancetype)initWithDictionary:(NSDictionary *)dict;

@@ -1,5 +1,5 @@
 //
-//  MarketView.h
+//  ServiewCell.h
 //  平安校园
 //
 //  Created by 中国孔 on 16/7/26.
@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MarketDetail;
-@interface MarketView : UITableViewCell
-@property (nonatomic,strong)MarketDetail *detail;
+@class ServiceModel;
+@interface ServiewCell : UITableViewCell
+@property (nonatomic,strong)ServiceModel *serviceInfo;
 @end

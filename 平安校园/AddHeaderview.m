@@ -32,7 +32,7 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     
     //设置图片系统来源
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     

@@ -81,6 +81,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        UIAlertController *control = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"没有发现通知" style:UIAlertActionStyleDestructive handler:nil];
+        [control addAction:action];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+
     if (indexPath.section == 3 && indexPath.row == 1) {
         //确认清楚缓存操作
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"清楚缓存" message:Nil preferredStyle:UIAlertControllerStyleAlert];

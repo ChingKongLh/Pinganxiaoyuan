@@ -110,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="-1136.5" y="783.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Service CentraVC-->
         <scene sceneID="gwH-Y4-l99">
             <objects>
-                <viewController id="Oqb-HT-MkY" sceneMemberID="viewController">
+                <viewController id="Oqb-HT-MkY" customClass="ServiceCentraVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qav-qC-TKx"/>
                         <viewControllerLayoutGuide type="bottom" id="g6K-iL-jMZ"/>
@@ -896,9 +896,168 @@
                         <viewControllerLayoutGuide type="bottom" id="Abq-YI-UeZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zC5-wR-sQo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="e9P-uh-h0d">
+                                <rect key="frame" x="0.0" y="237" width="375" height="430"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <sections/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Twb-sA-tjN">
+                                <rect key="frame" x="0.0" y="64" width="375" height="153"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lZ-sO-ABG">
+                                        <rect key="frame" x="115" y="20" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="HOe-z5-JEm"/>
+                                            <constraint firstAttribute="width" constant="50" id="Oco-lA-oal"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-59" minY="43" maxX="0.0" maxY="-5"/>
+                                        <inset key="imageEdgeInsets" minX="-5" minY="-6" maxX="-39" maxY="0.0"/>
+                                        <state key="normal" title="发布" image="apps2.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvt-u7-DeX">
+                                        <rect key="frame" x="22" y="20" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="EH2-zl-OuZ"/>
+                                            <constraint firstAttribute="width" constant="50" id="Yzo-90-PhA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-63" minY="50" maxX="-3" maxY="6"/>
+                                        <inset key="imageEdgeInsets" minX="-10" minY="-10" maxX="-39" maxY="8"/>
+                                        <state key="normal" title="求购" image="sppd1.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGS-kP-ueJ">
+                                        <rect key="frame" x="209" y="20" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="S9F-Kg-ACw"/>
+                                            <constraint firstAttribute="width" constant="50" id="pEB-6d-VEL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-84" minY="46" maxX="-22" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-14" minY="-7" maxX="-43" maxY="5"/>
+                                        <state key="normal" title="中心" image="apps3.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mn2-AS-D4P">
+                                        <rect key="frame" x="22" y="85" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="dbG-GL-vOB"/>
+                                            <constraint firstAttribute="width" constant="50" id="gUH-vw-5sZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-64" minY="36" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="2" minY="1" maxX="-2" maxY="13"/>
+                                        <state key="normal" title="社会" image="apps4.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asE-qa-Dw6">
+                                        <rect key="frame" x="115" y="85" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="WpS-UB-Ek6"/>
+                                            <constraint firstAttribute="height" constant="50" id="l6f-Ua-HGi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="contentEdgeInsets" minX="-1" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="-56" minY="47" maxX="0.0" maxY="9"/>
+                                        <inset key="imageEdgeInsets" minX="14" minY="-2" maxX="0.0" maxY="11"/>
+                                        <state key="normal" title="更多" image="apps5.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPt-Lk-q73">
+                                        <rect key="frame" x="209" y="85" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="10O-1V-Q3z"/>
+                                            <constraint firstAttribute="height" constant="50" id="x0j-8i-QPv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-61" minY="50" maxX="0.0" maxY="6"/>
+                                        <inset key="imageEdgeInsets" minX="-4" minY="-3" maxX="0.0" maxY="11"/>
+                                        <state key="normal" title="更多" image="apps6.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7d-ga-vvU">
+                                        <rect key="frame" x="303" y="20" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="UUd-yc-dG0"/>
+                                            <constraint firstAttribute="height" constant="50" id="qQx-vp-rFe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-55" minY="-9" maxX="0.0" maxY="-63"/>
+                                        <inset key="imageEdgeInsets" minX="3" minY="1" maxX="3" maxY="5"/>
+                                        <state key="normal" title="全球" image="apps8.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVo-d4-Hz8">
+                                        <rect key="frame" x="303" y="85" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="XR4-M3-X15"/>
+                                            <constraint firstAttribute="width" constant="50" id="dGV-Sn-fvs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <inset key="titleEdgeInsets" minX="-56" minY="44" maxX="0.0" maxY="1"/>
+                                        <inset key="imageEdgeInsets" minX="4" minY="-1" maxX="5" maxY="7"/>
+                                        <state key="normal" title="更多" image="apps7.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="l7d-ga-vvU" firstAttribute="top" secondItem="Twb-sA-tjN" secondAttribute="top" constant="20" id="0oi-82-MYQ"/>
+                                    <constraint firstItem="hVo-d4-Hz8" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="1.75" id="6Md-44-87w"/>
+                                    <constraint firstItem="asE-qa-Dw6" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="0.75" id="9g2-2L-xDL"/>
+                                    <constraint firstAttribute="height" constant="153" id="CX2-0n-peg"/>
+                                    <constraint firstItem="TGS-kP-ueJ" firstAttribute="top" secondItem="Twb-sA-tjN" secondAttribute="top" constant="20" id="FBJ-zo-31O"/>
+                                    <constraint firstItem="1lZ-sO-ABG" firstAttribute="top" secondItem="Twb-sA-tjN" secondAttribute="top" constant="20" id="FLe-gm-svf"/>
+                                    <constraint firstItem="RPt-Lk-q73" firstAttribute="top" secondItem="TGS-kP-ueJ" secondAttribute="bottom" constant="15" id="GW8-vX-9Mt"/>
+                                    <constraint firstItem="kvt-u7-DeX" firstAttribute="top" secondItem="Twb-sA-tjN" secondAttribute="top" constant="20" id="Iq0-e7-4QY"/>
+                                    <constraint firstItem="kvt-u7-DeX" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="0.25" id="Pyo-2I-RaR"/>
+                                    <constraint firstItem="asE-qa-Dw6" firstAttribute="top" secondItem="1lZ-sO-ABG" secondAttribute="bottom" constant="15" id="QIA-5q-u5A"/>
+                                    <constraint firstItem="l7d-ga-vvU" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="1.75" id="RbK-Y8-ho8"/>
+                                    <constraint firstItem="TGS-kP-ueJ" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="1.25" id="Zcj-dA-EkT"/>
+                                    <constraint firstItem="hVo-d4-Hz8" firstAttribute="top" secondItem="l7d-ga-vvU" secondAttribute="bottom" constant="15" id="a6Y-nQ-A1S"/>
+                                    <constraint firstItem="Mn2-AS-D4P" firstAttribute="top" secondItem="kvt-u7-DeX" secondAttribute="bottom" constant="15" id="ahu-zS-f29"/>
+                                    <constraint firstItem="RPt-Lk-q73" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="1.25" id="jIo-VE-Quq"/>
+                                    <constraint firstItem="Mn2-AS-D4P" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="0.25" id="xNa-YY-3Bd"/>
+                                    <constraint firstItem="1lZ-sO-ABG" firstAttribute="centerX" secondItem="Twb-sA-tjN" secondAttribute="centerX" multiplier="0.75" id="z8g-XK-L1q"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日二手" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJr-AX-22h">
+                                <rect key="frame" x="0.0" y="217" width="375" height="20"/>
+                                <color key="backgroundColor" red="1" green="0.91284982329999997" blue="0.19457255540000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Vvy-Be-Alr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.82912712700000002" green="0.41906238070000001" blue="0.72802187470000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e9P-uh-h0d" firstAttribute="leading" secondItem="zC5-wR-sQo" secondAttribute="leading" id="3Pq-of-k3q"/>
+                            <constraint firstItem="Twb-sA-tjN" firstAttribute="top" secondItem="eHi-PD-3OL" secondAttribute="bottom" id="Io4-pj-JDt"/>
+                            <constraint firstItem="Abq-YI-UeZ" firstAttribute="top" secondItem="e9P-uh-h0d" secondAttribute="bottom" id="M1U-U5-M7x"/>
+                            <constraint firstAttribute="trailing" secondItem="Twb-sA-tjN" secondAttribute="trailing" id="T67-Fg-6EO"/>
+                            <constraint firstAttribute="trailing" secondItem="zJr-AX-22h" secondAttribute="trailing" id="err-93-tlw"/>
+                            <constraint firstItem="zJr-AX-22h" firstAttribute="leading" secondItem="zC5-wR-sQo" secondAttribute="leading" id="i80-nq-GEp"/>
+                            <constraint firstItem="Twb-sA-tjN" firstAttribute="leading" secondItem="zC5-wR-sQo" secondAttribute="leading" id="rYO-7q-g0B"/>
+                            <constraint firstAttribute="trailing" secondItem="e9P-uh-h0d" secondAttribute="trailing" id="vyJ-Nj-oAu"/>
+                            <constraint firstItem="e9P-uh-h0d" firstAttribute="top" secondItem="zJr-AX-22h" secondAttribute="bottom" id="wcT-PO-ZNp"/>
+                            <constraint firstItem="zJr-AX-22h" firstAttribute="top" secondItem="Twb-sA-tjN" secondAttribute="bottom" id="zzj-EJ-YRt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Z4Y-Ky-XZf">
                         <barButtonItem key="leftBarButtonItem" title="返回" id="fzn-Pr-xET">
@@ -907,11 +1066,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="label" destination="zJr-AX-22h" id="hrp-jE-deP"/>
+                        <outlet property="tableview" destination="e9P-uh-h0d" id="aEH-hd-uNJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ihs-Nq-0ra" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3237" y="437"/>
+            <point key="canvasLocation" x="3255.5" y="519.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bYF-MK-MHl">
@@ -1185,11 +1348,19 @@
     <resources>
         <image name="Hp .png" width="40" height="40"/>
         <image name="IC.png" width="40" height="40"/>
+        <image name="apps2.png" width="64" height="64"/>
+        <image name="apps3.png" width="64" height="64"/>
+        <image name="apps4.png" width="64" height="64"/>
+        <image name="apps5.png" width="64" height="64"/>
+        <image name="apps6.png" width="64" height="64"/>
+        <image name="apps7.png" width="64" height="64"/>
+        <image name="apps8.png" width="64" height="64"/>
         <image name="fff.png" width="40" height="40"/>
         <image name="guide1.png" width="300" height="533"/>
         <image name="guide2.png" width="1080" height="1920"/>
         <image name="guide3.png" width="640" height="1136"/>
         <image name="guide4.png" width="1244" height="2208"/>
         <image name="sao.png" width="40" height="40"/>
+        <image name="sppd1.png" width="64" height="64"/>
     </resources>
 </document>
