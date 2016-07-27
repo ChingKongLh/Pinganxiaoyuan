@@ -62,6 +62,7 @@ static NSString *headeridentify = @"header";
     return _MeCentraArray;
 }
 
+
 -(void)viewDidLoad {
    [super viewDidLoad];
     [self addScrollViewWithTable];
@@ -88,7 +89,6 @@ static NSString *headeridentify = @"header";
     _collectioview.frame =CGRectMake(0, 164, ScreenW, ScreenH );
     self.collectioview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectioview];
-    
     //注册item
     [_collectioview registerNib:[UINib nibWithNibName:NSStringFromClass([MeCentraview class]) bundle:nil] forCellWithReuseIdentifier:itemidentify];
     //注册section Footer

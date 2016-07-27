@@ -10,9 +10,11 @@
 #import "ServiceModel.h"
 #import "UIImageView+WebCache.h"
 @interface ServiewCell ()
+@property (strong, nonatomic) IBOutlet UIView *preview;
 @property (strong, nonatomic) IBOutlet UIImageView *ServiewIcon;
 @property (strong, nonatomic) IBOutlet UILabel *ServiceTitle;
 @property (strong, nonatomic) IBOutlet UILabel *ServiceTime;
+@property (strong, nonatomic) IBOutlet UIImageView *arrow;
 
 @end
 @implementation ServiewCell
@@ -25,13 +27,19 @@
 //    self.ServiceTitle.text = serviceInfo.title;
 //    self.ServiceTime.text = serviceInfo.time;
 //    [self.ServiewIcon sd_setImageWithURL:[NSURL URLWithString:serviceInfo.img]];
-    
     self.ServiewIcon.image = [UIImage imageNamed:@"RiLi.png"];
+    self.arrow.image = [UIImage imageNamed:@"appor.png"];
 }
 
 
-
 - (void)awakeFromNib {
+    _preview.layer.shadowRadius = 6;
+    _preview.layer.shadowColor = [[UIColor grayColor] CGColor];
+    _preview.layer.shadowOffset = CGSizeMake(2, 2);
+    _preview.layer.borderWidth = 1;
+    _preview.layer.cornerRadius = 6;
+    _preview.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
