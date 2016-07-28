@@ -25,6 +25,7 @@
 #import "Fuwujiandu.h"
 #import "shiwuVC.h"
 #import "SecondMarketVC.h"
+#import "MangerVC.h"
 @interface MainVC ()<UICollectionViewDelegate,UICollectionViewDataSource,XRCarouselViewDelegate,UICollectionViewDelegateFlowLayout,selectIndexPathDelegate>
 @property (nonatomic,strong)UICollectionView *collection;
 @property (nonatomic, strong) NSMutableArray *mArr;
@@ -451,23 +452,57 @@ NSString * const KReusableFooterView = @"reuseFooter";
         Fuwujiandu *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"fuwujiandu"];
         [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.row == 5){
-        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //用户点击取消如果不做处理直接dismiss
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:action1];
+        [alert addAction:action2];
+        [self presentViewController:alert animated:YES completion:nil];
     }else if (indexPath.row == 6){
         SecondMarketVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"market"];
         [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.row ==7){
-    
+        //公寓管理
+        MangerVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"department"];
+        [self presentViewController:VC animated:YES completion:nil];
     }else if (indexPath.row == 8){
     CarViewController  *carVC = [[CarViewController alloc]init];
 //为当前控制器添加导航控制器
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:carVC];
     [self presentViewController:navi animated:YES completion:nil];
     }else if (indexPath.row == 9){
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //用户点击取消如果不做处理直接dismiss
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:action1];
+        [alert addAction:action2];
+        [self presentViewController:alert animated:YES completion:nil];
     }else if (indexPath.row == 10){
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //用户点击取消如果不做处理直接dismiss
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:action1];
+        [alert addAction:action2];
+        [self presentViewController:alert animated:YES completion:nil];
     }else if (indexPath.row == 11){
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //用户点击取消如果不做处理直接dismiss
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:action1];
+        [alert addAction:action2];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

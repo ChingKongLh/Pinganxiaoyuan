@@ -1172,16 +1172,8 @@
 				A29917D71D39E73C0048ECC6 /* JIaoche */,
 				A29918031D3A19570048ECC6 /* FuWuJianDu */,
 				A24033361D38728500C18694 /* BottomDeTail */,
-				A2899E611D37937E004361CA /* SourceManger */,
 			);
 			name = DetailControlManger;
-			sourceTree = "<group>";
-		};
-		A2899E611D37937E004361CA /* SourceManger */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SourceManger;
 			sourceTree = "<group>";
 		};
 		A28AF82A1D3345BA0016E3C6 = {
