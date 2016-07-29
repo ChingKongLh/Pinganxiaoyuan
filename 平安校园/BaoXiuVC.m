@@ -12,6 +12,7 @@
 #import "Common.h"
 #import "LZFoldButton.h"
 #import "MainVC.h"
+
 @interface BaoXiuVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate>
 {
     LZFoldButton *lz;
@@ -115,8 +116,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 }
 - (IBAction)bacK:(UIBarButtonItem *)sender {
-    MainVC *back = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
-    [self presentViewController:back animated:YES completion:nil];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    MainVC *back = [self.storyboard instantiateViewControllerWithIdentifier:@"tabbar"];
+//    [self presentViewController:back animated:YES completion:nil];
 }
 
 -(void)textFieldDidChanged:(NSNotification *)note{

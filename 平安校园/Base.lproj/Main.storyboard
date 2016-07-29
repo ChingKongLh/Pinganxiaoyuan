@@ -1567,7 +1567,7 @@
         <!--Navigation Controller-->
         <scene sceneID="IQQ-N9-L9D">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YpV-PB-71g" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="quickly" automaticallyAdjustsScrollViewInsets="NO" id="YpV-PB-71g" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5mG-NO-MR6">

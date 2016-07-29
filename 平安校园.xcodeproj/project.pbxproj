@@ -313,6 +313,8 @@
 		A2CD6A001D388D1800D05828 /* BaoXiuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD69FF1D388D1800D05828 /* BaoXiuVC.m */; };
 		A2CD6A041D388DA300D05828 /* HTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD6A031D388DA300D05828 /* HTextViewCell.m */; };
 		A2CD6A071D38911000D05828 /* UITextField+IndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CD6A061D38911000D05828 /* UITextField+IndexPath.m */; };
+		A2CE11031D4B5F2400331786 /* YCXMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CE11001D4B5F2400331786 /* YCXMenu.m */; };
+		A2CE11041D4B5F2400331786 /* YCXMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CE11021D4B5F2400331786 /* YCXMenuItem.m */; };
 		A2CEBA371D3DB07B00433BEB /* shiwuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CEBA361D3DB07B00433BEB /* shiwuVC.m */; };
 		A2E646F61D42213F001A5E00 /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2E646F51D42213F001A5E00 /* App.plist */; };
 /* End PBXBuildFile section */
@@ -784,6 +786,10 @@
 		A2CD6A031D388DA300D05828 /* HTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTextViewCell.m; sourceTree = "<group>"; };
 		A2CD6A051D38911000D05828 /* UITextField+IndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+IndexPath.h"; sourceTree = "<group>"; };
 		A2CD6A061D38911000D05828 /* UITextField+IndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+IndexPath.m"; sourceTree = "<group>"; };
+		A2CE10FF1D4B5F2400331786 /* YCXMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCXMenu.h; sourceTree = "<group>"; };
+		A2CE11001D4B5F2400331786 /* YCXMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCXMenu.m; sourceTree = "<group>"; };
+		A2CE11011D4B5F2400331786 /* YCXMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCXMenuItem.h; sourceTree = "<group>"; };
+		A2CE11021D4B5F2400331786 /* YCXMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCXMenuItem.m; sourceTree = "<group>"; };
 		A2CEBA351D3DB07B00433BEB /* shiwuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shiwuVC.h; sourceTree = "<group>"; };
 		A2CEBA361D3DB07B00433BEB /* shiwuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shiwuVC.m; sourceTree = "<group>"; };
 		A2E646F51D42213F001A5E00 /* App.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = App.plist; path = "app 96 图标/App.plist"; sourceTree = "<group>"; };
@@ -1311,6 +1317,7 @@
 		A28AFAA11D337CB00016E3C6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A2CE10FE1D4B5F2400331786 /* YCXMenu */,
 				A2C8C13F1D45A6650016C345 /* MJExtension */,
 				A28B815C1D41A3480015A21F /* XTPopView */,
 				A26700AE1D3499B3000C7C9D /* Masonry */,
@@ -1942,6 +1949,17 @@
 			name = BaoXiuContro;
 			sourceTree = "<group>";
 		};
+		A2CE10FE1D4B5F2400331786 /* YCXMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A2CE10FF1D4B5F2400331786 /* YCXMenu.h */,
+				A2CE11001D4B5F2400331786 /* YCXMenu.m */,
+				A2CE11011D4B5F2400331786 /* YCXMenuItem.h */,
+				A2CE11021D4B5F2400331786 /* YCXMenuItem.m */,
+			);
+			path = YCXMenu;
+			sourceTree = "<group>";
+		};
 		A2CEBA341D3DB04900433BEB /* shiwuzhaoling */ = {
 			isa = PBXGroup;
 			children = (
@@ -2309,6 +2327,8 @@
 				A2CD6A071D38911000D05828 /* UITextField+IndexPath.m in Sources */,
 				A28AFAEE1D337E750016E3C6 /* MJRefreshGifHeader.m in Sources */,
 				A28AFB461D33A1330016E3C6 /* SVIndefiniteAnimatedView.m in Sources */,
+				A2CE11031D4B5F2400331786 /* YCXMenu.m in Sources */,
+				A2CE11041D4B5F2400331786 /* YCXMenuItem.m in Sources */,
 				A28AFAB41D337E580016E3C6 /* AFURLResponseSerialization.m in Sources */,
 				A28AFAB01D337E580016E3C6 /* AFHTTPSessionManager.m in Sources */,
 				A29917F51D39F97E0048ECC6 /* ContactViewController.m in Sources */,

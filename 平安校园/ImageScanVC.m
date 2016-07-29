@@ -97,7 +97,6 @@
                                           AVMetadataObjectTypeCode128Code,
                                           AVMetadataObjectTypePDF417Code,
                                           AVMetadataObjectTypeQRCode]];
-    
     //8.配置预览效果
     AVCaptureVideoPreviewLayer *layer = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
     [layer setVideoGravity:AVLayerVideoGravityResizeAspectFill];

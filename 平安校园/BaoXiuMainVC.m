@@ -9,7 +9,10 @@
 #import "BaoXiuMainVC.h"
 #import "Masonry.h"
 #import "Common.h"
-@interface BaoXiuMainVC ()
+#import "BaoXiuVC.h"
+#import "YCXMenu.h"
+#import "XTPopView.h"
+@interface BaoXiuMainVC ()<selectIndexPathDelegate>
 
 //====================报修界面布局控件================//
 @property (strong, nonatomic) IBOutlet UIView *line1;
@@ -52,10 +55,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *FBtn3;
 //==================自定义属性=========================//
 @property (nonatomic,assign)NSInteger tag;
+@property (nonatomic,strong)NSMutableArray *items;
+@property (nonatomic,strong)NSArray *area;
+@property (nonatomic,strong)NSArray *type;
+
 @end
 
 @implementation BaoXiuMainVC
-
+@synthesize items=_items;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self LayerSettingWithBottom];
@@ -77,19 +84,8 @@
     _FBtn2.tag = 113;
     _FBtn3.tag = 114;
     [self DealWithBtnTarget];
-    [_hbtn1 addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
-}
--(void)addAction{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        //用户点击取消如果不做处理直接dismiss
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:action1];
-    [alert addAction:action2];
-    [self presentViewController:alert animated:YES completion:nil];
-
+    //Btn点击事件
+    [self AddBtnClickAction];
 }
 
 - (IBAction)back:(UIBarButtonItem *)sender {
@@ -391,8 +387,143 @@
     }
 }
 
+-(void)NotificationCentra{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillAppear) name:YCXMenuWillAppearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuDidAppear) name:YCXMenuDidAppearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuDidDisappear) name:YCXMenuWillDisappearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuDidDisappear) name:YCXMenuDidDisappearNotification object:nil];
+}
+
+//弹出视图视图将要显示
+- (void)menuWillAppear{
+    
+}
+//弹出视图正在显示
+-(void)menuDidAppear{
+    
+}
+//弹出视图即将消失
+-(void)menuWillDisapear{
+    
+}
+//弹出视图已经消失
+-(void)menuDidDisappear{
+    
+}
+
+
+//弹出视图退出操作
+-(void)logout:(id)sender{
+    
+}
+
+-(void)setItems:(NSMutableArray *)items{
+    _items = items;
+}
+
+-(NSArray *)area{
+    if (_area == nil) {
+        _area = @[@"东风校区",@"文北校区",@"紫金港校区"];
+    }
+    return _area;
+}
+
+-(NSArray *)type{
+    if (_type == nil) {
+        _type = @[@"门坏",@"门锁坏",@"门上纱窗",@"玻璃烂了"];
+    }
+    return _type;
+}
+
+-(void)choose:(UIButton *)btn{
+    CGPoint point = CGPointMake(50,300);
+    XTPopView *view1 = [[XTPopView alloc] initWithOrigin:point Width:130 Height:40 * 4 Type:XTTypeOfRightUp Color:[UIColor colorWithRed:0.2737 green:0.2737 blue:0.2737 alpha:1.0]];
+    view1.dataArray = @[@"门坏了",@"门锁坏", @"门上窗纱坏", @"玻璃碎"];
+    view1.fontSize = 13;
+    view1.row_height = 40;
+    view1.titleTextColor = [UIColor whiteColor];
+    view1.delegate = self;
+    [view1 popView];
+    
+}
+
+
+
+//设置弹框内容
+-(NSMutableArray *)items{
+    if (!_items) {
+        //标题设置
+        YCXMenuItem *menutitle = [YCXMenuItem menuTitle:@"门窗报修" WithIcon:nil];
+        menutitle.foreColor = [UIColor whiteColor];
+        menutitle.titleFont = [UIFont systemFontOfSize:14];
+        //退出按钮设置
+        YCXMenuItem *logout = [YCXMenuItem menuItem:@"去报修" image:nil target:self action:@selector(logout:)];
+        logout.foreColor = [UIColor redColor];
+        logout.alignment = NSTextAlignmentCenter;
+        //内容设置
+        _items = [@[menutitle,
+                    //校区设置
+//                    [YCXMenuItem menuItem:@"紫金港校区" image:nil tag:100 userInfo:nil],
+                    [YCXMenuItem menuItem:@"门损坏" image:nil tag:101 userInfo:@{@"title":@"menu"}],
+                    [YCXMenuItem menuItem:@"校区" image:nil tag:102 userInfo:@{@"title":@"menu"}],
+                    [YCXMenuItem menuItem:@"电话" image:nil tag:103 userInfo:@{@"titie":@"menu"}],
+                    logout
+                    ]mutableCopy];
+    }
+    return _items;
+}
+
+
+#pragma mark -----------弹出视图点击事件处理
+
+-(void)AddBtnClickAction{
+    
+    [_hbtn1 addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
+    [_hbtn2 addTarget:self action:@selector(ZidingYiBaoxiu) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_SBtn1 addTarget:self action:@selector(bumpview) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+-(void)addAction{
+    
+    BaoXiuVC  *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"quickly"];
+    [self presentViewController:VC animated:YES completion:nil];
+    
+}
+
+-(void)ZidingYiBaoxiu{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"暂未开通" message:Nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        //用户点击取消如果不做处理直接dismiss
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:action1];
+    [alert addAction:action2];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+-(void)bumpview{
+    [YCXMenu setTintColor:[UIColor colorWithRed:0.118 green:0.573 blue:0.820 alpha:1]];
+    if ([YCXMenu isShow]) {
+//        [YCXMenu dismissMenu];
+    }else{
+        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(10, ScreenW - 400, 30, 300) menuItems:self.items selected:^(NSInteger index, YCXMenuItem *item) {
+            NSLog(@"%@",item);
+        }];
+    }
+}
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
