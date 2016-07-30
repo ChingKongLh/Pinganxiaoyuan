@@ -13,7 +13,9 @@
 #import "YCXMenu.h"
 #import "XTPopView.h"
 @interface BaoXiuMainVC ()<selectIndexPathDelegate>
-
+{
+    UIView *_redview;
+}
 //====================报修界面布局控件================//
 @property (strong, nonatomic) IBOutlet UIView *line1;
 @property (strong, nonatomic) IBOutlet UILabel *fenleibaoxiu;
@@ -508,7 +510,7 @@
 -(void)bumpview{
     [YCXMenu setTintColor:[UIColor colorWithRed:0.118 green:0.573 blue:0.820 alpha:1]];
     if ([YCXMenu isShow]) {
-//        [YCXMenu dismissMenu];
+        [YCXMenu dismissMenu];
     }else{
         [YCXMenu showMenuInView:self.view fromRect:CGRectMake(10, ScreenW - 400, 30, 300) menuItems:self.items selected:^(NSInteger index, YCXMenuItem *item) {
             NSLog(@"%@",item);
@@ -517,10 +519,12 @@
 }
 
 
-
-
-
-
+#pragma mark ----------- btn点击弹出侧滑视图实现
+-(void)AddLeftAction{
+    _redview = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [self.view addSubview:_redview];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     
