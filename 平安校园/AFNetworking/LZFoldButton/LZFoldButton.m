@@ -63,12 +63,12 @@
     [self addSubview:button];
     _lzButton = button;
     
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, _showSize.height, _showSize.width +200, 0)];
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(-80, _showSize.height, _showSize.width+80, 0)];
     bgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:bgView];
     _lzBackgroundView = bgView;
     
-    UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, _showSize.height, _showSize.width +200, 0) style:UITableViewStylePlain];
+    UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(-80, _showSize.height, _showSize.width+80, 0) style:UITableViewStylePlain];
     table.delegate = self;
     table.dataSource = self;
     table.backgroundColor = [UIColor clearColor];

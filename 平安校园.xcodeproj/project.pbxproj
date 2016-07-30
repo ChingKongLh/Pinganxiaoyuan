@@ -286,6 +286,7 @@
 		A2A586631D3F658C00DD7CA4 /* MeCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A586621D3F658C00DD7CA4 /* MeCenterVC.m */; };
 		A2A586671D3F661F00DD7CA4 /* AboutUS.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A586661D3F661F00DD7CA4 /* AboutUS.m */; };
 		A2A586741D3F958C00DD7CA4 /* sao.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A586731D3F958C00DD7CA4 /* sao.png */; };
+		A2C6038C1D4CB29F0097644A /* RightControlVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C6038B1D4CB29F0097644A /* RightControlVC.m */; };
 		A2C8C13A1D4597E80016C345 /* AddHeaderview.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C8C1381D4597E80016C345 /* AddHeaderview.m */; };
 		A2C8C13B1D4597E80016C345 /* AddHeaderview.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C8C1391D4597E80016C345 /* AddHeaderview.xib */; };
 		A2C8C13E1D45A4940016C345 /* GrowWithLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C8C13D1D45A4940016C345 /* GrowWithLine.m */; };
@@ -736,6 +737,8 @@
 		A2A586651D3F661F00DD7CA4 /* AboutUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUS.h; sourceTree = "<group>"; };
 		A2A586661D3F661F00DD7CA4 /* AboutUS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUS.m; sourceTree = "<group>"; };
 		A2A586731D3F958C00DD7CA4 /* sao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sao.png; path = "../app 96 图标/sao.png"; sourceTree = "<group>"; };
+		A2C6038A1D4CB29F0097644A /* RightControlVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightControlVC.h; sourceTree = "<group>"; };
+		A2C6038B1D4CB29F0097644A /* RightControlVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightControlVC.m; sourceTree = "<group>"; };
 		A2C8C1371D4597E80016C345 /* AddHeaderview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddHeaderview.h; sourceTree = "<group>"; };
 		A2C8C1381D4597E80016C345 /* AddHeaderview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddHeaderview.m; sourceTree = "<group>"; };
 		A2C8C1391D4597E80016C345 /* AddHeaderview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddHeaderview.xib; sourceTree = "<group>"; };
@@ -1945,6 +1948,8 @@
 				A2CD6A031D388DA300D05828 /* HTextViewCell.m */,
 				A29FD1D31D488CFD009ECE0D /* BaoXiuMainVC.h */,
 				A29FD1D41D488CFD009ECE0D /* BaoXiuMainVC.m */,
+				A2C6038A1D4CB29F0097644A /* RightControlVC.h */,
+				A2C6038B1D4CB29F0097644A /* RightControlVC.m */,
 			);
 			name = BaoXiuContro;
 			sourceTree = "<group>";
@@ -2367,6 +2372,7 @@
 				A28AFAF31D337E750016E3C6 /* UIScrollView+MJExtension.m in Sources */,
 				A22659DC1D4782590076C1F9 /* ServiceModel.m in Sources */,
 				A26700CE1D3499B3000C7C9D /* View+MASAdditions.m in Sources */,
+				A2C6038C1D4CB29F0097644A /* RightControlVC.m in Sources */,
 				A28AFB041D338ED80016E3C6 /* MainMv.m in Sources */,
 				A28AFB3A1D339BD10016E3C6 /* DetailVC.m in Sources */,
 				A28AFB311D33935F0016E3C6 /* UIButton+WebCache.m in Sources */,
