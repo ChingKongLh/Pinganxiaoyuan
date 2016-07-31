@@ -74,4 +74,38 @@
 
 
 
+//报修界面分类报修
+
+//-------------btn1-------------/
+
+#define SviewX  -100
+#define SviewY  100
+#define SviewH  400
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif /* Common_h */

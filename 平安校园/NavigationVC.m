@@ -7,9 +7,12 @@
 //
 
 #import "NavigationVC.h"
-
+#import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
-@interface NavigationVC ()
+@interface NavigationVC ()<MAMapViewDelegate>{
+
+    MAMapView *_mapView;
+}
 @property (nonatomic) BOOL isFirstAppear;
 @end
 
@@ -62,12 +65,21 @@
     }
 }
 
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //高德地图apiKey
     [AMapServices sharedServices].apiKey = @"d3d12fc125e346b157b1931e0c0474d8";
-    _isFirstAppear = YES;
-    [self initMapview];
-    [AMapServices sharedServices].apiKey = @"用户Key";
+    
+//    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+//    _mapView.delegate = self;
+//    [self.view addSubview:_mapView];
+//    //开启定位开关
+//    _mapView.showsUserLocation = YES;
+   
     
     
     

@@ -263,6 +263,10 @@
 		A29FD1F71D48B2E0009ECE0D /* area1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A29FD1F41D48B2E0009ECE0D /* area1.jpg */; };
 		A29FD1F81D48B2E0009ECE0D /* area2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A29FD1F51D48B2E0009ECE0D /* area2.jpg */; };
 		A29FD1F91D48B2E0009ECE0D /* area3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A29FD1F61D48B2E0009ECE0D /* area3.jpg */; };
+		A2A4336C1D4D819400ED1EC5 /* addimage.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A4336B1D4D819400ED1EC5 /* addimage.png */; };
+		A2A433751D4DF61300ED1EC5 /* Imitation_AlertView_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A4336F1D4DF61300ED1EC5 /* Imitation_AlertView_TextField.m */; };
+		A2A433761D4DF61300ED1EC5 /* UIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A433721D4DF61300ED1EC5 /* UIUtils.m */; };
+		A2A433771D4DF61300ED1EC5 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A433741D4DF61300ED1EC5 /* UIViewExt.m */; };
 		A2A586341D3F11D000DD7CA4 /* GuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A586331D3F11D000DD7CA4 /* GuideVC.m */; };
 		A2A5863A1D3F1B4600DD7CA4 /* guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A586361D3F1B4600DD7CA4 /* guide1.png */; };
 		A2A5863B1D3F1B4600DD7CA4 /* guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A586371D3F1B4600DD7CA4 /* guide2.png */; };
@@ -709,6 +713,13 @@
 		A29FD1F41D48B2E0009ECE0D /* area1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = area1.jpg; sourceTree = "<group>"; };
 		A29FD1F51D48B2E0009ECE0D /* area2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = area2.jpg; sourceTree = "<group>"; };
 		A29FD1F61D48B2E0009ECE0D /* area3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = area3.jpg; sourceTree = "<group>"; };
+		A2A4336B1D4D819400ED1EC5 /* addimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addimage.png; sourceTree = "<group>"; };
+		A2A4336E1D4DF61300ED1EC5 /* Imitation_AlertView_TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Imitation_AlertView_TextField.h; sourceTree = "<group>"; };
+		A2A4336F1D4DF61300ED1EC5 /* Imitation_AlertView_TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Imitation_AlertView_TextField.m; sourceTree = "<group>"; };
+		A2A433711D4DF61300ED1EC5 /* UIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtils.h; sourceTree = "<group>"; };
+		A2A433721D4DF61300ED1EC5 /* UIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtils.m; sourceTree = "<group>"; };
+		A2A433731D4DF61300ED1EC5 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
+		A2A433741D4DF61300ED1EC5 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		A2A586321D3F11D000DD7CA4 /* GuideVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideVC.h; sourceTree = "<group>"; };
 		A2A586331D3F11D000DD7CA4 /* GuideVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideVC.m; sourceTree = "<group>"; };
 		A2A586361D3F1B4600DD7CA4 /* guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide1.png; sourceTree = "<group>"; };
@@ -1214,6 +1225,7 @@
 				A28AF8771D3371EB0016E3C6 /* Common */,
 				A2A5862E1D3F075600DD7CA4 /* guideVC */,
 				A28AF86C1D3345C50016E3C6 /* Controller */,
+				A2899E5D1D3783D3004361CA /* DetailControlManger */,
 				A22659CD1D4777310076C1F9 /* ServiceCentra */,
 				A2A5865F1D3F652B00DD7CA4 /* MeCenter */,
 				A2A586641D3F65DD00DD7CA4 /* AboutUs */,
@@ -1278,7 +1290,6 @@
 				A28AFAF81D338C590016E3C6 /* Model */,
 				A28AFAFD1D338D940016E3C6 /* View */,
 				A22659D91D4779600076C1F9 /* ControlVC */,
-				A2899E5D1D3783D3004361CA /* DetailControlManger */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1320,6 +1331,8 @@
 		A28AFAA11D337CB00016E3C6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A2A4336D1D4DF61300ED1EC5 /* 模拟UIAlertView */,
+				A2A433701D4DF61300ED1EC5 /* UIUtils */,
 				A2CE10FE1D4B5F2400331786 /* YCXMenu */,
 				A2C8C13F1D45A6650016C345 /* MJExtension */,
 				A28B815C1D41A3480015A21F /* XTPopView */,
@@ -1733,6 +1746,7 @@
 		A29FD1BA1D488CAC009ECE0D /* baoxiu */ = {
 			isa = PBXGroup;
 			children = (
+				A2A4336B1D4D819400ED1EC5 /* addimage.png */,
 				A29FD1F41D48B2E0009ECE0D /* area1.jpg */,
 				A29FD1F51D48B2E0009ECE0D /* area2.jpg */,
 				A29FD1F61D48B2E0009ECE0D /* area3.jpg */,
@@ -1749,6 +1763,26 @@
 				A29FD1D81D4891BB009ECE0D /* list1.png */,
 			);
 			path = baoxiu;
+			sourceTree = "<group>";
+		};
+		A2A4336D1D4DF61300ED1EC5 /* 模拟UIAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				A2A4336E1D4DF61300ED1EC5 /* Imitation_AlertView_TextField.h */,
+				A2A4336F1D4DF61300ED1EC5 /* Imitation_AlertView_TextField.m */,
+			);
+			path = "模拟UIAlertView";
+			sourceTree = "<group>";
+		};
+		A2A433701D4DF61300ED1EC5 /* UIUtils */ = {
+			isa = PBXGroup;
+			children = (
+				A2A433711D4DF61300ED1EC5 /* UIUtils.h */,
+				A2A433721D4DF61300ED1EC5 /* UIUtils.m */,
+				A2A433731D4DF61300ED1EC5 /* UIViewExt.h */,
+				A2A433741D4DF61300ED1EC5 /* UIViewExt.m */,
+			);
+			path = UIUtils;
 			sourceTree = "<group>";
 		};
 		A2A5862E1D3F075600DD7CA4 /* guideVC */ = {
@@ -2118,6 +2152,7 @@
 				A28AF8731D336E8C0016E3C6 /* browser_previous@2x.png in Resources */,
 				A24282DB1D35ED7200FE472A /* menu_addFri@3x.png in Resources */,
 				A28AFB5C1D33BD6D0016E3C6 /* 4.gif in Resources */,
+				A2A4336C1D4D819400ED1EC5 /* addimage.png in Resources */,
 				A2A586561D3F5CCC00DD7CA4 /* login_btn_blue_nor.png in Resources */,
 				A242829E1D35CB4A00FE472A /* Y5.png in Resources */,
 				A270A9461D407E6A0065E856 /* icon_10550983_20814907_1427993884.png in Resources */,
@@ -2281,6 +2316,7 @@
 				A28AFAF41D337E750016E3C6 /* UIScrollView+MJRefresh.m in Sources */,
 				A2C8C1651D45ACD70016C345 /* DateModel.m in Sources */,
 				A2A586401D3F24DE00DD7CA4 /* Account.m in Sources */,
+				A2A433751D4DF61300ED1EC5 /* Imitation_AlertView_TextField.m in Sources */,
 				A29035E11D3C5E330004750D /* xinwenCell.m in Sources */,
 				A29FD1D51D488CFD009ECE0D /* BaoXiuMainVC.m in Sources */,
 				A29917FB1D39F97E0048ECC6 /* PathwayTableViewController.m in Sources */,
@@ -2291,6 +2327,7 @@
 				A2C8C16B1D45AFB30016C345 /* TimeLineView.m in Sources */,
 				A28AF8441D3345BA0016E3C6 /* ____.xcdatamodeld in Sources */,
 				A29917FC1D39F97E0048ECC6 /* StartTableViewController.m in Sources */,
+				A2A433761D4DF61300ED1EC5 /* UIUtils.m in Sources */,
 				A26700CA1D3499B3000C7C9D /* MASViewAttribute.m in Sources */,
 				A28AFAB11D337E580016E3C6 /* AFNetworkReachabilityManager.m in Sources */,
 				A28AFAB51D337E580016E3C6 /* AFURLSessionManager.m in Sources */,
@@ -2303,6 +2340,7 @@
 				A26700C81D3499B3000C7C9D /* MASConstraintMaker.m in Sources */,
 				A28AFB341D33935F0016E3C6 /* UIImage+WebP.m in Sources */,
 				A28AFAE61D337E750016E3C6 /* MJRefreshFooter.m in Sources */,
+				A2A433771D4DF61300ED1EC5 /* UIViewExt.m in Sources */,
 				A29917D01D39BE5D0048ECC6 /* LZFoldButton.m in Sources */,
 				A2C8C1701D45C3590016C345 /* TimelineCell.m in Sources */,
 				A28AFAB31D337E580016E3C6 /* AFURLRequestSerialization.m in Sources */,
