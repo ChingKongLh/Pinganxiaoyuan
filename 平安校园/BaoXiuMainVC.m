@@ -22,6 +22,9 @@
 #import "UIUtils.h"
 #import "Imitation_AlertView_TextField.h"
 
+#import "Alertmodel.h"
+#import "HistoryCell.h"
+
 #define LabelW _redview.frame.size.width - _Slabel1.frame.size.width + 30
 #define LabelH 50
 #define LzHeight 44
@@ -33,11 +36,12 @@
 
 #define lzX -100 + ScreenW/4 + 15
 
-@interface BaoXiuMainVC ()<selectIndexPathDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,Imitation_AlertView_TextFielddelegate>
+@interface BaoXiuMainVC ()<selectIndexPathDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,Imitation_AlertView_TextFielddelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIView *_redview;
     CGFloat _y;
     CGFloat _x;
+    CGFloat _x2;
     
     LZFoldButton *S1bt1;
     LZFoldButton *S1bt2;
@@ -99,6 +103,9 @@
 @property (nonatomic,strong)UITableView *tableview;
 @property (nonatomic,strong)UIView *RightView;
 
+@property (nonatomic,strong)UITableView *tableview2;
+@property (nonatomic,strong)UIView *RightView2;
+//====================底部label=====================//
 @property (nonatomic,strong)UILabel *Slabel1;
 @property (nonatomic,strong)UILabel *Slabel2;
 @property (nonatomic,strong)UILabel *Slabel3;
@@ -130,10 +137,14 @@
 //====================添加描述=================//
 @property (nonatomic,strong) UIView * alertView;
 @property (nonatomic,strong) Imitation_AlertView_TextField * textFieldView;
+@property (nonatomic,strong)NSMutableArray *array;
 @end
 
+static NSString *identify = @"cell";
 @implementation BaoXiuMainVC
 @synthesize items=_items;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self LayerSettingWithBottom];
@@ -143,22 +154,33 @@
     _hbtn3.tag = 103;
     
     _SBtn1.tag = 104;
-   
-#pragma mark ---------门窗报修
-    
     _SBtn2.tag = 105;
+    _SBtn3.tag = 106;
+    _SBtn4.tag = 107;
+    _SBtn5.tag = 108;
+    _SBtn6.tag = 109;
+    _SBtn7.tag = 110;
+    _Sbtn8.tag = 111;
+    
     _y = 200;
     //创建点击事件弹出区域
+    if (_SBtn1) {
     _redview = [[UIView alloc] initWithFrame:CGRectMake(labelX,labelY,ScreenW/3 , 400)];
+    }else if (_SBtn2){
+    _redview = [[UIView alloc] initWithFrame:CGRectMake(labelX + 50,labelY,ScreenW/3 , 400)];
+    }else if (_SBtn3){
+    _redview = [[UIView alloc] initWithFrame:CGRectMake(labelX + 100,labelY,ScreenW/3 , 400)];
+    }
+    
     _redview.backgroundColor = [UIColor whiteColor];
     _redview.layer.cornerRadius = 10;
-
+    
     [self.view addSubview:_redview];
     
 //=====================添加第一个label==================//
-    
+   
     _Slabel1 = [[UILabel alloc] initWithFrame:CGRectMake(labelX,labelY, labeLW ,LabelH)];
-   self.Slabel1.backgroundColor = [UIColor whiteColor];
+    self.Slabel1.backgroundColor = [UIColor whiteColor];
     _Slabel1.text = @"华中校区";
     _Slabel1.textAlignment = NSTextAlignmentCenter;
     _Slabel1.font = [UIFont systemFontOfSize:17.0f];
@@ -166,23 +188,24 @@
     //添加label上的Btn
     NSArray *arr = @[@"华中校区",@"英才校区",@"紫金港校区"];
     lz1 = [[LZFoldButton alloc] initWithFrame:CGRectMake(-100 + ScreenW/4 +15,0,_redview.frame.size.width - _Slabel1.frame.size.width + 30, 50) dataArray:arr];
+    
     lz1.lzDelegate = self;
     lz1.lzFontSize = 16;
     lz1.lzHeight = 132;
     lz1.tag = 1000;
-    lz1.backgroundColor = [UIColor redColor];
+    lz1.backgroundColor = [UIColor blackColor];
     [_redview addSubview:lz1];
     //添加分割线
     _Sline2 = [[UIView alloc] init];
-    _Sline2.backgroundColor = [UIColor darkTextColor];
+    _Sline2.backgroundColor = [UIColor lightGrayColor];
     [_redview addSubview:_Sline2];
     [_Sline2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lz1.mas_bottom);
         make.left.equalTo(_redview.mas_left);
+        make.right.equalTo(_redview.mas_right);
         make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
     }];
-    
-//========================添加第二个label===================//
+    //========================添加第二个label===================//
     _Slabel2 = [[UILabel alloc] initWithFrame:CGRectMake(-100, 100, ScreenW/4 + 15, LabelH)];
     _Slabel2.backgroundColor = [UIColor whiteColor];
     _Slabel2.textAlignment = NSTextAlignmentCenter;
@@ -205,46 +228,39 @@
     _Sline3.backgroundColor = [UIColor lightGrayColor];
     [_redview addSubview:_Sline3];
     
-//=====================添加第三个label=====================//
-    _Slabel3 = [[UILabel alloc] initWithFrame:CGRectMake(labelX,labelY, labeLW, LabelH)];
-    _Slabel3.backgroundColor = [UIColor whiteColor];
-    _Slabel3.textAlignment = NSTextAlignmentCenter;
-    _Slabel3.font = [UIFont systemFontOfSize:17.0f];
-    _Slabel3.text = @"1";
-    [_redview addSubview:_Slabel3];
     
-    //添加第三个label右边的btn
-    NSArray *arr3  = @[@"1",@"2",@"3",@"4"];
-    lz3 = [[LZFoldButton alloc] initWithFrame:CGRectMake(lzX, LabelH * 2 +2, LabelW, LabelH) dataArray:arr3];
-    lz3.lzDelegate = self;
-    lz3.lzFontSize = 16.0f;
-    lz3.lzHeight = LzHeight * 4;
-    lz3.tag = 1003;
-    lz3.backgroundColor = [UIColor blackColor];
-    [_redview addSubview:lz3];
+    _descText = [[UIButton alloc] initWithFrame:CGRectMake(-200,100,LabelW + 50,LabelH)];
+//    [_descText setTitle:self.textFieldView.title forState:UIControlStateNormal];
+    _descText.titleLabel.text = @"文字描述";
+    _descText.contentHorizontalAlignment = NSTextAlignmentCenter;
+    _descText.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    [_descText addTarget:self action:@selector(textFieldwithAlert) forControlEvents:UIControlEventTouchUpInside];
+    _descText.backgroundColor = [UIColor lightGrayColor];
+//    _descText.titleLabel.text = @"文字描述";
+    _descText.tag = 10;
+    [_redview addSubview:_descText];
+    
     //添加第三个与第四个label之间的分割线
     _Sline4 = [[UIView alloc] init];
     _Sline4.backgroundColor = [UIColor lightGrayColor];
     [_redview addSubview:_Sline4];
     [_Sline4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_Slabel3.mas_bottom);
+        make.top.equalTo(_descText.mas_bottom);
         make.left.equalTo(_redview.mas_left);
-        make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
+        make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width + 50, 1));
     }];
 //===================添加自定义描述===========================//
     
     self.textFieldView = [[Imitation_AlertView_TextField alloc] initWithFatherViewFrameWidth:self.view.width withFrameHeight:self.view.height];
-    self.textFieldView.title = @"文字描述";
+    self.textFieldView.title = textView.text;
+    self.textFieldView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.textFieldView];
-    self.textFieldView.textMessage = @"sh11";
     self.textFieldView.delegate = self;
     [self.textFieldView viewHidden];
     
 //====================添加图片上传=======================//
     _UploadImage = [[UIButton alloc] initWithFrame:CGRectMake(labelX, labelY,_redview.frame.size.width, LabelH + 50)];
-    
     _imageview= [[UIImageView alloc] init];
-
     [_UploadImage setTitle:@"图片描述" forState:UIControlStateNormal];
     [_UploadImage setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _imageview.backgroundColor = [UIColor whiteColor];
@@ -253,21 +269,13 @@
     _UploadImage.tag = 1004;
     [_UploadImage addTarget:self action:@selector(uploadImage:) forControlEvents:UIControlEventTouchUpInside];
     
-//添加提交按钮
+    //添加提交按钮
     _commit = [[UIButton alloc] initWithFrame:CGRectMake(labelX, labelY, _redview.frame.size.width, LabelH)];
     _commit.backgroundColor = [UIColor redColor];
     [_commit addTarget:self action:@selector(UpLoadData) forControlEvents:UIControlEventTouchUpInside];
     [_commit setTitle:@"提交报修" forState:UIControlStateNormal];
     _commit.tag= 1005;
     [_redview addSubview:_commit];
-    
-    _SBtn3.tag = 106;
-    _SBtn4.tag = 107;
-    _SBtn5.tag = 108;
-    _SBtn6.tag = 109;
-    _SBtn7.tag = 110;
-    _Sbtn8.tag = 111;
-    
     _FBtn1.tag = 112;
     _FBtn2.tag = 113;
     _FBtn3.tag = 114;
@@ -275,10 +283,11 @@
     //Btn点击事件
     [self AddBtnClickAction];
     [self bumpWithRightView];
-    [self AddActionForFirstBtn];
-    
-    
+    [self bumpWithRightTableview];
+    [_tableview registerNib:[UINib nibWithNibName:NSStringFromClass([HistoryCell class]) bundle:nil] forCellReuseIdentifier:identify];
+    [self loadrequest];
 }
+
 -(void)at_textViewDidEndEditing:(UITextView *)at_textView{
     
     NSLog(@"------ textView .text is %@",at_textView.text);
@@ -287,7 +296,6 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     
     self.alertView.transform = CGAffineTransformMakeTranslation(0, -60);
-    
     return YES;
 }
 
@@ -307,17 +315,83 @@
 #pragma mark ------------弹出右侧视图
 
 -(void)bumpWithRightView{
-    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 300, 64, ScreenW - 200, ScreenH - 200) style:UITableViewStylePlain];
-    _tableview.backgroundColor = [UIColor lightGrayColor];
+    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 300, 64, ScreenW - 200, ScreenH - 100) style:UITableViewStylePlain];
+    _tableview.backgroundColor = [UIColor whiteColor];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
     [self.view addSubview:_tableview];
     
 }
+
+-(void)loadrequest{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict1 = responseObject[0];
+        NSArray *arr = dict1[@"item"];
+        self.array = [NSMutableArray array];
+        for (NSDictionary *dict in arr) {
+            Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+            [self.array addObject:model];
+        }
+        //加载完成刷新UI
+        [_tableview reloadData];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    return self.array.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
+    Alertmodel *model = _array[indexPath.row];
+    [cell setModel:model];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 96;
+    
+}
+
+#pragma  mark  -----添加最右侧tableview
+
+-(void)addRighhtAction{
+    _x2 = 64;
+    [UIView animateWithDuration:.3 animations:^{
+        _tableview2.frame = CGRectMake(80, _x2, ScreenW - 80, ScreenH -  50);
+    }];
+}
+
+-(void)bumpWithRightTableview{
+    _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 400, 64, ScreenW - 100, ScreenH - 100) style:UITableViewStylePlain];
+    _tableview2.backgroundColor = [UIColor whiteColor];
+    
+    NSArray *segmentarray = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4", nil];
+    UISegmentedControl *segment = [[UISegmentedControl alloc]initWithItems:segmentarray];
+    segment.frame = CGRectMake(80, _x2,ScreenW - 80,60);
+    //设置默认选项
+    segment.selectedSegmentIndex = 1;
+    segment.tintColor = [UIColor blueColor];
+    //设置样式
+    
+    
+    [_tableview2 addSubview:segment];
+    
+    [self.view addSubview:_tableview2];
+}
+
+
+#pragma mark --------- 添加中间部分tableview
 
 -(void)addAction{
     _x = 64;
   [UIView animateWithDuration:.3 animations:^{
       _tableview.frame = CGRectMake(150, _x  ,ScreenW - 150, ScreenH - 150);
-  
   }];
 }
 
@@ -336,7 +410,6 @@
 }
 
 
-
 #pragma mark ----------------上传本地数据到服务器
 
 -(void)UpLoadData{
@@ -344,7 +417,6 @@
         _redview.frame = CGRectMake(labelX,labelY,ScreenW/3 , 400);
     }else if (_commit1.tag == 1012){
     _Sview1 = [[UIView alloc] initWithFrame:CGRectMake(SviewX-200, SviewY, ScreenW/3,SviewH)];
-        
     }
 //    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
     //设置请求头
@@ -355,85 +427,6 @@
 //    AFJSONResponseSerializer *serializer = [AFJSONResponseSerializer serializer];
     
 }
-
-
-#pragma mark ---------------第一个btn
-
--(void)AddActionForFirstBtn{
-    
-    //创建view
-    _Sview1 = [[UIView alloc] initWithFrame:CGRectMake(SviewX-200, SviewY, ScreenW/3,SviewH)];
-    _Sview1.layer.cornerRadius = 15;
-    _Sview1.backgroundColor = [UIColor orangeColor];
-    [self.view addSubview:_Sview1];
-    
-    //添加view上第一个btn
-    _publicArr = @[@"华中校区",@"华北校区",@"华南校区"];
-    S1bt1 = [[LZFoldButton alloc] initWithFrame:CGRectMake(SviewX, 0, ScreenW/3 , 50) dataArray:_publicArr];
-    S1bt1.lzDelegate = self;
-    S1bt1.tag = 1008;
- 
-    S1bt1.lzHeight = LzHeight * 3;
-    S1bt1.lzFontSize = 16.0f;
-    [_Sview1 addSubview:S1bt1];
-    
-    //添加第一个btn与第二个btn之间的分割线
-    _S1line1 = [[UIView alloc] initWithFrame:CGRectMake(SviewX, LabelH, ScreenW/3, 1)];
-    _S1line1.backgroundColor = [UIColor lightGrayColor];
-    [_Sview1 addSubview:_S1line1];
-    if (_SBtn1) {
-    _publicArr1 = @[@"衣柜坏",@"衣柜上锁坏",@"衣柜烂了",@"衣柜门坏了"];
-    }else if (_SBtn3){
-        _publicArr1 = @[@"床坏了",@"床腿断了",@"蚊帐架坏了",@"螺丝松动"];
-    }else if (_SBtn4){
-        _publicArr1 = @[@"总是掉线",@"连不上网",@"网速较慢",@"路由坏"];
-    }
-    
-    S1bt2 = [[LZFoldButton alloc] initWithFrame:CGRectMake(SviewX, LabelH, ScreenW/3, LabelH) dataArray:_publicArr1];
-    S1bt2.lzDelegate = self;
-    S1bt2.tag = 1009;
-    S1bt2.lzHeight = LzHeight * 4;
-    S1bt2.lzFontSize = 16.0f;
-    [_Sview1 addSubview:S1bt2];
-    
-    _S1lline2 = [[UIView alloc] initWithFrame:CGRectMake(SviewX, LabelH * 2 + 1, ScreenW/3, LabelH)];
-    _S1lline2.backgroundColor = [UIColor lightGrayColor];
-    [_Sview1 addSubview:_Sline2];
-
-    //添加描述
-    _descText = [[UIButton alloc] initWithFrame:CGRectMake(SviewX, LabelH * 2 + 2,ScreenW/3, LabelH)];
-    
-    [_descText setTitle:self.textFieldView.title forState:UIControlStateNormal];
-    _descText.contentHorizontalAlignment = NSTextAlignmentCenter;
-    _descText.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
-    [_descText addTarget:self action:@selector(textFieldwithAlert) forControlEvents:UIControlEventTouchUpInside];
-    _descText.tag = 1010;
-    [_Sview1 addSubview:_descText];
-
-    //添加图片
-    _SImageUpload4 = [[UIButton alloc] initWithFrame:CGRectMake(SviewX, LabelH * 3 +2, ScreenW/3, LabelH + 50)];
-    [_SImageUpload4 setTitle:@"图片描述" forState:UIControlStateNormal];
-    [_SImageUpload4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _SImageUpload4.tag = 1011;
-    _SImageUpload4.contentEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
-    _SImageUpload4.contentHorizontalAlignment = NSTextAlignmentCenter;
-    [_SImageUpload4 addTarget:self action:@selector(uploadImage:) forControlEvents:UIControlEventTouchUpInside];
-    [_Sview1 addSubview:_SImageUpload4];
-
-    //提交按钮
-    _commit1 = [[UIButton alloc] initWithFrame:CGRectMake(SviewX, LabelH * 3 + 2 + _SImageUpload4.frame.size.height, ScreenW/3, LabelH)];
-    [_commit1 addTarget:self action:@selector(DealWithBtnTarget) forControlEvents:UIControlEventTouchUpInside];
-    _commit1.tag =1012;
-    
-    _commit.contentHorizontalAlignment = NSTextAlignmentCenter;
-    _commit.contentEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
-    [_commit1 setTitle:@"点击报修" forState:UIControlStateNormal];
-    [_commit1 setTintColor:[UIColor redColor]];
-    [_Sview1 addSubview:_commit1];
-    
-}
-
-
 - (IBAction)back:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -446,12 +439,16 @@
     
     [_hbtn1 addTarget:self action:@selector(ZidingYiBaoxiu) forControlEvents:UIControlEventTouchUpInside];
     [_hbtn2 addTarget:self action:@selector(addAction) forControlEvents:UIControlEventTouchUpInside];
+    [_hbtn3 addTarget:self action:@selector(addRighhtAction) forControlEvents:UIControlEventTouchUpInside];
     
-    [_SBtn1 addTarget:self action:@selector(bumpview) forControlEvents:UIControlEventTouchUpInside];
+    [_SBtn1 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
     [_SBtn2 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
-    [_SBtn3 addTarget:self action:@selector(bumpview) forControlEvents:UIControlEventTouchUpInside];
-    [_SBtn4 addTarget:self action:@selector(bumpview) forControlEvents:UIControlEventTouchUpInside];
-    
+    [_SBtn3 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_SBtn4 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_SBtn5 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_SBtn6 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_SBtn7 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_Sbtn8 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark ----------自定义报修
@@ -459,111 +456,111 @@
 -(void)ZidingYiBaoxiu{
     BaoXiuVC  *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"quickly"];
     [self presentViewController:VC animated:YES completion:nil];
-
 }
 
 
-#pragma mark -----------点击第一个btn弹出
-
--(void)bumpview{
-    
-    [UIView animateWithDuration:.3 animations:^{
-        
-        if (_SBtn1) {
-            _Sview1.frame = CGRectMake(50, _y + 50,ScreenW/3 +30, 300);
-            S1bt1.frame =CGRectMake(0, 0, ScreenW/3 + 30  , 50);
-            _S1line1.frame = CGRectMake(0,LabelH, ScreenW/3  + 30 , 1);
-            S1bt2.frame = CGRectMake(0, LabelH + 1, ScreenW/3 + 30 , 50);
-            
-            _S1lline2.frame = CGRectMake(0, LabelH * 2 + 1, ScreenW/3 + 30 , 50);
-            _descText.frame = CGRectMake(0, LabelH * 2 + 2 , ScreenW/3 + 30  , 50);
-
-            _SImageUpload4.frame = CGRectMake(0, LabelH *3 + 2, ScreenW/3 + 30, LabelH + 50);
-            _commit1.frame = CGRectMake(0, LabelH * 3 + 2 + _SImageUpload4.frame.size.height, ScreenW/3 + 30, LabelH);
-        }else if (_SBtn3){
-            _Sview1.frame = CGRectMake(70, _y + 50,ScreenW/3 + 30, 300);
-            S1bt1.frame =CGRectMake(0, 0, ScreenW/3 + 30 , 50);
-            _S1line1.frame = CGRectMake(0,LabelH, ScreenW/3 + 30, 1);
-            S1bt2.frame = CGRectMake(0, LabelH + 1, ScreenW/3 + 30, 50);
-            
-            _S1lline2.frame = CGRectMake(0, LabelH * 2 + 1, ScreenW/3 + 30, 50);
-            _descText.frame = CGRectMake(0, LabelH * 2 + 2 , ScreenW/3 , 50);
-            
-            _SImageUpload4.frame = CGRectMake(0, LabelH *3 + 2, ScreenW/3, LabelH + 50);
-            _commit1.frame = CGRectMake(0, LabelH * 3 + 2 + _SImageUpload4.frame.size.height, ScreenW/3, LabelH);
-        }else if (_SBtn4) {
-            _Sview1.frame = CGRectMake(90, _y + 50,ScreenW/3 + 30, 300);
-            S1bt1.frame =CGRectMake(0, 0, ScreenW/3 + 30 , 50);
-            _S1line1.frame = CGRectMake(0,LabelH, ScreenW/3 + 30, 1);
-            S1bt2.frame = CGRectMake(0, LabelH + 1, ScreenW/3 + 30, 50);
-            
-            _S1lline2.frame = CGRectMake(0, LabelH * 2 + 1, ScreenW/3 + 30, 50);
-            _descText.frame = CGRectMake(0, LabelH * 2 + 2 , ScreenW/3 , 50);
-            _SImageUpload4.frame = CGRectMake(0, LabelH *3 + 2, ScreenW/3, LabelH + 50);
-            _commit1.frame = CGRectMake(0, LabelH * 3 + 2 + _SImageUpload4.frame.size.height, ScreenW/3, LabelH);
-        }
-
-    }];
-}
-
-
-
-
-
-
-
-
-#pragma mark ----------- btn点击弹出侧滑视图实现
+#pragma mark ----------- 弹出右侧视图
 
 -(void)AddLeftAction{
     
-    [UIView animateWithDuration:.5 animations:^{
-        _redview.backgroundColor = [UIColor orangeColor];
+    [UIView animateWithDuration:.3 animations:^{
+        _redview.backgroundColor = [UIColor whiteColor];
         _y = _y + 0.1;
-//设置整个弹出视图
-        _redview.frame = CGRectMake(0, _y + 50,ScreenW/3 + 30, 300);
-        //这个位置设置要注意是相对于其父视图的位置来讲的所以Y值应该设置为0;
-        _Slabel1.frame = CGRectMake(0, 0, ScreenW/4+15  , 50);
-
-        lz1.frame = CGRectMake(ScreenW/4+15,0,_redview.frame.size.width - _Slabel1.frame.size.width,50);
-        lz1.backgroundColor = [UIColor redColor];
-        [_Sline2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_Slabel1.mas_bottom);
-            make.left.equalTo(_redview.mas_left);
-            make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
-        }];
-
-//设置第二个label
-        [_Slabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_Sline2.mas_bottom);
-            make.left.equalTo(_Slabel1.mas_left);
-            make.right.equalTo(_Slabel1.mas_right);
-            make.height.equalTo(_Slabel1.mas_height);
-        }];
-        lz2.frame = CGRectMake(ScreenW/4 + 15,LabelH + 1, LabelW, LabelH);
-        lz2.backgroundColor = [UIColor greenColor];
         
-        _Sline3.frame = CGRectMake(0, LabelH * 2+1, _redview.frame.size.width, 1);
-        
-//设置第三个label
-        [_Slabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_Sline3.mas_bottom);
-            make.left.equalTo(_Slabel2.mas_left);
-            make.right.equalTo(_Slabel2.mas_right);
-            make.height.equalTo(_Slabel2.mas_height);
-        }];
-        _Slabel3.backgroundColor = [UIColor whiteColor];
-        lz3.frame = CGRectMake(ScreenW/4 + 15, LabelH * 2 +2, LabelW, LabelH);
-        [_Sline4 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_Slabel3.mas_bottom);
-            make.left.equalTo(_redview.mas_left);
-            make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
-        }];
-  
-//设置图片位置
-        _UploadImage.frame = CGRectMake(0, LabelH * 3 +2, _redview.frame.size.width, LabelH + 50);
-        
-        _commit.frame = CGRectMake(0, LabelH * 3 + 2 +_UploadImage.frame.size.height, _redview.frame.size.width, LabelH);
+        //设置整个弹出视图
+        if (_SBtn1) {
+            _redview.frame = CGRectMake(0, _y + 50,ScreenW/3 + 30, 300);
+            //这个位置设置要注意是相对于其父视图的位置来讲的所以Y值应该设置为0;
+            _Slabel1.frame = CGRectMake(0, 0, ScreenW/4+15 ,50);
+            lz1.frame = CGRectMake(ScreenW/4+15,0,_redview.frame.size.width - _Slabel1.frame.size.width,50);
+            lz1.backgroundColor = [UIColor redColor];
+            [_Sline2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Slabel1.mas_bottom);
+                make.left.equalTo(_redview.mas_left);
+                make.size.mas_equalTo(CGSizeMake(ScreenW/3 + 30, 1));
+            }];
+            //设置第二个label
+            [_Slabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Sline2.mas_bottom);
+                make.left.equalTo(_Slabel1.mas_left);
+                make.right.equalTo(_Slabel1.mas_right);
+                make.height.equalTo(_Slabel1.mas_height);
+            }];
+            lz2.frame = CGRectMake(ScreenW/4 + 15 ,LabelH + 1, LabelW, LabelH);
+            lz2.backgroundColor = [UIColor greenColor];
+                
+            _Sline3.frame = CGRectMake(50, LabelH * 2+1, _redview.frame.size.width, 1);
+            lz2.frame = CGRectMake(ScreenW/4 + 15,LabelH + 1, LabelW, LabelH);
+            lz2.backgroundColor = [UIColor greenColor];
+            _Sline3.frame = CGRectMake(0, LabelH * 2+1, _redview.frame.size.width, 1);
+            //设置第三个label
+            [_descText mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Sline3.mas_bottom);
+                make.left.equalTo(_Slabel2.mas_left);
+                make.right.equalTo(_redview.mas_right);
+                make.height.equalTo(_Slabel2.mas_height);
+            }];
+            [_Sline4 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_descText.mas_bottom);
+                make.left.equalTo(_redview.mas_left);
+                make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
+            }];
+            //设置图片位置
+            _UploadImage.frame = CGRectMake(0, LabelH * 3 +2, _redview.frame.size.width, LabelH + 50);
+            _commit.frame = CGRectMake(0, LabelH * 3 + 2 +_UploadImage.frame.size.height, _redview.frame.size.width, LabelH);
+            _UploadImage.frame = CGRectMake(0, LabelH * 3 +2, _redview.frame.size.width, LabelH + 50);
+            _commit.frame = CGRectMake(0, LabelH * 3 + 2 +_UploadImage.frame.size.height, _redview.frame.size.width, LabelH);
+        }else if (_SBtn2){
+            _redview.frame = CGRectMake(100, _y + 50,ScreenW/3 + 30, 300);
+            //这个位置设置要注意是相对于其父视图的位置来讲的所以Y值应该设置为0;
+            _Slabel1.frame = CGRectMake(0, 0, ScreenW/4+15  , 50);
+            
+            lz1.frame = CGRectMake(ScreenW/4+15,0,_redview.frame.size.width - _Slabel1.frame.size.width,50);
+            lz1.backgroundColor = [UIColor redColor];
+            [_Sline2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Slabel1.mas_bottom);
+                make.left.equalTo(_redview.mas_left);
+                make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
+            }];
+            //设置第二个label
+            [_Slabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Sline2.mas_bottom);
+                make.left.equalTo(_Slabel1.mas_left);
+                make.right.equalTo(_Slabel1.mas_right);
+                make.height.equalTo(_Slabel1.mas_height);
+            }];
+                lz2.frame = CGRectMake(ScreenW/4 + 15 ,LabelH + 1, LabelW, LabelH);
+                lz2.backgroundColor = [UIColor greenColor];
+                
+                _Sline3.frame = CGRectMake(0, LabelH * 2+1, _redview.frame.size.width, 1);
+                lz2.frame = CGRectMake(ScreenW/4 + 15,LabelH + 1, LabelW, LabelH);
+                lz2.backgroundColor = [UIColor greenColor];
+                _Sline3.frame = CGRectMake(50, LabelH * 2+1, _redview.frame.size.width, 1);
+            //设置第三个label
+            [_Slabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Sline3.mas_bottom);
+                make.left.equalTo(_Slabel2.mas_left);
+                make.right.equalTo(_Slabel2.mas_right);
+                make.height.equalTo(_Slabel2.mas_height);
+            }];
+            _Slabel3.backgroundColor = [UIColor whiteColor];
+            lz3.frame = CGRectMake(ScreenW/4 + 15, LabelH * 2 +2, LabelW, LabelH);
+            lz3.frame = CGRectMake(ScreenW/4 + 15 , LabelH * 2 +2, LabelW, LabelH);
+            [_Sline4 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_Slabel3.mas_bottom);
+                make.left.equalTo(_redview.mas_left);
+                make.size.mas_equalTo(CGSizeMake(_redview.frame.size.width, 1));
+            }];
+            
+            //设置图片位置
+            _UploadImage.frame = CGRectMake(0, LabelH * 3 +2, _redview.frame.size.width, LabelH + 50);
+            
+            _commit.frame = CGRectMake(0, LabelH * 3 + 2 +_UploadImage.frame.size.height, _redview.frame.size.width, LabelH);
+            _UploadImage.frame = CGRectMake(0, LabelH * 3 +2, _redview.frame.size.width, LabelH + 50);
+            
+            _commit.frame = CGRectMake(0, LabelH * 3 + 2 +_UploadImage.frame.size.height, _redview.frame.size.width, LabelH);
+            
+        }
     }];
 }
 
@@ -627,11 +624,11 @@
             [alert addAction:action1];
             [alert addAction:action2];
             [self presentViewController:alert animated:YES completion:nil];
-
 }
 
 //弹出视图退出操作
 -(void)logout:(id)sender{
+    
     
 }
 

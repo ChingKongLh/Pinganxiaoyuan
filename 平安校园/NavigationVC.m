@@ -58,13 +58,13 @@
       self.mapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
 }
 
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (_isFirstAppear) {
         _isFirstAppear = NO;
     }
 }
-
 
 
 
