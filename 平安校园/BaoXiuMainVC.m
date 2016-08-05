@@ -36,7 +36,7 @@
 
 #define lzX -100 + ScreenW/4 + 15
 
-@interface BaoXiuMainVC ()<selectIndexPathDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,Imitation_AlertView_TextFielddelegate,UITableViewDataSource,UITableViewDelegate>
+@interface BaoXiuMainVC ()<selectIndexPathDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,Imitation_AlertView_TextFielddelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     UIView *_redview;
     CGFloat _y;
@@ -103,8 +103,18 @@
 @property (nonatomic,strong)UITableView *tableview;
 @property (nonatomic,strong)UIView *RightView;
 
+@property (nonatomic,strong)UIScrollView *scrolllview;
+@property (nonatomic,strong)UIView *bgview;
 @property (nonatomic,strong)UITableView *tableview2;
 @property (nonatomic,strong)UIView *RightView2;
+@property (nonatomic)NSInteger index;
+@property (nonatomic,strong)UISegmentedControl *segment;
+@property (nonatomic,strong)UITableView *tableview3;
+@property (nonatomic,strong)UITableView *tableview4;
+@property (nonatomic,strong)NSMutableArray *array1;
+@property (nonatomic,strong)NSMutableArray *array2;
+@property (nonatomic,strong)NSMutableArray *array3;
+
 //====================底部label=====================//
 @property (nonatomic,strong)UILabel *Slabel1;
 @property (nonatomic,strong)UILabel *Slabel2;
@@ -286,7 +296,22 @@ static NSString *identify = @"cell";
     [self bumpWithRightTableview];
     [_tableview registerNib:[UINib nibWithNibName:NSStringFromClass([HistoryCell class]) bundle:nil] forCellReuseIdentifier:identify];
     [self loadrequest];
+    _tableview.tag =10000;
+    _tableview2.tag = 10001;
+    _tableview3.tag = 10002;
+    _tableview4.tag = 10003;
+    
+    //屏幕右侧偏移手势
+    UIScreenEdgePanGestureRecognizer *recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(RightPangesterRecogniser:)];
+    recognizer.edges = UIRectEdgeRight;
+    [_tableview2 addSubview:recognizer];
 }
+
+-(void)RightPangesterRecogniser:(UIScreenEdgePanGestureRecognizer *)screenpan{
+    
+    
+}
+
 
 -(void)at_textViewDidEndEditing:(UITextView *)at_textView{
     
@@ -322,40 +347,115 @@ static NSString *identify = @"cell";
     [self.view addSubview:_tableview];
     
 }
-
 -(void)loadrequest{
+    
+    //判断网络是否通畅
+//    Reachability *reach = [Reachability reachabilityForInternetConnection];
+//    if (!([reach currentReachabilityStatus] == ReachableViaWWAN) && !([reach currentReachabilityStatus] == ReachableViaWiFi))
+    
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer = [AFJSONResponseSerializer serializer];
     [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict1 = responseObject[0];
         NSArray *arr = dict1[@"item"];
-        self.array = [NSMutableArray array];
+        self.array2 = [NSMutableArray array];
         for (NSDictionary *dict in arr) {
             Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
-            [self.array addObject:model];
+            [self.array2 addObject:model];
         }
         //加载完成刷新UI
-        [_tableview reloadData];
+        [_tableview3 reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     }];
-}
+    switch (_index) {
+        case 0:{
+            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dict1 = responseObject[0];
+                NSArray *arr = dict1[@"item"];
+                self.array = [NSMutableArray array];
+                for (NSDictionary *dict in arr) {
+                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+                    [self.array addObject:model];
+                }
+                //加载完成刷新UI
+                [_tableview reloadData];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            }];
+        }
+            break;
+        case 1:{
+            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dict1 = responseObject[0];
+                NSArray *arr = dict1[@"item"];
+                self.array1 = [NSMutableArray array];
+                for (NSDictionary *dict in arr) {
+                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+                    [self.array1 addObject:model];
+                }
+                //加载完成刷新UI
+                [_tableview2 reloadData];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            }];
+        }
+            break;
+        case 2:{
+            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dict1 = responseObject[0];
+                NSArray *arr = dict1[@"item"];
+                self.array3 = [NSMutableArray array];
+                for (NSDictionary *dict in arr) {
+                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+                    [self.array3 addObject:model];
+                }
+                //加载完成刷新UI
+                [_tableview4 reloadData];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+    }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
-    return self.array.count;
-}
+    if (tableView.tag == 10000) {
+        return self.array.count;
+    }else if (tableView.tag == 10001){
+        return self.array1.count;
+    }else if (tableView.tag == 10002){
+        return self.array2.count;
+    }else if (tableView.tag == 10003){
+        return self.array3.count;
+    }
+    return 0;
+    }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
-    Alertmodel *model = _array[indexPath.row];
-    [cell setModel:model];
+    if (tableView.tag == 10000) {
+        Alertmodel *model = _array[indexPath.row];
+        [cell setModel:model];
+    }else if (tableView.tag == 10001){
+        Alertmodel *model = self.array1[indexPath.row];
+        [cell setModel:model];
+    }else if (tableView.tag == 10002){
+        Alertmodel *model = self.array2[indexPath.row];
+        [cell setModel:model];
+    }else if (tableView.tag == 10003){
+        Alertmodel *model = self.array3[indexPath.row];
+        [cell setModel:model];
+    }
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+   
     return 96;
-    
 }
 
 #pragma  mark  -----添加最右侧tableview
@@ -363,27 +463,122 @@ static NSString *identify = @"cell";
 -(void)addRighhtAction{
     _x2 = 64;
     [UIView animateWithDuration:.3 animations:^{
-        _tableview2.frame = CGRectMake(80, _x2, ScreenW - 80, ScreenH -  50);
+    _segment.frame = CGRectMake(80, _x2 , ScreenW - 80,35);
+    _scrolllview.frame = CGRectMake(80, _x2 + 35, ScreenW - 80, ScreenH -  50) ;
+    _bgview.frame = CGRectMake(0,0,(ScreenW - 80) * 3, ScreenH - 50);
+//        _tableview2.frame = CGRectMake(80, _x2, ScreenW - 80, ScreenH - 50);
+//        _tableview3.frame = CGRectMake(80 * 2, _x2, ScreenW - 80, ScreenH - 50);
+//        _tableview4.frame = CGRectMake( 80 * 3, _x2, ScreenW - 80, ScreenH - 50);
+//    if (_segment.selectedSegmentIndex == 0) {
+//        _tableview2.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
+//    }else if (_segment.selectedSegmentIndex == 1){
+//        _tableview3.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
+//    }else if (_segment.selectedSegmentIndex == 2){
+//        _tableview4.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
+//    }
     }];
 }
 
 -(void)bumpWithRightTableview{
-    _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 400, 64, ScreenW - 100, ScreenH - 100) style:UITableViewStylePlain];
-    _tableview2.backgroundColor = [UIColor whiteColor];
+    //  创建ScrollView
+    _scrolllview = [[UIScrollView alloc] initWithFrame:CGRectMake(ScreenW, _x2 + 40, ScreenW - 80, ScreenH - 50)];
+    _scrolllview.delegate = self;
+    //  设置ScrollView允许分页
+    _scrolllview.pagingEnabled = YES;
+    _scrolllview.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_scrolllview];
     
-    NSArray *segmentarray = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4", nil];
-    UISegmentedControl *segment = [[UISegmentedControl alloc]initWithItems:segmentarray];
-    segment.frame = CGRectMake(80, _x2,ScreenW - 80,60);
+    //在ScrollView上添加View视图
+    _bgview = [[UIView alloc]initWithFrame:CGRectMake(ScreenW,104, (ScreenW - 80) * 3, ScreenH - 50)];
+    _bgview.backgroundColor = [UIColor redColor];
+    [_scrolllview addSubview:_bgview];
+
+    //添加第二个tableview
+    _tableview2 = [[UITableView alloc] init];
+    [_bgview addSubview:_tableview2];
+    [_tableview2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_bgview.mas_left);
+        make.top.equalTo(_bgview.mas_top);
+        make.centerX.mas_equalTo(_bgview.mas_centerX).with.offset(2/5 * (ScreenW - 80));
+        make.size.mas_equalTo(CGSizeMake(ScreenW - 80, ScreenH - 50));
+    }];
+    _tableview2.delegate = self;
+    _tableview2.dataSource = self;
+    _tableview2.backgroundColor = [UIColor clearColor];
+
+    //添加第三个Tableview
+//    _tableview3 = [[UITableView alloc] init];
+//    [_bgview addSubview:_tableview3];
+//    [_tableview3 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_tableview2.mas_right);
+//        make.top.equalTo(_scrolllview.mas_top);
+//        make.centerX.mas_equalTo(_bgview.mas_centerX);
+//        make.size.mas_equalTo(CGSizeMake(ScreenW - 80, ScreenH - 50));
+//    }];
+//    _tableview3.delegate = self;
+//    _tableview3.dataSource = self;
+//    _tableview3.backgroundColor = [UIColor greenColor];
+//    
+//    //添加第四个Tableview
+//    _tableview4 = [[UITableView alloc] init];
+//    [_bgview addSubview: _tableview4];
+//    [_tableview4 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_tableview3.mas_right);
+//        make.top.equalTo(_scrolllview.mas_top);
+//        make.centerX.mas_equalTo(_bgview.mas_centerX).with.offset(1/3 * (ScreenW - 80));
+//        make.size.mas_equalTo(CGSizeMake(_scrolllview.frame.size.width, _scrolllview.frame.size.height));
+//    }];
+//    _tableview4.delegate = self;
+//    _tableview4.dataSource = self;
+//    _tableview4.backgroundColor = [UIColor yellowColor];
+
+    NSArray *segmentarray = [[NSArray alloc] initWithObjects:@"宿舍区",@"教学区",@"公共区", nil];
+    _segment = [[UISegmentedControl alloc]initWithItems:segmentarray];
+    _segment.frame = CGRectMake(ScreenW + 200, _x2 + 5,ScreenW - 83,35);
+    [self.view addSubview:_segment];
     //设置默认选项
-    segment.selectedSegmentIndex = 1;
-    segment.tintColor = [UIColor blueColor];
+    _segment.selectedSegmentIndex = 0;
+    _segment.tintColor = [UIColor purpleColor];
+    _segment.backgroundColor = [UIColor whiteColor];
     //设置样式
+    _segment.segmentedControlStyle = UISegmentedControlStyleBar;
     
-    
-    [_tableview2 addSubview:segment];
-    
-    [self.view addSubview:_tableview2];
+    //设置segment是否可用
+    [_segment setEnabled:YES];
+    [_segment addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
 }
+
+-(void)didClicksegmentedControlAction:(UISegmentedControl *)Seg{
+    NSInteger Index = Seg.selectedSegmentIndex;
+    _index = Index;
+    CGPoint point = _scrolllview.contentOffset;
+    point.x = Index * (ScreenW - 80);
+    _scrolllview.contentOffset = point;
+    switch (Index) {
+        case 0:
+//            [self addRighhtAction];
+            break;
+        case 1:
+//            [self addRighhtAction];
+            break;
+        case 2:
+//            [self addRighhtAction];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark ------------- ScrollViewDelegate
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+    NSInteger index = _scrolllview.contentOffset.x/(ScreenW - 80);
+    _index = index;
+    self.segment.selectedSegmentIndex = index;
+}
+
+
 
 
 #pragma mark --------- 添加中间部分tableview
@@ -625,16 +820,6 @@ static NSString *identify = @"cell";
             [alert addAction:action2];
             [self presentViewController:alert animated:YES completion:nil];
 }
-
-//弹出视图退出操作
--(void)logout:(id)sender{
-    
-    
-}
-
-
-
-
 
 
 #pragma mark ------------约束

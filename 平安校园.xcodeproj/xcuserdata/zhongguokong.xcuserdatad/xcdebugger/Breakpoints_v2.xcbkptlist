@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x5e73;&#x5b89;&#x6821;&#x56ed;/BaoXiuMainVC.m"
-            timestampString = "492001094.051655"
+            timestampString = "492084414.85565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "701"
+            endingLineNumber = "701"
             landmarkName = "-AddLeftAction"
             landmarkType = "5">
          </BreakpointContent>
