@@ -24,17 +24,8 @@
 
 #import "Alertmodel.h"
 #import "HistoryCell.h"
-
-#define LabelW _redview.frame.size.width - _Slabel1.frame.size.width + 30
-#define LabelH 50
-#define LzHeight 44
-
-//===========原始尺寸=============//
-#define labelX -200
-#define labelY  100
-#define labeLW ScreenW/4+15
-
-#define lzX -100 + ScreenW/4 + 15
+#import "Listmodel.h"
+#import "ListView.h"
 
 @interface BaoXiuMainVC ()<selectIndexPathDelegate,LZFoldButtonDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,Imitation_AlertView_TextFielddelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
@@ -107,7 +98,11 @@
 @property (nonatomic,strong)UIView *bgview;
 @property (nonatomic,strong)UITableView *tableview2;
 @property (nonatomic,strong)UIView *RightView2;
-@property (nonatomic)NSInteger index;
+@property (nonatomic,assign)NSInteger index;
+@property (nonatomic,assign)NSInteger Case;
+@property (nonatomic,strong)UITapGestureRecognizer *Tap;
+@property (nonatomic,assign) BOOL gestureTag;
+@property (nonatomic,assign) BOOL leftBtnTaped;
 @property (nonatomic,strong)UISegmentedControl *segment;
 @property (nonatomic,strong)UITableView *tableview3;
 @property (nonatomic,strong)UITableView *tableview4;
@@ -139,7 +134,6 @@
 @property (nonatomic,strong)UIButton *SImageUpload4;
 @property (nonatomic,strong)UIButton *commit1;
 
-
 @property (nonatomic,strong)NSArray *publicArr;
 @property (nonatomic,strong)NSArray *publicArr1;
 @property (nonatomic,strong)NSArray *publicArr2;
@@ -151,6 +145,7 @@
 @end
 
 static NSString *identify = @"cell";
+static NSString *Identify = @"list";
 @implementation BaoXiuMainVC
 @synthesize items=_items;
 
@@ -159,6 +154,7 @@ static NSString *identify = @"cell";
     [super viewDidLoad];
     [self LayerSettingWithBottom];
     [self marsonrySetting];
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.2 green:.5 blue:.9 alpha:1.0];
     _hbtn1.tag = 101;
     _hbtn2.tag = 102;
     _hbtn3.tag = 103;
@@ -296,6 +292,10 @@ static NSString *identify = @"cell";
     [self bumpWithRightTableview];
     [_tableview registerNib:[UINib nibWithNibName:NSStringFromClass([HistoryCell class]) bundle:nil] forCellReuseIdentifier:identify];
     [self loadrequest];
+    [_tableview2 registerNib:[UINib nibWithNibName:NSStringFromClass([ListView class]) bundle:nil] forCellReuseIdentifier:Identify];
+    [_tableview3 registerNib:[UINib nibWithNibName:NSStringFromClass([ListView class]) bundle:nil] forCellReuseIdentifier:Identify];
+    [_tableview4 registerNib:[UINib nibWithNibName:NSStringFromClass([ListView class]) bundle:nil] forCellReuseIdentifier:Identify];
+    [self loadData];
     _tableview.tag =10000;
     _tableview2.tag = 10001;
     _tableview3.tag = 10002;
@@ -304,12 +304,59 @@ static NSString *identify = @"cell";
     //屏幕右侧偏移手势
     UIScreenEdgePanGestureRecognizer *recognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(RightPangesterRecogniser:)];
     recognizer.edges = UIRectEdgeRight;
-    [_tableview2 addSubview:recognizer];
+    [_bgview addGestureRecognizer:recognizer];
+    _index = _segment.selectedSegmentIndex;
+    _Case = _segment.selectedSegmentIndex;
+    _Case =0;
 }
 
+#pragma mark ------------视图偏移手势
+
 -(void)RightPangesterRecogniser:(UIScreenEdgePanGestureRecognizer *)screenpan{
-    
-    
+    CGPoint point = [screenpan translationInView:self.view];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    _bgview.transform = CGAffineTransformMakeTranslation(300 + point.x, 0);
+    _scrolllview.transform = CGAffineTransformMakeTranslation(300 + point.x, 0);
+    if (screenpan.state == UIGestureRecognizerStateEnded) {
+        if (abs((int)point.x) < width/2) {
+            [self actionOnleftBtnTaped];
+            _gestureTag = NO;
+        }else{
+            [self backview];
+        }
+    }
+}
+
+-(void)actionOnleftBtnTaped{
+    if (_leftBtnTaped) {
+        [self backview];
+        return;
+    }
+    [UIView animateWithDuration:.3 animations:^{
+        _scrolllview.transform = CGAffineTransformMakeTranslation(80, 0);
+        _bgview.transform = CGAffineTransformMakeTranslation(80, 0);
+        _gestureTag = YES;
+        _Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backview)];
+    } completion:^(BOOL finished) {
+        if (![_bgview.gestureRecognizers containsObject:_Tap]) {
+                [_bgview addGestureRecognizer:_Tap];
+        }
+        _leftBtnTaped = !_leftBtnTaped;
+    }];
+}
+
+-(void)backview{
+    [UIView animateWithDuration:.3 animations:^{
+        _scrolllview.transform = CGAffineTransformIdentity;
+        _bgview.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        if (_Tap) {
+            [_bgview removeGestureRecognizer:_Tap];
+            _Tap =nil;
+        }
+        _leftBtnTaped = !_leftBtnTaped;
+        _gestureTag = !_gestureTag;
+    }];
 }
 
 
@@ -340,7 +387,7 @@ static NSString *identify = @"cell";
 #pragma mark ------------弹出右侧视图
 
 -(void)bumpWithRightView{
-    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 300, 64, ScreenW - 200, ScreenH - 100) style:UITableViewStylePlain];
+    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW, 64, ScreenW - 200, ScreenH - 100) style:UITableViewStylePlain];
     _tableview.backgroundColor = [UIColor whiteColor];
     _tableview.delegate = self;
     _tableview.dataSource = self;
@@ -359,40 +406,34 @@ static NSString *identify = @"cell";
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict1 = responseObject[0];
         NSArray *arr = dict1[@"item"];
-        self.array2 = [NSMutableArray array];
+        self.array = [NSMutableArray array];
         for (NSDictionary *dict in arr) {
             Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
-            [self.array2 addObject:model];
+            [self.array addObject:model];
         }
         //加载完成刷新UI
-        [_tableview3 reloadData];
+        [_tableview reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     }];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    _index =0;
+    [self loadData];
+}
+
+-(void)loadData{
+    AFHTTPSessionManager *mange = [AFHTTPSessionManager manager];
+    mange.responseSerializer = [AFJSONResponseSerializer serializer];
     switch (_index) {
         case 0:{
-            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                NSDictionary *dict1 = responseObject[0];
-                NSArray *arr = dict1[@"item"];
-                self.array = [NSMutableArray array];
-                for (NSDictionary *dict in arr) {
-                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
-                    [self.array addObject:model];
-                }
-                //加载完成刷新UI
-                [_tableview reloadData];
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            }];
-        }
-            break;
-        case 1:{
-            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            [mange GET:UrlString1 parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 NSDictionary *dict1 = responseObject[0];
                 NSArray *arr = dict1[@"item"];
                 self.array1 = [NSMutableArray array];
                 for (NSDictionary *dict in arr) {
-                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+                    Listmodel *model = [[Listmodel alloc] initWithDictionary:dict];
                     [self.array1 addObject:model];
                 }
                 //加载完成刷新UI
@@ -401,14 +442,30 @@ static NSString *identify = @"cell";
             }];
         }
             break;
+        case 1:{
+            [mange GET:UrlString2 parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dict1 = responseObject[0];
+                NSArray *arr = dict1[@"item"];
+                self.array2 = [NSMutableArray array];
+                for (NSDictionary *dict in arr) {
+                    Listmodel *model = [[Listmodel alloc] initWithDictionary:dict];
+                    [self.array2 addObject:model];
+                }
+                //加载完成刷新UI
+                [_tableview3 reloadData];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            }];
+        }
+            break;
         case 2:{
-            [manger GET:UrlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            [mange GET:UrlString3 parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 NSDictionary *dict1 = responseObject[0];
                 NSArray *arr = dict1[@"item"];
                 self.array3 = [NSMutableArray array];
                 for (NSDictionary *dict in arr) {
-                    Alertmodel *model = [[Alertmodel alloc] initWithDictionary:dict];
+                    Listmodel *model = [[Listmodel alloc] initWithDictionary:dict];
                     [self.array3 addObject:model];
                 }
                 //加载完成刷新UI
@@ -420,7 +477,7 @@ static NSString *identify = @"cell";
         default:
             break;
     }
-    }
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 10000) {
@@ -436,19 +493,32 @@ static NSString *identify = @"cell";
     }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
+    UITableViewCell *cell;
+    
     if (tableView.tag == 10000) {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        }
+    HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
         Alertmodel *model = _array[indexPath.row];
         [cell setModel:model];
-    }else if (tableView.tag == 10001){
-        Alertmodel *model = self.array1[indexPath.row];
-        [cell setModel:model];
-    }else if (tableView.tag == 10002){
-        Alertmodel *model = self.array2[indexPath.row];
-        [cell setModel:model];
-    }else if (tableView.tag == 10003){
-        Alertmodel *model = self.array3[indexPath.row];
-        [cell setModel:model];
+        return cell;
+    }else {
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identify];
+        }
+     ListView *cell = [tableView dequeueReusableCellWithIdentifier:Identify forIndexPath:indexPath];
+        if (tableView.tag == 10001) {
+            Listmodel *M = self.array1[indexPath.row];
+            [cell setListmodel:M];
+        }else if (tableView.tag == 10002) {
+            Listmodel *O = self.array2[indexPath.row];
+            [cell setListmodel:O];
+        }else if (tableView.tag == 10003){
+            Listmodel *D = self.array3[indexPath.row];
+            [cell setListmodel:D];
+        }
+        return cell;
     }
     return cell;
 }
@@ -466,16 +536,9 @@ static NSString *identify = @"cell";
     _segment.frame = CGRectMake(80, _x2 , ScreenW - 80,35);
     _scrolllview.frame = CGRectMake(80, _x2 + 35, ScreenW - 80, ScreenH -  50) ;
     _bgview.frame = CGRectMake(0,0,(ScreenW - 80) * 3, ScreenH - 50);
-//        _tableview2.frame = CGRectMake(80, _x2, ScreenW - 80, ScreenH - 50);
-//        _tableview3.frame = CGRectMake(80 * 2, _x2, ScreenW - 80, ScreenH - 50);
-//        _tableview4.frame = CGRectMake( 80 * 3, _x2, ScreenW - 80, ScreenH - 50);
-//    if (_segment.selectedSegmentIndex == 0) {
-//        _tableview2.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
-//    }else if (_segment.selectedSegmentIndex == 1){
-//        _tableview3.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
-//    }else if (_segment.selectedSegmentIndex == 2){
-//        _tableview4.frame = CGRectMake(80, _x2 + 40, ScreenW - 80, ScreenH - 50);
-//    }
+    _tableview2.frame = CGRectMake(0, 0, ScreenW - 80, ScreenH - 50);
+    _tableview3.frame = CGRectMake(ScreenW - 80, 0, ScreenW - 80, ScreenH - 50);
+    _tableview4.frame = CGRectMake((ScreenW - 80) * 2, 0, ScreenW - 80, ScreenH - 50);
     }];
 }
 
@@ -490,47 +553,29 @@ static NSString *identify = @"cell";
     
     //在ScrollView上添加View视图
     _bgview = [[UIView alloc]initWithFrame:CGRectMake(ScreenW,104, (ScreenW - 80) * 3, ScreenH - 50)];
-    _bgview.backgroundColor = [UIColor redColor];
+    _bgview.backgroundColor = [UIColor whiteColor];
     [_scrolllview addSubview:_bgview];
 
     //添加第二个tableview
-    _tableview2 = [[UITableView alloc] init];
+    _tableview2 = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW, _x2, ScreenW - 80, ScreenH - 50) style:UITableViewStylePlain];
     [_bgview addSubview:_tableview2];
-    [_tableview2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_bgview.mas_left);
-        make.top.equalTo(_bgview.mas_top);
-        make.centerX.mas_equalTo(_bgview.mas_centerX).with.offset(2/5 * (ScreenW - 80));
-        make.size.mas_equalTo(CGSizeMake(ScreenW - 80, ScreenH - 50));
-    }];
     _tableview2.delegate = self;
     _tableview2.dataSource = self;
-    _tableview2.backgroundColor = [UIColor clearColor];
+    _tableview2.backgroundColor = [UIColor whiteColor];
 
     //添加第三个Tableview
-//    _tableview3 = [[UITableView alloc] init];
-//    [_bgview addSubview:_tableview3];
-//    [_tableview3 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_tableview2.mas_right);
-//        make.top.equalTo(_scrolllview.mas_top);
-//        make.centerX.mas_equalTo(_bgview.mas_centerX);
-//        make.size.mas_equalTo(CGSizeMake(ScreenW - 80, ScreenH - 50));
-//    }];
-//    _tableview3.delegate = self;
-//    _tableview3.dataSource = self;
-//    _tableview3.backgroundColor = [UIColor greenColor];
-//    
+    _tableview3 = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW, _x2, ScreenW - 80, ScreenH - 50) style:UITableViewStylePlain];
+    [_bgview addSubview:_tableview3];
+    _tableview3.delegate = self;
+    _tableview3.dataSource = self;
+    _tableview3.backgroundColor = [UIColor whiteColor];
+//
 //    //添加第四个Tableview
-//    _tableview4 = [[UITableView alloc] init];
-//    [_bgview addSubview: _tableview4];
-//    [_tableview4 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_tableview3.mas_right);
-//        make.top.equalTo(_scrolllview.mas_top);
-//        make.centerX.mas_equalTo(_bgview.mas_centerX).with.offset(1/3 * (ScreenW - 80));
-//        make.size.mas_equalTo(CGSizeMake(_scrolllview.frame.size.width, _scrolllview.frame.size.height));
-//    }];
-//    _tableview4.delegate = self;
-//    _tableview4.dataSource = self;
-//    _tableview4.backgroundColor = [UIColor yellowColor];
+    _tableview4 = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW, _x2, ScreenW - 80, ScreenH - 50) style:UITableViewStylePlain];
+    [_bgview addSubview: _tableview4];
+    _tableview4.delegate = self;
+    _tableview4.dataSource = self;
+    _tableview4.backgroundColor = [UIColor whiteColor];
 
     NSArray *segmentarray = [[NSArray alloc] initWithObjects:@"宿舍区",@"教学区",@"公共区", nil];
     _segment = [[UISegmentedControl alloc]initWithItems:segmentarray];
@@ -556,13 +601,13 @@ static NSString *identify = @"cell";
     _scrolllview.contentOffset = point;
     switch (Index) {
         case 0:
-//            [self addRighhtAction];
+            [self loadData];
             break;
         case 1:
-//            [self addRighhtAction];
+            [self loadData];
             break;
         case 2:
-//            [self addRighhtAction];
+            [self loadData];
             break;
         default:
             break;
@@ -592,6 +637,9 @@ static NSString *identify = @"cell";
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    _scrolllview.frame = CGRectMake(ScreenW, _x2, ScreenW - 80, ScreenH - 50);
+    _bgview.frame = CGRectMake(ScreenW, _x2, ScreenW - 80, ScreenH - 50);
+     _segment.frame = CGRectMake(ScreenW + 200, _x2 + 5,ScreenW - 83,35);
     if (_hbtn2.tag ==102 ) {
         _x=ScreenW + 100;
         [UIView animateWithDuration:0.3 animations:^{
@@ -599,8 +647,8 @@ static NSString *identify = @"cell";
             _tableview.backgroundColor = [UIColor lightGrayColor];
             _tableview.frame=CGRectMake(ScreenW + 300, 64, ScreenW - 200, ScreenH - 200);
         }];
-    }else{
-        return;
+    }else if (_hbtn3.tag == 103){
+        _x = ScreenW;
     }
 }
 
@@ -620,12 +668,11 @@ static NSString *identify = @"cell";
 //    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
 //    NSDictionary  *parames = {_Slabel1.text,_Slabel2.text,_Slabel3.text};
 //    AFJSONResponseSerializer *serializer = [AFJSONResponseSerializer serializer];
-    
 }
+
 - (IBAction)back:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 
 #pragma mark -----------分区报修按钮点击
@@ -644,6 +691,10 @@ static NSString *identify = @"cell";
     [_SBtn6 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
     [_SBtn7 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
     [_Sbtn8 addTarget:self action:@selector(AddLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_FBtn1 addTarget:self action:@selector(NextView) forControlEvents:UIControlEventTouchUpInside];
+    [_FBtn2 addTarget:self action:@selector(NextView) forControlEvents:UIControlEventTouchUpInside];
+    [_FBtn3 addTarget:self action:@selector(NextView) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark ----------自定义报修
@@ -661,7 +712,6 @@ static NSString *identify = @"cell";
     [UIView animateWithDuration:.3 animations:^{
         _redview.backgroundColor = [UIColor whiteColor];
         _y = _y + 0.1;
-        
         //设置整个弹出视图
         if (_SBtn1) {
             _redview.frame = CGRectMake(0, _y + 50,ScreenW/3 + 30, 300);
@@ -799,8 +849,19 @@ static NSString *identify = @"cell";
     [_UploadImage setBackgroundImage:image forState:UIControlStateNormal];
     //模态方法退出界面
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
 }
+#pragma mark ----------分区报修
+
+-(void)NextView{
+    RightControlVC *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"Nav"];
+//    [self.navigationController pushViewController:VC animated:YES];
+
+    [self presentViewController:VC animated:YES completion:nil];
+//    RightControlVC *VC = [self.storyboard instantiateInitialViewController];
+//    [self presentViewController:VC animated:YES completion:nil];
+
+}
+
 
 
 

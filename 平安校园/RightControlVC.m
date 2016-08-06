@@ -17,9 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(ScreenW + 300, ScreenH + 64, ScreenW -300, ScreenH - 400) style:UITableViewStylePlain];
-    _tableview.backgroundColor = [UIColor redColor];
-    [self.view addSubview:_tableview];
+//     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:.2 green:.5 blue:.9 alpha:1.0];
+
+
+
+}
+- (IBAction)back:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

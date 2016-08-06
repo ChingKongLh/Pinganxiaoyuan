@@ -31,6 +31,12 @@
 
 #define UrlString  @"http://api.iclient.ifeng.com/ClientNews?id=QC45,FOCUSQC45&page=1&gv=5.1.0&av=5.1.0&uid=864323024159189&deviceid=864323024159189&proid=ifengnews&os=android_19&df=androidphone&vt=5&screen=800x1216&publishid=9023"
 
+#define UrlString1 @"http://api.iclient.ifeng.com/ClientNews?id=CJ33,FOCUSCJ33,HNCJ33&page=1&gv=5.1.0&av=5.1.0&uid=864323024159189&deviceid=864323024159189&proid=ifengnews&os=android_19&df=androidphone&vt=5&screen=800x1216&publishid=9023"
+
+#define UrlString2 @"http://api.iclient.ifeng.com/ClientNews?id=CJ33,FOCUSCJ33,HNCJ33&page=1&gv=5.1.0&av=5.1.0&uid=864323024159189&deviceid=864323024159189&proid=ifengnews&os=android_19&df=androidphone&vt=5&screen=800x1216&publishid=9023"
+
+#define UrlString3 @"http://api.iclient.ifeng.com/ClientNews?id=KJ123,FOCUSKJ123&page=1&gv=5.1.0&av=5.1.0&uid=864323024159189&deviceid=864323024159189&proid=ifengnews&os=android_19&df=androidphone&vt=5&screen=800x1216&publishid=9023"
+
 //=====================登录界面 Define ===================//
 
 //屏幕宽高
@@ -82,8 +88,16 @@
 #define SviewY  100
 #define SviewH  400
 
+#define LabelW _redview.frame.size.width - _Slabel1.frame.size.width + 30
+#define LabelH 50
+#define LzHeight 44
 
+//===========原始尺寸=============//
+#define labelX -200
+#define labelY  100
+#define labeLW ScreenW/4+15
 
+#define lzX -100 + ScreenW/4 + 15
 
 
 
